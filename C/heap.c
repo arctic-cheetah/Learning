@@ -33,7 +33,6 @@ void insert_heap(int *array, int value) {
 	int parent = (currSize - 1) / 2;
 	
 	while (parent >= 0) {
-		print_array(array);
 		if (array[parent] < array[currSize]) {
 			swap(&array[parent], &array[currSize]);
 		}
@@ -42,7 +41,8 @@ void insert_heap(int *array, int value) {
 		}
 		currSize = parent;
 		parent = (parent - 1) / 2;
-	
+		//Consider the case if we need to check the value of the parent but
+		//parent is a negative number
 		if (parent < 0) {
 			parent = 0;
 		}
