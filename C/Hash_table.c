@@ -63,7 +63,7 @@ entry_t *ht_pair (char *key, char *value) {
 }
 
 
-//Add data to the hash table by inputting the key and value
+//Initialises the hash table some values
 void ht_set(ht_t *hashTable, char *key, char *value) {
 	int slot = hash(key);
 	
@@ -76,7 +76,7 @@ void ht_set(ht_t *hashTable, char *key, char *value) {
 	
 	entry_t *prev;
 	
-	//Search through an entry until the end is reached
+	//Search through each entry until the end is reached
 	//or a key match is found
 	while (entry != NULL) {
 		//Checks if there is an existing entry
@@ -92,7 +92,7 @@ void ht_set(ht_t *hashTable, char *key, char *value) {
 		entry = entry->next;
 	}
 	
-	//Add an entry to the slot
+	//Add an entry to the slot, even if a value exists
 	prev->next = ht_pair(key, value);
 }
 
