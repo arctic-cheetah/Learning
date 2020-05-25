@@ -1,4 +1,3 @@
-
 typedef struct queueInternals *Queue;
 //Function declarations:
 struct treeNode *create_node(int data);

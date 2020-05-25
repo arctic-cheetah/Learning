@@ -1,4 +1,3 @@
-
 typedef struct queueInternals *Queue;
 //Function declarations:
 struct treeNode *create_node(int data);
@@ -42,6 +41,14 @@ int BalancedTreeCheck(struct treeNode *node);
 //Search for a data in the tree
 int search_tree (struct treeNode *root, int data);
 
+//Implementation of an AVL tree
+int balance_factor (treeNode *root);
+treeNode *rotateRight(treeNode *root);
+treeNode *rotateLeft(treeNode *root);
+treeNode *insert_node_AVL (treeNode *root, int data);
+
+int max(int a, int b);
+int height(treeNode *root);
 
 
 

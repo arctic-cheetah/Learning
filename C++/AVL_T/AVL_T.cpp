@@ -1,25 +1,26 @@
-//Implementation of a binary tree with Breadth first search and depth level search
+//Implementation of a search binary tree with Breadth first search and depth level search
 //Includes the use of queues via the implementation of linked lists for BFS
+//https://www.geeksforgeeks.org/avl-tree-set-1-insertion/
 #include <stdio.h>
 #include <stdlib.h>
-#include <queue>
-#include <iostream>
-#include "binary_tree_queue.h"
+#include "AVL_T.h"
 
 #define MAX_LENGTH 1024
 
 typedef struct queueInternals *Queue;
 
-struct treeNode {
-	struct treeNode *left;
-	struct treeNode *right;
+//And AVL treeNode
+typedef struct treeNode {
+	treeNode *left;
+	treeNode *right;
 	int data;
-};
+	int height;
+} treeNode;
 
 struct queueNode {
 	struct queueNode *next;
 	//Store the binary tree treeNode in a queueNode
-	struct treeNode *data;
+	treeNode *data;
 };
 
 struct queueInternals {
@@ -30,69 +31,83 @@ struct queueInternals {
 
 //-------------------------------------------------------------------------------
 //Function declarations:
-struct treeNode *create_node(int data);
-struct treeNode *insert_node(struct treeNode *root, int data);
+treeNode *create_node(int data);
+treeNode *insert_node(treeNode *root, int data);
 
 //Implementation of DFS
-void inorder_trav(struct treeNode *treeNode);
-void preorder_trav(struct treeNode *treeNode);
-void postorder_trav(struct treeNode *treeNode);
+void inorder_trav(treeNode *treeNode);
+void preorder_trav(treeNode *treeNode);
+void postorder_trav(treeNode *treeNode);
 
 //Implementation of a queue
 struct queueInternals *create_queue();
-void enqueue(Queue q, struct treeNode *treeNode);
-struct treeNode *front_queue(Queue q);
-struct treeNode *rear_queue(Queue q);
-struct treeNode *dequeue(Queue q);
+void enqueue(Queue q, treeNode *treeNode);
+treeNode *front_queue(Queue q);
+treeNode *rear_queue(Queue q);
+treeNode *dequeue(Queue q);
 int queueSize(Queue q);
 
 //Implementation of BFS
-void BFS(struct treeNode *treeNode);
+void BFS(treeNode *treeNode);
 //Print a given level without the use of queues
-void print_level(struct treeNode *node, int level);
-int tree_height(struct treeNode *node);
-void leveltraverse(struct treeNode *node);
+void print_level(treeNode *node, int level);
+int tree_height(treeNode *node);
+void leveltraverse(treeNode *node);
 //Print an entire level
-void print_level_newLine(struct treeNode *node);
+void print_level_newLine(treeNode *node);
 
 //These check the type of binary tree
-int isFullBinaryTree(struct treeNode *node);
+int isFullBinaryTree(treeNode *node);
 
-int height_perfect_tree(struct treeNode *node);
-int isPerfectTree(struct treeNode *node, int height, int level);
-int PerfectTreeCheck(struct treeNode *node);
+int height_perfect_tree(treeNode *node);
+int isPerfectTree(treeNode *node, int height, int level);
+int PerfectTreeCheck(treeNode *node);
 
-int count_nodes(struct treeNode *node);
-int isCompleteTree(struct treeNode *node, int index, int nodeCount);
-int CompleteTreeCheck(struct treeNode *node);
+int count_nodes(treeNode *node);
+int isCompleteTree(treeNode *node, int index, int nodeCount);
+int CompleteTreeCheck(treeNode *node);
 
-int isBalancedTree(struct treeNode *node, int *height);
-int BalancedTreeCheck(struct treeNode *node);
+int isBalancedTree(treeNode *node, int *height);
+int BalancedTreeCheck(treeNode *node);
 //Check for a data in the tree
-int search_tree (struct treeNode *root, int data);
+int search_tree (treeNode *root, int data);
 
+//Implementation of an AVL tree
+int balance_factor (treeNode *root);
+treeNode *rotateRight(treeNode *root);
+treeNode *rotateLeft(treeNode *root);
+treeNode *insert_node_AVL (treeNode *root, int data);
+
+int max(int a, int b);
+int height(treeNode *root);
+
+
+
+//Mechanisms lie down here
+//-------------------------------------------------------------------
 
 //Add a treeNode
-struct treeNode *create_node (int data) {
-	struct treeNode *newNode = (struct treeNode*) malloc(sizeof(struct treeNode));
+treeNode *create_node (int data) {
+	treeNode *newNode = (treeNode*) malloc(sizeof(treeNode));
 	//Initialise the treeNode with data
 	newNode->data = data;
 	//Set the children nodes to NULL
 	newNode->left = NULL;
 	newNode->right = NULL;
+	newNode->height = 1;
 	
 	return newNode;
 }  
 
 //Traverse the binary tree by inorder, preorder or postorder
-void inorder_trav (struct treeNode *treeNode) {
+void inorder_trav (treeNode *treeNode) {
 	if (treeNode != NULL) {
 		inorder_trav(treeNode->left);
 		printf("%d ", treeNode->data);
 		inorder_trav(treeNode->right);
 	}
 }
-void preorder_trav (struct treeNode *treeNode) {
+void preorder_trav (treeNode *treeNode) {
 	if (treeNode != NULL) {
 		printf("%d ", treeNode->data);
 		preorder_trav(treeNode->left);
@@ -100,7 +115,7 @@ void preorder_trav (struct treeNode *treeNode) {
 	}
 }
 
-void postorder_trav (struct treeNode *treeNode) {
+void postorder_trav (treeNode *treeNode) {
 	if (treeNode != NULL) {
 		postorder_trav(treeNode->left);
 		postorder_trav(treeNode->right);
@@ -109,22 +124,21 @@ void postorder_trav (struct treeNode *treeNode) {
 }
 
 //Insert a treeNode in such a way that the tree is "organised"
-struct treeNode *insert_node(struct treeNode *root, int data) {
-	struct treeNode *curr = root;
+treeNode *insert_node(treeNode *root, int data) {
 	//Add a treeNode if the root is empty
-	if (curr == NULL) {
+	if (root == NULL) {
 		return create_node(data);
 	}
 	//Insert to the right if the data is greater than the treeNode
 	if (data > root->data) {
-		curr->right = insert_node(curr->right, data);
+		root->right = insert_node(root->right, data);
 	}
 	//Insert to the left if the data is less than the treeNode
-	else if (data < curr->data) {
-		curr->left = insert_node(curr->left, data);
+	else if (data < root->data) {
+		root->left = insert_node(root->left, data);
 	}
 	//If all these conditions fail, change nothing
-	return curr;
+	return root;
 }
 
 //--------------------------------------------------------------------
@@ -139,7 +153,7 @@ Queue create_queue() {
 }
 
 //Add a treeNode to the queue
-void enqueue(Queue q, struct treeNode *treeNode) {
+void enqueue(Queue q, treeNode *treeNode) {
 	struct queueNode *newNode = (struct queueNode*) malloc(sizeof (struct queueNode) );
 	newNode->next = NULL;
 	newNode->data = treeNode;
@@ -154,13 +168,13 @@ void enqueue(Queue q, struct treeNode *treeNode) {
 	q->size++;
 }
 
-struct treeNode *dequeue(Queue q) {
+treeNode *dequeue(Queue q) {
 	if (q->head == NULL) {
 		printf("Attempted to remove from an empty queue!");
 	} 
 	else {
 		struct queueNode *remNode = q->head;
-		struct treeNode *dataNode = q->head->data;
+		treeNode *dataNode = q->head->data;
 		q->head = q->head->next;
 		//Check if removing the last treeNode in the queue;
 		if (q->head == NULL) {
@@ -178,21 +192,21 @@ int queueSize(Queue q) {
 	return q->size;
 }
 
-struct treeNode *front_queue(Queue q) {
+treeNode *front_queue(Queue q) {
 	return q->head->data;
 }
-struct treeNode *rear_queue(Queue q) {
+treeNode *rear_queue(Queue q) {
 	return q->tail->data;
 }
 
 
 //This performs a Level first search
-void BFS(struct treeNode *treeNode) {
-	if (treeNode != NULL) {
+void BFS(treeNode *root) {
+	if (root != NULL) {
 		Queue q = create_queue();
-		enqueue(q, treeNode);
+		enqueue(q, root);
 		while (q->head != NULL) {
-			struct treeNode *curr = dequeue(q);
+			treeNode *curr = dequeue(q);
 			printf("%d ", curr->data);
 			
 			if (curr->left != NULL) {
@@ -208,7 +222,7 @@ void BFS(struct treeNode *treeNode) {
 //Implementation of level-specific printing of a binary tree
 
 //Find the height of the tree
-int tree_height(struct treeNode *node) {
+int tree_height(treeNode *node) {
 	if (node == NULL) {
 		return 0;
 	}
@@ -228,7 +242,7 @@ int tree_height(struct treeNode *node) {
 
 }
 //This prints a node at the desired level
-void print_level(struct treeNode *node, int level) {
+void print_level(treeNode *node, int level) {
 	if (node == NULL) {
 		return;
 	}
@@ -246,7 +260,7 @@ void print_level(struct treeNode *node, int level) {
 }
 
 //Function to traverse the entire tree by each level
-void leveltraverse(struct treeNode *node) {
+void leveltraverse(treeNode *node) {
 	int h = tree_height(node);
 	for (int i = 1; i <= h; i++) {
 		print_level(node, i);
@@ -258,7 +272,7 @@ void leveltraverse(struct treeNode *node) {
 //----------------------------------------------------------
 //Improved O(n) implementation of printing levels by line
 
-void print_level_newLine(struct treeNode *node) {
+void print_level_newLine(treeNode *node) {
 	//BEWARE IF TREE IS NULL
 	if (node == NULL) {
 		return;
@@ -276,7 +290,7 @@ void print_level_newLine(struct treeNode *node) {
 		
 		//Iterate through each level
 		while (nodeCount > 0) {
-			struct treeNode *currNode = front_queue(q);
+			treeNode *currNode = front_queue(q);
 			printf("%d ", currNode->data);
 			dequeue(q);
 			if (currNode->left != NULL) {
@@ -294,7 +308,7 @@ void print_level_newLine(struct treeNode *node) {
 
 //-----------------------------------------------------------------------
 //This checks if the binary tree is full
-int isFullBinaryTree(struct treeNode *node) {
+int isFullBinaryTree(treeNode *node) {
 	//Check if the root is NULL
 	if (node == NULL) {
 		return 1;
@@ -313,7 +327,7 @@ int isFullBinaryTree(struct treeNode *node) {
 }
 
 //Check if the tree is perfect and return that value to the helper function
-int isPerfectTree(struct treeNode *node, int height, int level) {
+int isPerfectTree(treeNode *node, int height, int level) {
 	//Check if the tree is null
 	if (node == NULL) {
 		return 1;
@@ -332,7 +346,7 @@ int isPerfectTree(struct treeNode *node, int height, int level) {
 }
 
 //Assuming the tree is perfect, find the number of levels and its height
-int height_perfect_tree(struct treeNode *node) {
+int height_perfect_tree(treeNode *node) {
 	int height = 0;
 	while (node != NULL) {
 		height++;
@@ -342,13 +356,13 @@ int height_perfect_tree(struct treeNode *node) {
 }
 //This helper function returns a boolean value of whether the tree is perfect
 //or imperfect
-int PerfectTreeCheck(struct treeNode *node) {
+int PerfectTreeCheck(treeNode *node) {
 	int height = height_perfect_tree(node);
 	return isPerfectTree(node, height, 0);
 }
 
 //Count the number of nodes in the binary tree
-int count_nodes(struct treeNode *node) {
+int count_nodes(treeNode *node) {
 	if (node == NULL) {
 		return 0;
 	}
@@ -357,7 +371,7 @@ int count_nodes(struct treeNode *node) {
 	}
 }
 //Checks whether a binary tree is complete or incomplete
-int isCompleteTree(struct treeNode *node, int index, int nodeCount) {
+int isCompleteTree(treeNode *node, int index, int nodeCount) {
 	if (node == NULL) {
 		return 1;
 	}
@@ -370,13 +384,13 @@ int isCompleteTree(struct treeNode *node, int index, int nodeCount) {
 	
 }
 //A helper function to return a boolean value whether the tree is complete or incomplete
-int CompleteTreeCheck(struct treeNode *node) {
+int CompleteTreeCheck(treeNode *node) {
 	int node_count = count_nodes(node);
 	return isCompleteTree(node, 0, node_count);
 }
 
 //Checks if the tree is balanced or unbalanced
-int isBalancedTree(struct treeNode *node, int *height) {
+int isBalancedTree(treeNode *node, int *height) {
 	int leftHeight = 0;
 	int rightHeight = 0;
 	int l = 0;
@@ -405,13 +419,13 @@ int isBalancedTree(struct treeNode *node, int *height) {
 	}
 }
 //A helper function to return a boolean value if the the tree is balanced or not
-int BalancedTreeCheck(struct treeNode *node) {
+int BalancedTreeCheck(treeNode *node) {
 	int height = 0;
 	return isBalancedTree(node, &height);
 }
 
 //-------------------------------------------------------
-int search_tree (struct treeNode *root, int data) {
+int search_tree (treeNode *root, int data) {
 	
 	if (root == NULL) {
 		printf("The data was not found!\n");
@@ -431,6 +445,93 @@ int search_tree (struct treeNode *root, int data) {
 }
 
 
+//Implementation of an AVL tree
+//A tree with a root named root
+//Refer to diagram from the link above
+treeNode *rotateRight(treeNode *root) {
+	treeNode *x = root->left;
+	treeNode *y = x->right;
+	//Perform rotation
+	
+	x->right = root;
+	root->left = y;
+	
+	//update heights
+	root->height = max(height(root->left), height(root->right)) + 1;
+	x->height = max(height(root->left), height(root->right)) + 1;
+	return x;
+}
+treeNode *rotateLeft(treeNode *root) {
+	treeNode *x = root->right;
+	treeNode *y = x->left;
+	
+	//Perform rotation
+	x->left = root;
+	root->right = y;
+	
+	//Update heights
+	root->height = max(height(root->left), height(root->right)) + 1;
+	x->height = max(height(root->left), height(root->right)) + 1;
+	return x;
+}
+
+int max(int a, int b) {
+	return (a > b) ? a : b;
+}
+//Get the height from a node
+int height(treeNode *root) {
+	if (root == NULL) {
+		return 0;
+	}
+	return root->height;
+}
+//Calculate the balance factor
+int balance_factor(treeNode *root) {
+	if (root == NULL) {
+		return 0;
+	}
+	return (height(root->left) - height(root->right));
+}
+
+//Insert a node via AVL tree standards
+treeNode *insert_node_AVL (treeNode *root, int data) {
+	//1)Perform the usual BST insertion
+	if (root == NULL) {
+		return create_node(data);
+	}
+	if (data > root->data) {
+		root->right = insert_node_AVL(root->right, data);
+	}
+	else if (data < root->data) {
+		root->left = insert_node_AVL(root->left, data);
+	}
+	else {
+		return root;
+	}
+	//2)Update the height of the node
+	root->height = 1 + max(height(root->left), height(root->right));
+	
+	//3)Get the balance factor of the parent node
+	int balance = balance_factor(root);
+	
+	//4)Consider 4 cases
+	if (balance > 1 && data < root->left->data) {
+		return rotateRight(root);
+	}
+	if (balance < -1 && data > root->right->data) {
+		return rotateLeft(root);
+	} 
+	if (balance > 1 && data > root->left->data) {
+		root->left = rotateLeft(root->left);
+		return rotateRight(root);
+	}
+	if (balance < -1 && data < root->right->data) {
+		root->right = rotateRight(root->right);
+		return rotateLeft(root);
+	} 
+	
+	return root;
+}
 
 
 

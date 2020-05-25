@@ -1,18 +1,21 @@
+//Implementation of a search binary tree with Breadth first search and depth level search
+//Includes the use of queues via the implementation of linked lists for BFS
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <iostream>
-#include "binary_tree_queue.h"
+#include "AVL_T.h"
 
 
 int main () {
 	struct treeNode *root = create_node(10);
-	insert_node(root, 5);
-	insert_node(root, 20);
-	insert_node(root, 23);
-	insert_node(root, 7);
-	insert_node(root, 0);
-	insert_node(root, 3);
-
+	insert_node_AVL(root, 5);
+	insert_node_AVL(root, 20);
+	insert_node_AVL(root, 1);
+	insert_node_AVL(root, 6);
+	insert_node_AVL(root, 1);
+	insert_node_AVL(root, 21);
+	
+	
 	
 	BFS(root);
 	

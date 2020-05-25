@@ -1,7 +1,9 @@
+//Implementation of a search binary tree with Breadth first search and depth level search
+//Includes the use of queues via the implementation of linked lists for BFS
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <iostream>
-#include "binary_tree_queue.h"
+#include "binary_s_tree.h"
 
 
 int main () {
