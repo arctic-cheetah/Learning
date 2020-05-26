@@ -3,35 +3,33 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "binary_s_tree.h"
+#include "AVL_T.h"
 
 
 int main () {
 	struct treeNode *root = create_node(10);
-	insert_node(root, 5);
-	insert_node(root, 20);
-	insert_node(root, 23);
-	insert_node(root, 7);
-	insert_node(root, 0);
-
+	
+	insert_node_AVL(root, 5);
+	insert_node_AVL(root, 20);
+	insert_node_AVL(root, 1);
+	insert_node_AVL(root, 6);
+	insert_node_AVL(root, 1);
+	insert_node_AVL(root, 21);
+	
 	
 	BFS(root);
 	
 	printf("\nThe height of the tree is: %d\n", tree_height(root));
 	leveltraverse(root);
-	print_level_newLine(root);
 	/*
+	print_level_newLine(root);
 	printf("\n");
 	inorder_trav(root);
-	*/
 	
 	printf("\n");
-	deletion_treeNode(root, 5);
+	search_tree(root, 19);
 	printf("\n");
 	
-	print_level_newLine(root);
-	
-	/*
 	if (isFullBinaryTree(root)) {
 		printf("The binary tree is a full tree!\n");
 	}

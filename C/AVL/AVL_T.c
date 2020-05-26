@@ -1,13 +1,15 @@
 //Implementation of a search binary tree with Breadth first search and depth level search
 //Includes the use of queues via the implementation of linked lists for BFS
+//https://www.geeksforgeeks.org/avl-tree-set-1-insertion/
 #include <stdio.h>
 #include <stdlib.h>
-#include "binary_s_tree.h"
+#include "AVL_T.h"
 
 #define MAX_LENGTH 1024
 
 typedef struct queueInternals *Queue;
 
+//And AVL treeNode
 typedef struct treeNode {
 	treeNode *left;
 	treeNode *right;
@@ -69,9 +71,20 @@ int isBalancedTree(treeNode *node, int *height);
 int BalancedTreeCheck(treeNode *node);
 //Check for a data in the tree
 int search_tree (treeNode *root, int data);
-//Deletion of a node in a BST
-treeNode *deletion_treeNode(treeNode *root, int data);
-treeNode *inorder_travNP (treeNode *root);
+
+//Implementation of an AVL tree
+int balance_factor (treeNode *root);
+treeNode *rotateRight(treeNode *root);
+treeNode *rotateLeft(treeNode *root);
+treeNode *insert_node_AVL (treeNode *root, int data);
+
+int max(int a, int b);
+int height(treeNode *root);
+
+
+
+//Mechanisms lie down here
+//-------------------------------------------------------------------
 
 //Add a treeNode
 treeNode *create_node (int data) {
@@ -82,6 +95,7 @@ treeNode *create_node (int data) {
 	newNode->left = NULL;
 	newNode->right = NULL;
 	newNode->height = 1;
+	
 	return newNode;
 }  
 
@@ -164,7 +178,7 @@ treeNode *dequeue(Queue q) {
 		q->head = q->head->next;
 		//Check if removing the last treeNode in the queue;
 		if (q->head == NULL) {
-			q->tail == NULL;
+			q->tail = NULL;
 		}
 		free(remNode);
 		q->size--;
@@ -429,52 +443,103 @@ int search_tree (treeNode *root, int data) {
 		return search_tree(root->left, data);
 	}
 }
-//-------------------------------------------------------
 
-treeNode *deletion_treeNode(treeNode *root, int data) {
-	
-	//Traverse through the tree recursively
+
+//Implementation of an AVL tree
+//A tree with a root named root
+//Refer to diagram from the link above
+
+int balance_factor (treeNode *root) {
 	if (root == NULL) {
-		return root;
+		return 0;
+	}
+	return (height(root->left) - height(root->right));
+}
+
+int max(int a, int b) {
+	return (a > b) ? a : b;
+}
+
+int height(treeNode *root) {
+	if (root == NULL) {
+		return 0;
+	}
+	return root->height;	
+}
+
+treeNode *rotateRight(treeNode *root) {
+	treeNode *y = root->left;
+	treeNode *T3 = y->right;
+	
+	//Perform rotation
+	y->right = root;
+	root->left = T3;
+	
+	//Update heights
+	root->height = 1 + max(height(root->left), height(root->right));
+	y->height = 1 + max(height(root->left), height(root->right));
+	return y;
+}
+
+treeNode *rotateLeft(treeNode *root) {
+	treeNode *y = root->right;
+	treeNode *T2 = y->left;
+	
+	//Perform rotation
+	y->left = root;
+	root->right = T2;
+	
+	//Update heights
+	root->height = 1 + max(height(root->left), height(root->right));
+	y->height = 1 + max(height(root->left), height(root->right));
+	return y;
+}
+
+//Insert a node into a tree and balance according to BS standards
+//By comparing the balance factor
+treeNode *insert_node_AVL (treeNode *root, int data) {
+	//1)Insert the new node
+	if (root == NULL) {
+		return create_node(data);
 	}
 	if (data > root->data) {
-		root->right = deletion_treeNode(root->right, data);
+		root->right = insert_node_AVL(root->right, data);
 	}
 	else if (data < root->data) {
-		root->left = deletion_treeNode(root->left, data);
+		root->left = insert_node_AVL(root->left, data);
 	}
+	//Don't insert if there is an identical data
 	else {
-	//Consider three cases for deletion
-	//1)Deletion of a leaf
-	//2)Deletion of a node with ONLY one child
-		if (root->left == NULL) {
-			treeNode *temp = root->right;
-			free(root);
-			return temp;
-		} 
-		else if(root->right == NULL) {
-			treeNode *temp = root->left;
-			free(root);
-			return temp;
-		}
-		//3)Deletion of a node with two children
-		treeNode *temp = inorder_travNP(root->right);
-		root->data = temp->data;
-		//Delete the inorder successor
-		root->right = deletion_treeNode(root->right, temp->data);
+		return root;
 	}
+	
+	//2)Update the height of the parent node (aka root)
+	root->height = 1 + max(height(root->right), height(root->left));
+	
+	//3)Get the balance factor of the root
+	int balance = balance_factor(root);
+	
+	//4)Consider 4 cases if the tree needs to be rotated
+	//By checking the balance factor and the data
+	if (balance > 1 && data < root->left->data) {
+		return rotateRight(root);
+	}
+	if (balance < -1 && data > root->right->data) {
+		return rotateLeft(root);
+	}
+	if (balance > 1 && data > root->left->data) {
+		root->left = rotateLeft(root);
+		return rotateRight(root);
+	}
+	if (balance < -1 && data < root->right->data) {
+		root->right = rotateRight(root->right);
+		return rotateLeft(root);
+	}
+	
+	//If nothing needs updating, return the root
 	return root;
 }
 
-treeNode *inorder_travNP(treeNode *root) {
-	treeNode *curr = root;
-	
-	//Loop to find the left most node
-	while (curr && curr->left != NULL) {
-		curr = curr->left;
-	}
-	return curr;
-}
 
 
 
