@@ -1,4 +1,4 @@
-//Implementation of a search binary tree with Breadth first search and depth level search
+//Implementation of an AVL with Breadth first search and depth level search
 //Includes the use of queues via the implementation of linked lists for BFS
 //https://www.geeksforgeeks.org/avl-tree-set-1-insertion/
 #include <stdio.h>
@@ -80,6 +80,10 @@ treeNode *insert_node_AVL (treeNode *root, int data);
 
 int max(int a, int b);
 int height(treeNode *root);
+
+//Deletion of a node in an AVL tree
+treeNode *delete_node_AVL(treeNode *root, int data);
+treeNode *inorder_travNP(treeNode *root);
 
 
 
@@ -406,7 +410,8 @@ int isBalancedTree(treeNode *node, int *height) {
 	
 	if (leftHeight > rightHeight) {
 		*height = leftHeight + 1;
-	} else {
+	} 
+	else {
 		*height = rightHeight + 1;
 	}
 	
@@ -532,6 +537,135 @@ treeNode *insert_node_AVL (treeNode *root, int data) {
 	
 	return root;
 }
+
+//Deletion of a node in an AVL tree
+treeNode *delete_node_AVL(treeNode *root, int data) {
+//1)Traverse through the tree and find the matching data
+	if (root == NULL) {
+		printf("Data was not found!\n");
+		return root;
+	}
+	if (data < root->data) {
+		root->left = delete_node_AVL(root->left, data);
+	}
+	else if (data > root->data) {
+		root->right = delete_node_AVL(root->right, data);
+	}
+	//Data match found!
+	else {
+		//2a)If a node has no child
+		//b)If a node has one child
+		if (root->right == NULL) {
+			treeNode *temp = root->left;
+			free(root);
+			return temp;
+		}
+		else if (root->left == NULL) {
+			treeNode *temp = root->right;
+			free(root);
+			return temp;
+		}
+		//c)If a node has two children
+		else {
+			treeNode *temp = inorder_travNP(root->right);
+			root->data = temp->data;
+			root->right = delete_node_AVL(root->right, temp->data);
+		}
+	}
+	
+	if (root == NULL) {
+		return root;
+	}
+//3)Update the height of the AVL tree
+	root->height = 1 + max( height(root->left), height(root->right) );
+//4)Get the balance factor
+	int balance = balance_factor(root);
+//5)Consider 4 cases
+	//LL
+	if (balance > 1 && balance_factor(root->left) >= 0) {
+		return rotateRight(root);
+	}
+	//RR
+	if (balance < -1 && balance_factor(root->right) <= 0) {
+		return rotateLeft(root);
+	}
+	//LR
+	if (balance > 1 && balance_factor(root->left) < 0) {
+		root->left = rotateLeft(root->left);
+		return rotateRight(root);
+	}
+	//RL
+	if (balance < -1 && balance_factor(root->right) > 0) {
+		root->right = rotateRight(root->right);
+		return rotateLeft(root);
+	}
+
+	
+	//If no changes need to be made then...
+	return root;
+	
+}
+//Helper function to assist the deletion of a node
+treeNode *inorder_travNP(treeNode *root) {
+	while (root->left != NULL) {
+		root = root->left;
+	}
+	
+	return root;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -468,9 +468,8 @@ treeNode *deletion_treeNode(treeNode *root, int data) {
 
 treeNode *inorder_travNP(treeNode *root) {
 	treeNode *curr = root;
-	
 	//Loop to find the left most node
-	while (curr && curr->left != NULL) {
+	while (curr->left != NULL) {
 		curr = curr->left;
 	}
 	return curr;

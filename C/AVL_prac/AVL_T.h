@@ -51,10 +51,6 @@ treeNode *insert_node_AVL (treeNode *root, int data);
 int max(int a, int b);
 int height(treeNode *root);
 
-//Deletion of a node in an AVL tree
-treeNode *delete_node_AVL(treeNode *root, int data);
-treeNode *inorder_travNP(treeNode *root);
-
 
 
 

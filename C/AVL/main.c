@@ -9,24 +9,25 @@
 int main () {
 	struct treeNode *root = create_node(10);
 	
-	insert_node_AVL(root, 5);
-	insert_node_AVL(root, 20);
-	insert_node_AVL(root, 1);
-	insert_node_AVL(root, 6);
-	insert_node_AVL(root, 1);
-	insert_node_AVL(root, 21);
-	
-	
-	BFS(root);
+	root = insert_node_AVL(root, 5);
+	root = insert_node_AVL(root, 20);
+	root = insert_node_AVL(root, 3);
+	root = insert_node_AVL(root, 6);
+	root = insert_node_AVL(root, 21);
+	//root = insert_node_AVL(root, 1);
 	
 	printf("\nThe height of the tree is: %d\n", tree_height(root));
 	leveltraverse(root);
-	/*
-	print_level_newLine(root);
+	
+	root = delete_node_AVL(root, 10);
+	
+	
+	leveltraverse(root);
 	printf("\n");
 	inorder_trav(root);
-	
 	printf("\n");
+	
+	/*
 	search_tree(root, 19);
 	printf("\n");
 	

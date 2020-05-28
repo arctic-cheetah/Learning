@@ -74,16 +74,14 @@ int search_tree (treeNode *root, int data);
 
 //Implementation of an AVL tree
 int balance_factor (treeNode *root);
+int max(int a, int b);
+int height(treeNode *root);
+
 treeNode *rotateRight(treeNode *root);
 treeNode *rotateLeft(treeNode *root);
 treeNode *insert_node_AVL (treeNode *root, int data);
 
-int max(int a, int b);
-int height(treeNode *root);
 
-//Deletion of a node in an AVL tree
-treeNode *delete_node_AVL(treeNode *root, int data);
-treeNode *inorder_travNP(treeNode *root);
 
 
 //Mechanisms lie down here
@@ -453,10 +451,7 @@ int search_tree (treeNode *root, int data) {
 //Refer to diagram from the link above
 
 int balance_factor (treeNode *root) {
-	if (root == NULL) {
-		return 0;
-	}
-	return (height(root->left) - height(root->right));
+	return ( height(root->left) - height(root->right) );
 }
 
 int max(int a, int b) {
@@ -467,41 +462,37 @@ int height(treeNode *root) {
 	if (root == NULL) {
 		return 0;
 	}
-	return root->height;	
+	return root->height;
 }
 
 treeNode *rotateRight(treeNode *root) {
 	treeNode *y = root->left;
-	treeNode *T3 = y->right;
-	
+	treeNode *T2 = y->left;
 	//Perform rotation
 	y->right = root;
-	root->left = T3;
-	
-	//Update heights
+	root->left = T2;
+	//Update the heights
+	y->height = 1 + max(height(y->left), height(y->right));
 	root->height = 1 + max(height(root->left), height(root->right));
-	y->height = 1 + max(height(root->left), height(root->right));
+	
 	return y;
 }
 
 treeNode *rotateLeft(treeNode *root) {
 	treeNode *y = root->right;
 	treeNode *T2 = y->left;
-	
 	//Perform rotation
 	y->left = root;
 	root->right = T2;
-	
-	//Update heights
+	//Update the heights
+	y->height = 1 + max(height(y->left), height(y->right));
 	root->height = 1 + max(height(root->left), height(root->right));
-	y->height = 1 + max(height(root->left), height(root->right));
+	
 	return y;
 }
 
-//Insert a node into a tree and balance according to BS standards
-//By comparing the balance factor
 treeNode *insert_node_AVL (treeNode *root, int data) {
-	//1)Insert the new node
+	//1)Insert node ordinarily 
 	if (root == NULL) {
 		return create_node(data);
 	}
@@ -511,152 +502,32 @@ treeNode *insert_node_AVL (treeNode *root, int data) {
 	else if (data < root->data) {
 		root->left = insert_node_AVL(root->left, data);
 	}
-	//Don't insert if there is an identical data
+	//Reject any duplicate nodes with identical data
 	else {
 		return root;
 	}
-	
-	//2)Update the height of the parent node (aka root)
-	root->height = 1 + max(height(root->right), height(root->left));
-	
-	//3)Get the balance factor of the root
-	int balance = balance_factor(root);
-	
-	//4)Consider 4 cases if the tree needs to be rotated
-	//By checking the balance factor and the data
-	if (balance > 1 && data < root->left->data) {
-		return rotateRight(root);
-	}
-	if (balance < -1 && data > root->right->data) {
-		return rotateLeft(root);
-	}
-	if (balance > 1 && data > root->left->data) {
-		root->left = rotateLeft(root);
-		return rotateRight(root);
-	}
-	if (balance < -1 && data < root->right->data) {
-		root->right = rotateRight(root->right);
-		return rotateLeft(root);
-	}
-	
-	//If nothing needs updating, return the root
-	return root;
-}
-
-//Delete the node with the matching data,
-//Then balance
-treeNode *delete_node_AVL(treeNode *root, int data) {
-	//1)Traverse through the tree
-	if (root == NULL) {
-		printf("Data not found!\n");
-		return root;
-	}
-	//2)Consider cases if there are child nodes
-	if (data > root->data) {
-		root->right = delete_node_AVL(root->right, data);
-	}
-	else if (data < root->data) {
-		root->left = delete_node_AVL(root->left, data);
-	}
-	//Data match found!
-	else {
-		treeNode *temp = NULL;
-		//2a)If there are one child node or no nodes
-		if (root->right == NULL) {
-			temp = root->left;
-			free(root);
-			return temp;
-		}
-		else if (root->left == NULL) {
-			temp = root->right;
-			free(root);
-			return temp;
-		}
-		//2b)There are two child nodes 
-		else {
-			temp = inorder_travNP(root->right);
-			root->data = temp->data;
-			root->right = delete_node_AVL(root->right, temp->data);
-		}
-				
-	}
-	//Don't balance the sub-tree if the node is null
-	if (root == NULL) {
-		return root;
-	}
-	//3)Update the height of the node
+	//2)Update the heights of the nodes 
 	root->height = 1 + max(height(root->left), height(root->right));
-	//4)Get the balance factor
+	//3)Get the balance factor 
 	int balance = balance_factor(root);
-	//5)Consider 5 cases
-	//RR
-	if (balance > 1 && balance_factor(root->left) >= 0) {
+	//4)Consider cases for rotation from balance factor and comparison of data 
+	if (balance > 1 && root->left->data > data) {
 		return rotateRight(root);
-	} 
-	//LL
-	if (balance < -1 && balance_factor(root->right) <= 0) {
+	}
+	if (balance < -1 && root->right->data < data) {
 		return rotateLeft(root);
 	}
-	//LR
-	if (balance > 1 && balance_factor(root->left) < 0) {
+	if (balance > 1 && root->left->data < data) {
 		root->left = rotateLeft(root->left);
 		return rotateRight(root);
 	}
-	//RL
-	if (balance < -1 && balance_factor(root->right) > 0) {
+	if (balance < -1 && root->right->data > data) {
 		root->right = rotateRight(root->right);
 		return rotateLeft(root);
 	}
-	//If nothing needs to be done...
+	//If nothing needs rotation
 	return root;
 }
-
-//Helper function to obtain the largest minimum in the AVL tree
-treeNode *inorder_travNP(treeNode *root) {
-	while (root->left != NULL) {
-		root = root->left;	
-	}
-	return root;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

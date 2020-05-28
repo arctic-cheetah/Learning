@@ -13,7 +13,10 @@ int main () {
 	insert_node(root, 23);
 	insert_node(root, 7);
 	insert_node(root, 0);
-
+	
+	deletion_treeNode(root, 5);
+	deletion_treeNode(root, 20);
+	deletion_treeNode(root, 10);
 	
 	BFS(root);
 	
