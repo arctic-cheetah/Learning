@@ -9,24 +9,26 @@
 int main () {
 	struct treeNode *root = create_node(10);
 	
-	insert_node_AVL(root, 5);
-	insert_node_AVL(root, 20);
-	insert_node_AVL(root, 3);
-	insert_node_AVL(root, 6);
-	insert_node_AVL(root, 21);
-	insert_node_AVL(root, -5);
+	root = insert_node_AVL(root, 5);
+	root = insert_node_AVL(root, 20);
+	root = insert_node_AVL(root, 3);
+	root = insert_node_AVL(root, 6);
+	root = insert_node_AVL(root, 21);
+	root = insert_node_AVL(root, -4);
 	
-	BFS(root);
-	
-	printf("\nThe height of the tree is: %d\n", tree_height(root));
+	inorder_trav(root);
+	printf("\n");
 	leveltraverse(root);
-	/*
+	
+	root = delete_node_AVL(root, 10);
+	
 	print_level_newLine(root);
 	printf("\n");
 	inorder_trav(root);
-	
 	printf("\n");
-	search_tree(root, 19);
+	/*
+	printf("\n");
+	search_tree(root, 6);
 	printf("\n");
 	
 	if (isFullBinaryTree(root)) {

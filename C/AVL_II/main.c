@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "AVL_T.h"
+#include "AVL_II.h"
 
 
 int main () {
@@ -22,14 +22,13 @@ int main () {
 	
 	root = delete_node_AVL(root, 10);
 	
-	
-	leveltraverse(root);
+	print_level_newLine(root);
 	printf("\n");
 	inorder_trav(root);
 	printf("\n");
-	
 	/*
-	search_tree(root, 19);
+	printf("\n");
+	search_tree(root, 6);
 	printf("\n");
 	
 	if (isFullBinaryTree(root)) {

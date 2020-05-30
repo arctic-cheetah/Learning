@@ -1,20 +1,22 @@
-//Implementation of an AVL with Breadth first search and depth level search
+//Implementation of a Red-black tree with Breadth 
+//https://www.programiz.com/dsa/red-black-tree
+//https://www.geeksforgeeks.org/c-program-red-black-tree-insertion/
 //Includes the use of queues via the implementation of linked lists for BFS
-//https://www.geeksforgeeks.org/avl-tree-set-1-insertion/
 #include <stdio.h>
 #include <stdlib.h>
-#include "AVL_T.h"
+#include "RB_T.h"
 
 #define MAX_LENGTH 1024
 
 typedef struct queueInternals *Queue;
 
-//And AVL treeNode
 typedef struct treeNode {
 	treeNode *left;
 	treeNode *right;
+	treeNode *parent;
 	int data;
 	int height;
+	int black;
 } treeNode;
 
 struct queueNode {
@@ -28,11 +30,15 @@ struct queueInternals {
 	struct queueNode *tail;
 	int size;
 };
-
-//-------------------------------------------------------------------------------
 //Function declarations:
+//-------------------------------------------------------------------------------
+
+treeNode *insert(treeNode *root, int data);
 treeNode *create_node(int data);
-treeNode *insert_node(treeNode *root, int data);
+treeNode *insert_node(treeNode *node, treeNode *parent);
+treeNode *rebalance(treeNode *node, treeNode *parent);
+treeNode *rotateLeft(treeNode *node, treeNode *parent);
+treeNode *rotateRight(treeNode *node, treeNode *parent);
 
 //Implementation of DFS
 void inorder_trav(treeNode *treeNode);
@@ -70,25 +76,12 @@ int CompleteTreeCheck(treeNode *node);
 int isBalancedTree(treeNode *node, int *height);
 int BalancedTreeCheck(treeNode *node);
 //Check for a data in the tree
-int search_tree (treeNode *root, int data);
-
-//Implementation of an AVL tree
-int balance_factor (treeNode *root);
-int max(int a, int b);
-int height(treeNode *root);
-
-treeNode *rotateRight(treeNode *root);
-treeNode *rotateLeft(treeNode *root);
-treeNode *insert_node_AVL (treeNode *root, int data);
-
-//Deletion of a node in an AVL tree
-treeNode *delete_node_AVL(treeNode *root, int data);
-treeNode *inorder_travNP(treeNode *root);
-treeNode *Tree_balance(treeNode *root);
+int search_tree (treeNode *node, int data);
+//Deletion of a node in a BST
+treeNode *deletion_treeNode(treeNode *node, int data);
+treeNode *inorder_travNP (treeNode *node);
 
 
-//Mechanisms lie down here
-//-------------------------------------------------------------------
 
 //Add a treeNode
 treeNode *create_node (int data) {
@@ -99,6 +92,8 @@ treeNode *create_node (int data) {
 	newNode->left = NULL;
 	newNode->right = NULL;
 	newNode->height = 1;
+	newNode->black = 0;
+	newNode->parent = NULL;
 	return newNode;
 }  
 
@@ -126,23 +121,150 @@ void postorder_trav (treeNode *treeNode) {
 	}
 }
 
-//Insert a treeNode in such a way that the tree is "organised"
-treeNode *insert_node(treeNode *root, int data) {
-	//Add a treeNode if the root is empty
-	if (root == NULL) {
-		return create_node(data);
-	}
-	//Insert to the right if the data is greater than the treeNode
-	if (data > root->data) {
-		root->right = insert_node(root->right, data);
-	}
-	//Insert to the left if the data is less than the treeNode
-	else if (data < root->data) {
-		root->left = insert_node(root->left, data);
-	}
-	//If all these conditions fail, change nothing
+treeNode *insert(treeNode *root, int data) {
+	treeNode *newNode = create_node(data);
+	root = insert_node(newNode, root);
+	rebalance(root, newNode);
 	return root;
 }
+
+//Insert a treeNode in such a way that the tree is "organised"
+treeNode *insert_node(treeNode *node, treeNode *root) {
+	if (root == NULL) {
+		return node;
+	}
+	//Traverse to the right subtree if the data is greater than the treeNode
+	if (root->data < node->data) {
+		root->right = insert_node(node, root->right);
+		root->right->parent = root;
+	}
+	//Traverse to the left subtree if the data is less than the treeNode
+	else if (root->data > node->data) {
+		root->left = insert_node(node, root->left);
+		root->left->parent = root;
+	}
+	//Don't insert duplicate keys
+	else if (root->data == node->data) {
+		return node;
+	}
+	return root;
+}
+
+treeNode *rotateLeft(treeNode *node, treeNode *parent) {
+	treeNode *rightChild = parent->right;
+	parent->right = rightChild->left;
+	if (parent->right != NULL) {
+		parent->right->parent = parent;
+	}
+	rightChild->parent = parent->parent;
+	if (parent->parent == NULL) {
+		node = rightChild;
+	}
+	else if (parent == parent->parent->left) {
+		parent->parent->left = rightChild;
+	}
+	else {
+		parent->parent->right = rightChild;
+	}
+	rightChild->left = parent;
+	parent->parent = rightChild;
+}
+
+treeNode *rotateRight(treeNode *node, treeNode *parent) {
+	treeNode *leftChild = parent->left;
+	parent->left = leftChild->right;
+	if (parent->left != NULL) {
+		parent->left->parent = parent;
+	}
+	leftChild->parent = parent->parent;
+	if (parent->parent == NULL) {
+		node = leftChild;
+	}
+	else if (parent == parent->parent->left) {
+		parent->parent->left = leftChild;
+	}
+	else {
+		parent->parent->right = leftChild;
+	}
+	leftChild->right = parent;
+	parent->parent = leftChild;
+}
+
+
+treeNode *rebalance(treeNode *root, treeNode *node) {
+
+	treeNode *grand_parent_p = NULL;
+	treeNode *parent_p = NULL;
+	while ( (node != root) && (node->black != 1) &&
+	(node->parent->black == 0) ) {
+		grand_parent_p = node->parent->parent;
+		parent_p = node->parent;
+		//Case A: parent of node is left child of the grandparent
+		
+		if (parent_p == grand_parent_p->left) {
+			treeNode *uncle = grand_parent_p->right;
+		/*Case I: if uncle is red, only recolouring is required
+		*/
+			if (uncle != NULL && uncle->black == 0) {
+				grand_parent_p->black = 0;
+				uncle->black = 1;
+				parent_p->black = 1;
+				node = grand_parent_p;
+			}
+			//Uncle is not red
+			else {
+				/*Case II: If node is the right child of parent
+				Left rotation needed
+				*/
+				if (node == parent_p->right) {
+					rotateLeft(node, parent_p);
+					node = parent_p;
+					parent_p = node->parent;
+				}
+				/*Case III: If node is the left child of parent
+				Right rotation needed
+				*/
+				parent_p->black = 1;
+				grand_parent_p->black = 0;
+				rotateRight(root, grand_parent_p);
+				node = parent_p;
+			}
+		
+		}
+		//Case B: parent of node is the right child of the grandparent
+		else if (parent_p == grand_parent_p->right) {
+			treeNode *uncle = grand_parent_p->left;
+			//Case I: Uncle is red
+			if (uncle != NULL && uncle->black == 0) {
+				parent_p->black = 1;
+				uncle->black = 1;
+				grand_parent_p->black = 0;
+			}
+			//Uncle is not red
+			else {
+				//Case II: node is the left child of parent
+				//Right rotation needed
+				if (node == parent_p->left) {
+					rotateRight(node, parent_p);
+					node = parent_p;
+					parent_p = node->parent;
+				}
+				//Case III: node is the right child of parent
+				//Left rotation needed
+				rotateLeft(root, grand_parent_p);
+				parent_p->black = 1;
+				grand_parent_p->black = 0;
+				node = parent_p;
+			
+				
+			}
+			
+		}
+		
+	}
+	root->black = 1;
+}
+
 
 //--------------------------------------------------------------------
 //Queue implementation and BFS
@@ -181,7 +303,7 @@ treeNode *dequeue(Queue q) {
 		q->head = q->head->next;
 		//Check if removing the last treeNode in the queue;
 		if (q->head == NULL) {
-			q->tail = NULL;
+			q->tail == NULL;
 		}
 		free(remNode);
 		q->size--;
@@ -204,10 +326,10 @@ treeNode *rear_queue(Queue q) {
 
 
 //This performs a Level first search
-void BFS(treeNode *root) {
-	if (root != NULL) {
+void BFS(treeNode *node) {
+	if (node != NULL) {
 		Queue q = create_queue();
-		enqueue(q, root);
+		enqueue(q, node);
 		while (q->head != NULL) {
 			treeNode *curr = dequeue(q);
 			printf("%d ", curr->data);
@@ -283,7 +405,7 @@ void print_level_newLine(treeNode *node) {
 	
 	//Create queue for empty traversal
 	Queue q = create_queue();
-	//Add the root to the queue
+	//Add the node to the queue
 	enqueue(q, node);
 	
 	//Stop when the queue size is zero
@@ -312,7 +434,7 @@ void print_level_newLine(treeNode *node) {
 //-----------------------------------------------------------------------
 //This checks if the binary tree is full
 int isFullBinaryTree(treeNode *node) {
-	//Check if the root is NULL
+	//Check if the node is NULL
 	if (node == NULL) {
 		return 1;
 	}
@@ -409,8 +531,7 @@ int isBalancedTree(treeNode *node, int *height) {
 	
 	if (leftHeight > rightHeight) {
 		*height = leftHeight + 1;
-	} 
-	else {
+	} else {
 		*height = rightHeight + 1;
 	}
 	
@@ -429,263 +550,69 @@ int BalancedTreeCheck(treeNode *node) {
 }
 
 //-------------------------------------------------------
-int search_tree (treeNode *root, int data) {
+int search_tree (treeNode *node, int data) {
 	
-	if (root == NULL) {
+	if (node == NULL) {
 		printf("The data was not found!\n");
 		return NULL;
 	}
-	if (data == root->data) {
-		printf("The data was found! It is: %d", root->data);
-		return root->data;
+	if (data == node->data) {
+		printf("The data was found! It is: %d", node->data);
+		return node->data;
 	}
 	//Check to go left or right
-	if (data > root->data) {
-		return search_tree(root->right, data);
+	if (data > node->data) {
+		return search_tree(node->right, data);
 	}
-	else if (data < root->data) {
-		return search_tree(root->left, data);
+	else if (data < node->data) {
+		return search_tree(node->left, data);
 	}
 }
+//-------------------------------------------------------
 
-
-//Implementation of an AVL tree
-//A tree with a root named root
-//Refer to diagram from the link above
-
-int balance_factor (treeNode *root) {
-	if (root == NULL) {
-		return 0;
-	}
-	return ( height(root->left) - height(root->right) );
-}
-
-int max(int a, int b) {
-	return (a > b) ? a : b;
-}
-
-int height(treeNode *root) {
-	if (root == NULL) {
-		return 0;
-	}
-	return root->height;
-}
-
-treeNode *rotateRight(treeNode *root) {
-	treeNode *y = root->left;
-	treeNode *T2 = y->right;
-	//Perform rotation
-	y->right = root;
-	root->left = T2;
-	//Update the heights
-	y->height = 1 + max(height(y->left), height(y->right));
-	root->height = 1 + max(height(root->left), height(root->right));
+treeNode *deletion_treeNode(treeNode *node, int data) {
 	
-	return y;
-}
-
-treeNode *rotateLeft(treeNode *root) {
-	treeNode *y = root->right;
-	treeNode *T2 = y->left;
-	//Perform rotation
-	y->left = root;
-	root->right = T2;
-	//Update the heights
-	y->height = 1 + max(height(y->left), height(y->right));
-	root->height = 1 + max(height(root->left), height(root->right));
-	
-	return y;
-}
-
-treeNode *insert_node_AVL (treeNode *root, int data) {
-	//1)Insert node ordinarily 
-	if (root == NULL) {
-		return create_node(data);
+	//Traverse through the tree recursively
+	if (node == NULL) {
+		return node;
 	}
-	if (data > root->data) {
-		root->right = insert_node_AVL(root->right, data);
+	if (data > node->data) {
+		node->right = deletion_treeNode(node->right, data);
 	}
-	else if (data < root->data) {
-		root->left = insert_node_AVL(root->left, data);
+	else if (data < node->data) {
+		node->left = deletion_treeNode(node->left, data);
 	}
-	//Reject any duplicate nodes with identical data
-	else if (data == root->data) {
-		return root;
-	}
-	
-	return Tree_balance(root);
-}
-
-//Deletion of a node in an AVL tree
-treeNode *delete_node_AVL(treeNode *root, int data) {
-	//1)Traverse the tree
-	if (root == NULL) {
-		printf("Data was not found!\n");
-		return root;
-	}
-	if (data < root->data) {
-		root->left = delete_node_AVL(root->left, data);
-	}
-	else if (data > root->data) {
-		root->right = delete_node_AVL(root->right, data);
-	}
-	//2)Data match found!, prepare to consider cases for deletion
-	else if (root->data == data) {
-		//If there is one or no child nodes
-		if (root->left == NULL || root->right == NULL) {
-			treeNode *temp = NULL;
-			if (root->left != NULL) {
-				temp = root->left;
-			}
-			else {
-				temp = root->right;
-			}
-			//No child
-			if (temp == NULL) {
-				temp = root;
-				root = NULL;
-			}
-			//One children
-			else {
-				//Copy the contents of the non-empty child
-				*root = *temp;
-			}
-			free(temp);
+	else {
+	//Consider three cases for deletion
+	//1)Deletion of a leaf
+	//2)Deletion of a node with ONLY one child
+		if (node->left == NULL) {
+			treeNode *temp = node->right;
+			free(node);
+			return temp;
+		} 
+		else if(node->right == NULL) {
+			treeNode *temp = node->left;
+			free(node);
+			return temp;
 		}
-		//If there are two child nodes..
-		else {
-			treeNode *temp = inorder_travNP(root->right);
-			root->data = temp->data;
-			root->right = delete_node_AVL(root->right, temp->data);
-		}
-		
+		//3)Deletion of a node with two children
+		treeNode *temp = inorder_travNP(node->right);
+		node->data = temp->data;
+		//Delete the inorder successor
+		node->right = deletion_treeNode(node->right, temp->data);
 	}
-	
-	//Don't balance a NULL node!
-	if (root == NULL) {
-		return root;
-	}
-	//Balance the root
-	return Tree_balance(root);
+	return node;
 }
 
-treeNode *inorder_travNP(treeNode *root) {
-	while (root != NULL && root->left != NULL) {
-		root = root->left;
+treeNode *inorder_travNP(treeNode *node) {
+	treeNode *curr = node;
+	//Loop to find the left most node
+	while (curr->left != NULL) {
+		curr = curr->left;
 	}
-	return root;
+	return curr;
 }
-
-treeNode *Tree_balance(treeNode *root) {
-	//1)Update the height of the tree
-	root->height = 1 + max(height(root->left), height(root->right));
-	//2)Obtain balance factor
-	int balance = balance_factor(root);
-	//3)Consider 4 cases
-	//LL
-	if (balance > 1 && balance_factor(root->left) >= 0) {
-		return rotateRight(root);
-	}
-	//LR
-	if (balance > 1 && balance_factor(root->left) < 0) {
-		root->left = rotateLeft(root->left);
-		return rotateRight(root);
-	}
-	//RR
-	if (balance < -1 && balance_factor(root->right) <= 0) {
-		return rotateLeft(root);
-	}
-	//RL
-	if (balance < -1 && balance_factor(root->right) > 0) {
-		root->right = rotateRight(root->right);
-		return rotateLeft(root);
-	}
-	//If nothing needs balancing, then...
-	return root;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

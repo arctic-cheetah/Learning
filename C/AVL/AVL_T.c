@@ -531,7 +531,7 @@ treeNode *insert_node_AVL (treeNode *root, int data) {
 		return rotateLeft(root);
 	}
 	if (balance > 1 && data > root->left->data) {
-		root->left = rotateLeft(root);
+		root->left = rotateLeft(root->left);
 		return rotateRight(root);
 	}
 	if (balance < -1 && data < root->right->data) {
@@ -559,7 +559,7 @@ treeNode *delete_node_AVL(treeNode *root, int data) {
 		root->left = delete_node_AVL(root->left, data);
 	}
 	//Data match found!
-	else {
+	else if (root->data == data) {
 		treeNode *temp = NULL;
 		//2a)If there are one child node or no nodes
 		if (root->right == NULL) {
@@ -613,7 +613,7 @@ treeNode *delete_node_AVL(treeNode *root, int data) {
 
 //Helper function to obtain the largest minimum in the AVL tree
 treeNode *inorder_travNP(treeNode *root) {
-	while (root->left != NULL) {
+	while (root != NULL && root->left != NULL) {
 		root = root->left;	
 	}
 	return root;

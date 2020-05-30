@@ -3,35 +3,32 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "AVL_T.h"
+#include "RB_T.h"
 
 
 int main () {
-	struct treeNode *root = create_node(10);
+	struct treeNode *root = insert(NULL ,15);
+	root = insert(root, 5);
+	root = insert(root, 29);
+	root = insert(root, 41);
+	root = insert(root, 43);
+	root = insert(root, 45);
+	root = insert(root, 48);
+	root = insert(root, 50);
+	BFS(root);
 	
-	root = insert_node_AVL(root, 5);
-	root = insert_node_AVL(root, 20);
-	root = insert_node_AVL(root, 3);
-	root = insert_node_AVL(root, 6);
-	root = insert_node_AVL(root, 21);
-	root = insert_node_AVL(root, -4);
-	
-	inorder_trav(root);
-	printf("\n");
+	printf("\nThe height of the tree is: %d\n", tree_height(root));
 	leveltraverse(root);
+	print_level_newLine(root);
 	
-	root = delete_node_AVL(root, 10);
-	
-	
-	leveltraverse(root);
 	printf("\n");
 	inorder_trav(root);
+	/*
 	printf("\n");
+	inorder_trav(root);
+	*/
 	
 	/*
-	search_tree(root, 19);
-	printf("\n");
-	
 	if (isFullBinaryTree(root)) {
 		printf("The binary tree is a full tree!\n");
 	}

@@ -599,18 +599,15 @@ treeNode *delete_node_AVL(treeNode *root, int data) {
 		root->right = rotateRight(root->right);
 		return rotateLeft(root);
 	}
-
-	
 	//If no changes need to be made then...
 	return root;
 	
 }
 //Helper function to assist the deletion of a node
 treeNode *inorder_travNP(treeNode *root) {
-	while (root->left != NULL) {
+	while (root != NULL && root->left != NULL) {
 		root = root->left;
 	}
-	
 	return root;
 }
 
