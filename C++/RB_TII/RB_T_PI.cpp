@@ -145,51 +145,46 @@ treeNode *insert_node(treeNode *node, treeNode *root) {
 	return root;
 }
 
-treeNode *rotateLeft(treeNode *root, treeNode *node) {
-	treeNode *nodeRight = node->right;
-	node->right = nodeRight->left;
-	
-	/*
-	if (node->right != NULL) {
-		node->right->parent = node;
+treeNode *rotateLeft(treeNode *node, treeNode *parent) {
+	treeNode *rightChild = parent->right;
+	parent->right = rightChild->left;
+	if (parent->right != NULL) {
+		parent->right->parent = parent;
 	}
-	nodeRight->parent = node->parent;
-	*/
-	if (node->parent == NULL) {
-		root = nodeRight; 
+	rightChild->parent = parent->parent;
+	if (parent->parent == NULL) {
+		node = rightChild;
 	}
-	else if (node->parent->left == node) {
-		node->parent->left = nodeRight;
+	else if (parent == parent->parent->left) {
+		parent->parent->left = rightChild;
 	}
 	else {
-		node->parent->right = nodeRight;
+		parent->parent->right = rightChild;
 	}
-	nodeRight->left = node;
-	node->parent = nodeRight;
-	return root;
+	rightChild->left = parent;
+	parent->parent = rightChild;
+	return node;
 }
 
-treeNode *rotateRight(treeNode *root, treeNode *node) {
-	treeNode *nodeLeft = node->left;
-	node->left = nodeLeft->right;
-	/*
-	if (node->left != NULL) {
-		node->left->parent = node;
+treeNode *rotateRight(treeNode *node, treeNode *parent) {
+	treeNode *leftChild = parent->left;
+	parent->left = leftChild->right;
+	if (parent->left != NULL) {
+		parent->left->parent = parent;
 	}
-	nodeLeft->parent = node->parent;
-	*/
-	if (node->parent == NULL) {
-		root = nodeLeft;
+	leftChild->parent = parent->parent;
+	if (parent->parent == NULL) {
+		node = leftChild;
 	}
-	else if (node->parent->right == node) {
-		node->parent->right = nodeLeft;
+	else if (parent == parent->parent->left) {
+		parent->parent->left = leftChild;
 	}
 	else {
-		node->parent->left = nodeLeft;
+		parent->parent->right = leftChild;
 	}
-	nodeLeft->right = node;
-	node->parent = nodeLeft;
-	return root;
+	leftChild->right = parent;
+	parent->parent = leftChild;
+	return node;
 }
 
 

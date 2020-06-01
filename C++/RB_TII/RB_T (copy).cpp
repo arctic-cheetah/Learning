@@ -35,8 +35,10 @@ struct queueInternals {
 
 treeNode *insert(treeNode *root, int data);
 treeNode *create_node(int data);
-treeNode *insert_node(treeNode *node, treeNode *root);
+treeNode *insert_node(treeNode *node, treeNode *parent);
 treeNode *rebalance(treeNode *node, treeNode *parent);
+treeNode *rotateLeft(treeNode *node, treeNode *parent);
+treeNode *rotateRight(treeNode *node, treeNode *parent);
 
 //Implementation of DFS
 void inorder_trav(treeNode *treeNode);
@@ -119,155 +121,171 @@ void postorder_trav (treeNode *treeNode) {
 	}
 }
 
-treeNode *insert(treeNode *root, int data) {
-	treeNode *newNode = create_node(data);
-	root = insert_node(newNode, root);
-	root = rebalance(root, newNode);
-	return root;
-}
-
 //Insert a treeNode in such a way that the tree is "organised"
-treeNode *insert_node(treeNode *node, treeNode *root) {
-	if (root == NULL) {
-		return node;
-	}
-	//Traverse to the right subtree if the data is greater than the treeNode
-	if (root->data < node->data) {
-		root->right = insert_node(node, root->right);
-		root->right->parent = root;
-	}
-	//Traverse to the left subtree if the data is less than the treeNode
-	else if (root->data > node->data) {
-		root->left = insert_node(node, root->left);
-		root->left->parent = root;
-	}
-	//Don't insert duplicate keys
+treeNode *insert_node(treeNode *root, treeNode *pt) {
+	/* If the tree is empty, return a new node */
+    if (root == NULL) 
+       return pt; 
+  
+    /* Otherwise, recur down the tree */
+    if (pt->data < root->data) 
+    { 
+        root->left  = insert_node(root->left, pt); 
+        root->left->parent = root; 
+    } 
+    else if (pt->data > root->data) 
+    { 
+        root->right = insert_node(root->right, pt); 
+        root->right->parent = root; 
+    } 
+  
+    /* return the (unchanged) node pointer */
+    return root; 
+}
+
+treeNode *rotateLeft(treeNode *root, treeNode *pt) {
+	treeNode *pt_right = pt->right; 
+  
+    pt->right = pt_right->left; 
+  
+    if (pt->right != NULL) 
+        pt->right->parent = pt; 
+  
+    pt_right->parent = pt->parent; 
+  
+    if (pt->parent == NULL) 
+        root = pt_right; 
+  
+    else if (pt == pt->parent->left) 
+        pt->parent->left = pt_right; 
+  
+    else
+        pt->parent->right = pt_right; 
+  
+    pt_right->left = pt; 
+    pt->parent = pt_right; 
 	return root;
 }
 
-treeNode *rotateLeft(treeNode *root, treeNode *node) {
-	treeNode *nodeRight = node->right;
-	node->right = nodeRight->left;
-	
-	/*
-	if (node->right != NULL) {
-		node->right->parent = node;
-	}
-	nodeRight->parent = node->parent;
-	*/
-	if (node->parent == NULL) {
-		root = nodeRight; 
-	}
-	else if (node->parent->left == node) {
-		node->parent->left = nodeRight;
-	}
-	else {
-		node->parent->right = nodeRight;
-	}
-	nodeRight->left = node;
-	node->parent = nodeRight;
-	return root;
-}
-
-treeNode *rotateRight(treeNode *root, treeNode *node) {
-	treeNode *nodeLeft = node->left;
-	node->left = nodeLeft->right;
-	/*
-	if (node->left != NULL) {
-		node->left->parent = node;
-	}
-	nodeLeft->parent = node->parent;
-	*/
-	if (node->parent == NULL) {
-		root = nodeLeft;
-	}
-	else if (node->parent->right == node) {
-		node->parent->right = nodeLeft;
-	}
-	else {
-		node->parent->left = nodeLeft;
-	}
-	nodeLeft->right = node;
-	node->parent = nodeLeft;
-	return root;
+treeNode *rotateRight(treeNode *root, treeNode *pt) {
+	treeNode *pt_left = pt->left; 
+  
+    pt->left = pt_left->right; 
+  
+    if (pt->left != NULL) 
+        pt->left->parent = pt; 
+  
+    pt_left->parent = pt->parent; 
+  
+    if (pt->parent == NULL) 
+        root = pt_left; 
+  
+    else if (pt == pt->parent->left) 
+        pt->parent->left = pt_left; 
+  
+    else
+        pt->parent->right = pt_left; 
+  
+    pt_left->right = pt; 
+    pt->parent = pt_left; 
+    return root;
 }
 
 
-treeNode *rebalance(treeNode *root, treeNode *node) {
+treeNode *rebalance(treeNode *root, treeNode *pt) {
 
-	treeNode *grand_parent = NULL;
-	treeNode *parent = NULL;
-	while ( (node != root) && (node->black != 1) &&
-	(node->parent->black == 0) ) {
-		grand_parent = node->parent->parent;
-		parent = node->parent;
-		//Case A: parent of node is left child of the grandparent
-		
-		if (parent == grand_parent->left) {
-			treeNode *uncle = grand_parent->right;
-		/*Case I: if uncle is red, only recolouring is required
-		*/
-			if (uncle != NULL && uncle->black == 0) {
-				grand_parent->black = 0;
-				uncle->black = 1;
-				parent->black = 1;
-				node = grand_parent;
-			}
-			//Uncle is not red
-			else {
-				/*Case II: If node is the right child of parent
-				Left rotation needed
-				*/
-				if (node == parent->right) {
-					root = rotateLeft(root, parent);
-					node = parent;
-					parent = node->parent;
-				}
-				/*Case III: If node is the left child of parent
-				Right rotation needed
-				*/
-				root = rotateRight(root, grand_parent);
-				parent->black = 1;
-				grand_parent->black = 0;
-				node = parent;
-			}
-		
-		}
-		//Case B: parent of node is the right child of the grandparent
-		else if (parent == grand_parent->right) {
-			treeNode *uncle = grand_parent->left;
-			//Case I: Uncle is red
-			if (uncle != NULL && uncle->black == 0) {
-				parent->black = 1;
-				uncle->black = 1;
-				grand_parent->black = 0;
-				node = grand_parent;
-			}
-			//Uncle is not red
-			else {
-				//Case II: node is the left child of parent
-				//Right rotation needed
-				if (node == parent->left) {
-					root = rotateRight(root, parent);
-					node = parent;
-					parent = node->parent;
-				}
-				//Case III: node is the right child of parent
-				//Left rotation needed
-				root = rotateLeft(root, grand_parent);
-				parent->black = 1;
-				grand_parent->black = 0;
-				node = parent;
-				
-			}
-			
-		}
-		
-	}
-	root->black = 1;
-	return root;
+  	treeNode *parent_pt = NULL; 
+    treeNode *grand_parent_pt = NULL; 
+  
+    while ((pt != root) && (pt->black != 1) && 
+           (pt->parent->black == 0)) 
+    { 
+  
+        parent_pt = pt->parent; 
+        grand_parent_pt = pt->parent->parent; 
+  
+        /*  Case : A 
+            Parent of pt is left child of Grand-parent of pt */
+        if (parent_pt == grand_parent_pt->left) 
+        { 
+  
+            treeNode *uncle_pt = grand_parent_pt->right; 
+  
+            /* Case : 1 
+               The uncle of pt is also red 
+               Only Recoloring required */
+            if (uncle_pt != NULL && uncle_pt->black == 0) 
+            { 
+                grand_parent_pt->black = 0; 
+                parent_pt->black = 1; 
+                uncle_pt->black = 1; 
+                pt = grand_parent_pt; 
+            } 
+  
+            else
+            { 
+                /* Case : 2 
+                   pt is right child of its parent 
+                   Left-rotation required */
+                if (pt == parent_pt->right) 
+                { 
+                    root = rotateLeft(root, parent_pt); 
+                    pt = parent_pt; 
+                    parent_pt = pt->parent; 
+                } 
+  
+                /* Case : 3 
+                   pt is left child of its parent 
+                   Right-rotation required */
+                root = rotateRight(root, grand_parent_pt); 
+             	parent_pt->black = 1; 
+                grand_parent_pt->black = 0;
+                pt = parent_pt; 
+            } 
+        } 
+  
+        /* Case : B 
+           Parent of pt is right child of Grand-parent of pt */
+        else
+        { 
+            treeNode *uncle_pt = grand_parent_pt->left; 
+  
+            /*  Case : 1 
+                The uncle of pt is also red 
+                Only Recoloring required */
+            if ((uncle_pt != NULL) && (uncle_pt->black == 0)) 
+            { 
+                grand_parent_pt->black = 0; 
+                parent_pt->black = 1; 
+                uncle_pt->black = 1; 
+                pt = grand_parent_pt; 
+            } 
+            else
+            { 
+                /* Case : 2 
+                   pt is left child of its parent 
+                   Right-rotation required */
+                if (pt == parent_pt->left) 
+                { 
+                    root = rotateRight(root, parent_pt); 
+                    pt = parent_pt; 
+                    parent_pt = pt->parent; 
+                } 
+  
+                /* Case : 3 
+                   pt is right child of its parent 
+                   Left-rotation required */
+                root = rotateLeft(root, grand_parent_pt);
+                parent_pt->black = 1; 
+                grand_parent_pt->black = 0;
+                pt = parent_pt; 
+            } 
+        } 
+    } 
+  
+    root->black = 1; 
+    return root;
 }
-
 
 //--------------------------------------------------------------------
 //Queue implementation and BFS

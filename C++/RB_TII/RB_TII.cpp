@@ -4,7 +4,7 @@
 //Includes the use of queues via the implementation of linked lists for BFS
 #include <stdio.h>
 #include <stdlib.h>
-#include "RB_T.h"
+#include "RB_TII.h"
 
 #define MAX_LENGTH 1024
 
@@ -131,138 +131,118 @@ treeNode *insert_node(treeNode *node, treeNode *root) {
 	if (root == NULL) {
 		return node;
 	}
-	//Traverse to the right subtree if the data is greater than the treeNode
-	if (root->data < node->data) {
-		root->right = insert_node(node, root->right);
-		root->right->parent = root;
-	}
-	//Traverse to the left subtree if the data is less than the treeNode
-	else if (root->data > node->data) {
+	if (node->data < root->data) {
 		root->left = insert_node(node, root->left);
 		root->left->parent = root;
 	}
-	//Don't insert duplicate keys
+	else if (node->data > root->data) {
+		root->right = insert_node(node, root->right);
+		root->right->parent = root;
+	}
 	return root;
 }
 
 treeNode *rotateLeft(treeNode *root, treeNode *node) {
-	treeNode *nodeRight = node->right;
-	node->right = nodeRight->left;
+	treeNode *rightNode = node->right;
+	node->right = rightNode->left;
 	
-	/*
-	if (node->right != NULL) {
-		node->right->parent = node;
-	}
-	nodeRight->parent = node->parent;
-	*/
 	if (node->parent == NULL) {
-		root = nodeRight; 
+		root = rightNode;
 	}
-	else if (node->parent->left == node) {
-		node->parent->left = nodeRight;
+	
+	else if (node == node->parent->left) {
+		node->parent->left = rightNode;
 	}
 	else {
-		node->parent->right = nodeRight;
+		node->parent->right = rightNode;
 	}
-	nodeRight->left = node;
-	node->parent = nodeRight;
+	rightNode->left = node;
+	node->parent = rightNode;
 	return root;
 }
 
 treeNode *rotateRight(treeNode *root, treeNode *node) {
-	treeNode *nodeLeft = node->left;
-	node->left = nodeLeft->right;
-	/*
-	if (node->left != NULL) {
-		node->left->parent = node;
-	}
-	nodeLeft->parent = node->parent;
-	*/
+	treeNode *leftNode = node->left;
+	node->left = leftNode->right;
+	
 	if (node->parent == NULL) {
-		root = nodeLeft;
+		root = leftNode;
 	}
-	else if (node->parent->right == node) {
-		node->parent->right = nodeLeft;
+	
+	else if (node == node->parent->left) {
+		node->parent->left = leftNode;
 	}
 	else {
-		node->parent->left = nodeLeft;
+		node->parent->right = leftNode;
 	}
-	nodeLeft->right = node;
-	node->parent = nodeLeft;
+	leftNode->right = node;
+	node->parent = leftNode;
 	return root;
 }
 
 
 treeNode *rebalance(treeNode *root, treeNode *node) {
-
-	treeNode *grand_parent = NULL;
 	treeNode *parent = NULL;
-	while ( (node != root) && (node->black != 1) &&
-	(node->parent->black == 0) ) {
-		grand_parent = node->parent->parent;
+	treeNode *grand_parent = NULL;
+	
+	while ((node != root) && (node->black != 1) && (node->parent->black == 0) ) {
 		parent = node->parent;
-		//Case A: parent of node is left child of the grandparent
-		
+		grand_parent = parent->parent;
+		//Case A; if parentNode is the left child of the grand_parent
 		if (parent == grand_parent->left) {
 			treeNode *uncle = grand_parent->right;
-		/*Case I: if uncle is red, only recolouring is required
-		*/
+			//Case I: if the uncle is red;
+			//Only change the colour
 			if (uncle != NULL && uncle->black == 0) {
-				grand_parent->black = 0;
-				uncle->black = 1;
 				parent->black = 1;
+				uncle->black = 1;
+				grand_parent->black = 0;
 				node = grand_parent;
 			}
-			//Uncle is not red
+			//then uncle is not red
 			else {
-				/*Case II: If node is the right child of parent
-				Left rotation needed
-				*/
+			//Case II: if newNode is the right child--Left rotation
 				if (node == parent->right) {
 					root = rotateLeft(root, parent);
 					node = parent;
 					parent = node->parent;
 				}
-				/*Case III: If node is the left child of parent
-				Right rotation needed
-				*/
-				root = rotateRight(root, grand_parent);
+			//Case III: if newNode is the left child--Right rotation
+				else {
+					root = rotateRight(root, grand_parent);
+				}
 				parent->black = 1;
 				grand_parent->black = 0;
 				node = parent;
 			}
-		
 		}
-		//Case B: parent of node is the right child of the grandparent
-		else if (parent == grand_parent->right) {
+		//Case B; if parentNode is the right child of the grand_parent
+		else {
 			treeNode *uncle = grand_parent->left;
-			//Case I: Uncle is red
+			//Case I: if the uncle is red;
 			if (uncle != NULL && uncle->black == 0) {
 				parent->black = 1;
 				uncle->black = 1;
 				grand_parent->black = 0;
 				node = grand_parent;
 			}
-			//Uncle is not red
+			//then uncle is not red
 			else {
-				//Case II: node is the left child of parent
-				//Right rotation needed
+			//Case II: if newNode is the left child--right rotation
 				if (node == parent->left) {
 					root = rotateRight(root, parent);
 					node = parent;
 					parent = node->parent;
 				}
-				//Case III: node is the right child of parent
-				//Left rotation needed
-				root = rotateLeft(root, grand_parent);
+			//Case III: if newNode is the right child--left rotation
+				else {
+					root = rotateLeft(root, grand_parent);
+				}
 				parent->black = 1;
 				grand_parent->black = 0;
 				node = parent;
-				
 			}
-			
-		}
-		
+		}	
 	}
 	root->black = 1;
 	return root;
