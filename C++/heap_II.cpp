@@ -19,10 +19,6 @@ void min_insert (int *array, int data, int arraySize);
 void max_delete_element(int *array, int *arraySize);
 void min_delete_element(int *array, int *arraySize);
 
-
-
-
-//Main function down here!
 int main () {
 	int array[MAX_LENGTH] = {8, 47, 72, 58, 69, 43, 21, 89, 12, 31, 5};
 	int arraySize = 10;

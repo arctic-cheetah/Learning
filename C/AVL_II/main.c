@@ -15,16 +15,13 @@ int main () {
 	root = insert_node_AVL(root, 6);
 	root = insert_node_AVL(root, 21);
 	root = insert_node_AVL(root, -4);
-	
-	inorder_trav(root);
+
+	BFS(root);
 	printf("\n");
-	leveltraverse(root);
 	
 	root = delete_node_AVL(root, 10);
 	
-	print_level_newLine(root);
-	printf("\n");
-	inorder_trav(root);
+	BFS(root);
 	printf("\n");
 	/*
 	printf("\n");

@@ -4,12 +4,11 @@
 using namespace std;
 
 int main() {
-  double pi = 0.99999999;
-  int x = (int) pi;
-  
-  cout << "The number is: " << x << "\n";
-  
-  return 0;
+  int i = 0;
+  while (i <= 11) {
+    cout << (5*i + 2) % 12 << "\n";
+    i++;
+  }
 }
 
 
