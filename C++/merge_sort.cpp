@@ -40,9 +40,9 @@ void print_array (int array[]) {
 }
 
 int merge(int array[MAX_LENGTH], int mid, int left, int right) {
-	int i = 0;
+	int i = left;
 	int j = mid + 1;
-	int k = 0;
+	int k = left;
 	int temp[MAX_LENGTH];
 	//The loop will cease once we trespass any sub array 
 	while (i <= mid && j <= right) {

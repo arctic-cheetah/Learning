@@ -1,7 +1,10 @@
+
+//Data type decalarations
 typedef struct queueInternals *Queue;
-//Function declarations:
 struct treeNode *create_node(int data);
 struct treeNode *insert_node(struct treeNode *root, int data);
+
+//Function declarations:
 
 //Implementation of DFS
 void inorder_trav(struct treeNode *treeNode);
