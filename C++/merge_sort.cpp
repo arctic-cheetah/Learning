@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#define MAX_LENGTH 5
+#define MAX_LENGTH 6
 
 int merge(int array[MAX_LENGTH], int mid, int left, int right);
 int merge_sort(int array[MAX_LENGTH], int left, int right);
