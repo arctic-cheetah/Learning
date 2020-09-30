@@ -28,11 +28,13 @@ int main () {
 	inorder_trav(root);
 	*/
 	
+	printf("Is the tree balanced? %d \n", BalancedTreeCheck(root) );
+	
 	printf("\n");
 	deletion_treeNode(root, 5);
 	printf("\n");
 	
-	print_level_newLine(root);
+	leveltraverse(root);
 	
 	/*
 	if (isFullBinaryTree(root)) {

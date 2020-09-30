@@ -375,7 +375,7 @@ int CompleteTreeCheck(treeNode *node) {
 	return isCompleteTree(node, 0, node_count);
 }
 
-//Checks if the tree is balanced or unbalanced
+//Checks if the tree is balanced or unbalanced and gets the height of the tree
 int isBalancedTree(treeNode *node, int *height) {
 	int leftHeight = 0;
 	int rightHeight = 0;
