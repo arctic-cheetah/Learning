@@ -1,0 +1,23 @@
+{
+    "version" : "2.0.0",
+    "tasks":[
+        {
+            "taskName":"JC"
+            "windows": {
+                "command": "C:\Program Files (x86)\Java\jre1.8.0_231\bin"
+            },
+            "args": [
+                "${file}"
+            ]
+        },
+        {
+            "taskName":"JC"
+            "windows": {
+                "command": "C:\Program Files (x86)\Java\jre1.8.0_231\bin"
+            },
+            "args": [
+                "${fileBasenameNoExtension}"
+            ] 
+        }
+    ]
+}
