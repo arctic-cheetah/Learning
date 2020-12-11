@@ -9,7 +9,7 @@ void caesarShift (int shift, char *s) {
             temp = (s[i] - 'a') + shift;
             //Check for wrapping
             temp = temp % 26;
-            s[i] = temp + 'a';
+            s[i] = 'a' + temp;
         }
     }
 }

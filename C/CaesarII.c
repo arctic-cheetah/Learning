@@ -27,7 +27,7 @@ int main () {
     }
         for (int j = 0; j < 26; j +=1) {
             char *s2 = strdup(s);
-            caesarShift(j, s);
+            caesarShift(j, s2);
             printf("%d Result: %s\n", j, s2);
             free(s2);
         }
