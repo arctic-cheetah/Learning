@@ -49,8 +49,6 @@ class GuessGame {
         else {
             System.out.print("You lost! The number was " + num + "\n");
         }
-
-        
         scanf.close();
     }
 
