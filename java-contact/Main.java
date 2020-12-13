@@ -30,7 +30,6 @@ class Main {
         //Selection menu may be wrong
         //Ask the user again
     }
-
     //List all the contact menu functions
     public static void listContactOptions() {
         System.out.print("1) Show all contacts\n");
