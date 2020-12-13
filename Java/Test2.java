@@ -1,7 +1,7 @@
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Iterator;
-import java.util.function.Consumer;
+//import java.util.function.Consumer;
 
 public class Test2 {
     static void print_set(HashSet<Integer> newSet) {
