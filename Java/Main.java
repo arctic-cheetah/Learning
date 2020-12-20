@@ -16,13 +16,13 @@ class Main {
         String name = scanf.nextLine();
 
         System.out.println("Enter the age of the patient: ");
-        int age = scanf.nextInt();
+        //int age = scanf.nextInt();
 
         LeftEye leftEye = new LeftEye(le, "Healthy", "Violet");
         RightEye rightEye = new RightEye(re, "Healthy", "Violet");
         Heart heart = new Heart(ht, "CHD", 75);
         Stomach stomach = new Stomach(st, "Healthy", "Hungry");
-        Skin skin = new Skin(sk, "Vertiligo");
+        //Skin skin = new Skin(sk, "Vertiligo");
         boolean quit = false;
 
         do {
