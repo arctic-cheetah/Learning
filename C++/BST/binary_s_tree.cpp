@@ -415,7 +415,7 @@ int search_tree (treeNode *root, int data) {
 	
 	if (root == NULL) {
 		printf("The data was not found!\n");
-		return NULL;
+		return 0;
 	}
 	if (data == root->data) {
 		printf("The data was found! It is: %d", root->data);

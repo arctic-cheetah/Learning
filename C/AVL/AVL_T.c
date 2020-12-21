@@ -188,7 +188,7 @@ treeNode *dequeue(Queue q) {
 		
 		return dataNode;
 	}
-	
+	return NULL;
 }
 //This returns the size of the queue
 int queueSize(Queue q) {
@@ -432,14 +432,14 @@ int search_tree (treeNode *root, int data) {
 	
 	if (root == NULL) {
 		printf("The data was not found!\n");
-		return NULL;
+		return 0;
 	}
 	if (data == root->data) {
 		printf("The data was found! It is: %d", root->data);
 		return root->data;
 	}
 	//Check to go left or right
-	if (data > root->data) {
+	else if (data > root->data) {
 		return search_tree(root->right, data);
 	}
 	else if (data < root->data) {

@@ -175,19 +175,17 @@ treeNode *dequeue(Queue q) {
 	if (q->head == NULL) {
 		printf("Attempted to remove from an empty queue!");
 	} 
-	else {
-		struct queueNode *remNode = q->head;
-		treeNode *dataNode = q->head->data;
-		q->head = q->head->next;
-		//Check if removing the last treeNode in the queue;
-		if (q->head == NULL) {
-			q->tail = NULL;
-		}
-		free(remNode);
-		q->size--;
-		
-		return dataNode;
+	struct queueNode *remNode = q->head;
+	treeNode *dataNode = q->head->data;
+	q->head = q->head->next;
+	//Check if removing the last treeNode in the queue;
+	if (q->head == NULL) {
+		q->tail = NULL;
 	}
+	free(remNode);
+	q->size--;
+	
+	return dataNode;
 	
 }
 //This returns the size of the queue
@@ -227,7 +225,7 @@ void BFS(treeNode *root) {
 //Find the height of the tree
 int tree_height(treeNode *node) {
 	if (node == NULL) {
-		return 0;
+		return -1;
 	}
 	else {
 		//Use recursion to find the height of each sub stree
@@ -326,7 +324,6 @@ int isFullBinaryTree(treeNode *node) {
 	}
 	
 	return 0;
-	
 }
 
 //Check if the tree is perfect and return that value to the helper function
@@ -433,7 +430,7 @@ int search_tree (treeNode *root, int data) {
 	
 	if (root == NULL) {
 		printf("The data was not found!\n");
-		return NULL;
+		return 0;
 	}
 	if (data == root->data) {
 		printf("The data was found! It is: %d", root->data);
@@ -457,7 +454,7 @@ int balance_factor (treeNode *root) {
 	if (root == NULL) {
 		return 0;
 	}
-	return ( height(root->left) - height(root->right) );
+	return ( tree_height(root->left) - tree_height(root->right) );
 }
 
 int max(int a, int b) {
