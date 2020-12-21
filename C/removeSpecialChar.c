@@ -30,7 +30,8 @@ void replaceSpecialChar(DIR *d, char *parent, char replacement) {
 
         //Fetch the position of dot of the file extension
         int lastDot = lastDotFileExtension(curr->d_name);
-        char *renamedFile = strdup(curr->d_name);
+        char *renamedFile = calloc(MAX_LEN, sizeof(char));
+        renamedFile = strcpy(renamedFile, curr->d_name);
         int i = 0;
         while (i < lastDot) {
             //Check for special characters
@@ -74,4 +75,5 @@ int main (int argc, char **argv) {
     //Change the replacement character here.
     char *parent = calloc(MAX_LEN, sizeof(char) );
     replaceSpecialChar(d, strcat(strcpy(parent, argv[1]), "/"), '_' );
+    closedir(d);
 }
