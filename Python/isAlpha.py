@@ -1,0 +1,2 @@
+
+def isAlpha (int(fileName))

@@ -57,8 +57,6 @@ void replaceSpecialChar(DIR *d, char *parent, char replacement) {
     free(parent);
 }
 
-
-
 //A function that reads a directory of files
 int main (int argc, char **argv) {
     if (argc != 2) {
