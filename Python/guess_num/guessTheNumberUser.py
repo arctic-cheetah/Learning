@@ -17,15 +17,17 @@ def getUserHint():
         print("Please enter Y or N")
         return getUserHint()
 
-
+def getNumUser():
+    print("Enter a random number:")
+    return input()
 
 def main():
 
     print("Welcome user!")
     isHint = getUserHint()
 
-    #Generate a random number
-    myRandomInt = random.randint(-0xffff, 0xffff)
+    #Fetch a random number from the user
+    myRandomInt = int(getNumUser())
 
     isCorrect = False
     while (not isCorrect):
