@@ -20,6 +20,7 @@ def main():
     scheme = mapclassify.Quantiles(gdp_per_person, k = 5)
     gp.choropleth(world, hue = gdp_per_person, scheme = scheme, 
     cmap = "Greens")
+    print(world.head())
 
     #Graphs population size by establishing area size 
     #to the African continent

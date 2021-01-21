@@ -100,7 +100,7 @@ ax = geoplot.voronoi(
     edgecolor='white'
 )
 geoplot.polyplot(boroughs, edgecolor='black', zorder=1, ax=ax)
-""""
+"""
 plt.show()
 
 ###############################################################################
