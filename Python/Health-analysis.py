@@ -34,7 +34,6 @@ def main():
     df_len = df_nation["Location"].count()
     df_nation_len = nations["name"].count()
     nation_coord = []
-    excluded_nations = []
     #Interestingly there are nations missing from Google's csv data
     #Because of different names for the same nation!
     #More reason to use ISO standards
