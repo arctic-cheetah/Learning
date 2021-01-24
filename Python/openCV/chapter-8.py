@@ -11,9 +11,9 @@ def getContours(img):
         area = cv.contourArea(cnt)
         print(area)
         if (area > 40):
-            cv.drawContours(imgContour, cnt, -1, (0xff, 0, 0), 2)
+            cv.drawContours(imgContour, cnt, -1, (0xff, 0, 0), 3)
             perimeter = cv.arcLength(cnt, closed = True)
-            print(perimeter)
+            #print(perimeter)
             approx = cv.approxPolyDP(cnt, 0.02 * perimeter, closed = True)
             print(len(approx))
             objCor = len(approx)
@@ -25,7 +25,7 @@ def getContours(img):
                 objectType = "Tri"
             elif (objCor == 4):
                 aRatio = w/float(h)
-                if (.95 < aRatio and aRatio < 1.05):
+                if (.98 < aRatio and aRatio < 1.02):
                     objectType = "Square"
                 else:
                     objectType = "Rectangle"
@@ -35,21 +35,19 @@ def getContours(img):
                 objectType = "None"
 
             cv.rectangle(imgContour, (x, y), (w+x, h+y), (0, 0xff, 0), 2)
-            cv.putText(imgContour, objectType, (x+(w//2)-10, y+(w//2)-10), 
-            cv.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 0), 2)
+            cv.putText(imgContour, objectType, (x+(w//2)-10, y+(h//2)-10), 
+                cv.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 0), 2)
             
             
 
 path = "/home/london/Pictures/OpenCV/shapes.png"
 img = cv.imread(path)
-
-imgGray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-imgBlur = cv.GaussianBlur(img, (7, 9), 1)
-imgCanny = cv.Canny(imgBlur, 50, 50)
-imgBlank = np.zeros_like(img)
 imgContour = img.copy()
-
+imgGray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+imgBlur = cv.GaussianBlur(imgGray, (7, 7), 1)
+imgCanny = cv.Canny(imgBlur, 50, 50)
 getContours(imgCanny)
+imgBlank = np.zeros_like(img)
 
 imgStack = stackImages(0.8, ([img, imgGray, imgBlur], 
                              [imgCanny, imgContour, imgBlank]))
