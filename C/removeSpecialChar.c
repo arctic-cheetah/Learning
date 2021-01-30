@@ -13,7 +13,7 @@
 //A function that gets the index of the last '.' for the file extension
 int lastDotFileExtension (char *s) {
     int i = strlen(s);
-    while (i > 0 && s[i] != '.') {
+    while (i > 0 && s[i] != ':') {
          i -=1;
     }
     return i;
