@@ -14,6 +14,7 @@
 int main () {
 
 	char *server_message = "Welcome to the server\n";
+	fopen("");
 	
 	//Create a server socket
 	int socket_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
