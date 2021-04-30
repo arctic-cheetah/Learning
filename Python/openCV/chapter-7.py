@@ -10,6 +10,7 @@ print(img.shape)
 #Create a window to read HSV 
 def empty(a):
     pass
+
 cv.namedWindow("TrackBars")
 cv.resizeWindow("TrackBars", 640, 480)
 cv.createTrackbar("Hue Min", "TrackBars", 23, 179, empty)
