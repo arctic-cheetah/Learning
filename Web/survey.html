@@ -13,29 +13,41 @@
         border-width: 5px;
         border-radius: 5px;
     }
+
     #title {
         text-align: center;
     }
     #description {
         text-align: center;
     }
+    /*Form*/
 
     label {
         text-align: left;
         font-size: 20px;
     }
-    input {
+    .query {
         display: grid;
         align-items: center;
         margin-bottom: .5rem;
+        width: 50%;
+        grid-template-columns: 1fr;
     }
     #survey-form {
         background:rgba(255, 190, 190, 0.76);
         padding: 2.5rem 0.625rem;
         border-radius: 0.5rem;
+        
+    }
+    .fruit-checkbox {
+        display: grid;
+        margin: 0 auto 1.25rem auto;
+        padding: 0.25rem;
     }
 
 </style>
+
+
 
 <html>
     <h1 id="title">
@@ -45,14 +57,34 @@
         To make the best smoothies at the office, we need to know the fruits that people prefer.
     </p>
     <form id="survey-form">
-        <div class="container">
-        <label for="name">First name: </label>
-        <input type="text" id="name" placeholder="Enter your name" value=""></input>
+        <div class="query">
+            <label id="name-label" for="name">First name: </label>
+            <input type="text" id="name" placeholder="Enter your name" value="" required></input>
+            <label for="email" id="email-label">Email: </label>
+            <input type="email" id="email" placeholder="Enter your email" value="" required></input>
+            <label for="number" id="number-label">Enter a volume (mL) for the smoothie: </label>
+            <input type="number" id="number" min=0 max=1000 placeholder="Enter a desired volume in mL" value="" required></input>
+            
         </div>
-        <label for="email">Email: </label>
-        <input type="email" id="email" value=""></input>
-        
-        
+        <label for="dropdown" id = "dropdown-label"> Select the first fruit</label>
+        <select name="dropdown" id="dropdown" placeholder="Enter your email" value="" required></input>
+        </select>
+        <br></br>
+        <label for="fruit">Select the fruits you prefer to blend:</label>
+        <div class="fruit-checkbox">
+            <label><input type="checkbox" id="Açaí" value="Açaí">A&#x00E7;a&#x00ED;</input></label>
+            <label><input type="checkbox" id="Apple" value="Apple">Apple</input></label>
+            <label><input type="checkbox" id="Banana" value="Banana">Banana</input></label>
+            <label><input type="checkbox" id="Blueberry" value="Blueberry">Blueberry</input></label>
+            <label><input type="checkbox" id="Cherry" value="Cherry">Cherry</input></label>
+            <label><input type="checkbox" id="Coconut" value="Coconut">Coconut</input></label>
+            <label><input type="checkbox" id="Dragon Fruit" value="Dragon Fruit">Dragon Fruit</input></label>
+            <label><input type="checkbox" id="Fig" value="Fig">Fig</input></label>
+            <label><input type="checkbox" id="Grape" value="Grape">Grape</input></label>
+            <label><input type="checkbox" id="Kiwi Fruit"value="Kiwi Fruit">Kiwi Fruit</input></label>
+            <label><input type="checkbox" id="Mango" value="Mango">Mango</input></label>
+            <label><input type="checkbox" id="Raspberry" value="Raspberry">Raspberry</input></label>
+        </div>
     </form>
     
 </html>
