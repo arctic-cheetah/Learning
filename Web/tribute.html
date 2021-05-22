@@ -1,20 +1,27 @@
 <!DOCTYPE html>
     <style>
         html {
-            font-size: 10px;
+            font-size: 12px;
         }
+        #main {
+            margin: 10px 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background: rgb(226, 226, 226);
 
+        }
         body {
             font-family: system-ui;
-            background: #d6d3d0;
+            background: rgb(255, 255, 255);
             color: hsl(0, 4%, 10%);
             text-align: center;
+            font-size: 11px;
         }
         figcaption {
             font-size: 15px;
         }
         #img-div {
-            background: rgb(255, 255, 255);
+            background: #d6d3d0;
             padding: 10px;
             margin: 0;
         }
@@ -22,20 +29,20 @@
             display: center;
         }
         img {
-            width: 960px;
-            height: 576px;
+            height: auto;
+            max-width: 100%;
+            display: block;
         }
-        @media screen and (max-width: 1280px){
-            img {
-                width: 640px;
-                height: 382px;
-            }
+       
+        ul {
+            max-width: 550px;
+            margin: 0 auto 20px auto;
+            text-align: left;
+            line-height: 1.6;
         }
-        @media screen and (max-width: 640px) {
-            img {
-                width: 320px;
-                height: 191px;
-            }
+        li {
+            margin: 20px 0;
+            font-weight: normal;
         }
     </style> 
 
@@ -50,12 +57,54 @@
                 class=".my_image"
 
             >
-            <figcaption class=".img-div-next">
+            <figcaption id="img-caption" class=".img-div-next">
                 Richard Feynman, one of the greatest physicist!
             </figcaption>
 
         </div>
         <section id="tribute-info">
-            
+            <h3>
+                <ul>
+                    <li><strong>1918</strong>-Born in Queens, New York City</li>
+                </ul>
+
+                <ul>
+                    <li><strong>1923</strong>-Created a home burglar alarm system and demonstrated an apititude in engineering</li>
+                </ul>
+                <ul>
+                    <li><strong>1933</strong>-Taught himself trigonometry, advanced algebra, infinite series, analytical geometry and differential and integral calculus</li>
+                </ul>
+                <ul>
+                    <li><strong>1935</strong>-Accepted into Massachusetts Institute of Technology</li>
+                </ul>
+                <ul>
+                    <li><strong>1939</strong>-Obtained Bachelor of Science and majored in theoretical physics</li>
+                </ul>
+                <ul>
+                    <li><strong>1941</strong>-Began working on the nuclear bomb project, the Manhatton project</li>
+                </ul>
+                <ul>
+                    <li><strong>1948</strong>-Developed a diagram to depict Quantum Electrodynamics, and would be known as Feynman Diagrams</li>
+                </ul>
+                <ul>
+                    <li><strong>1951</strong>-Worked at California Institute of Technology</li>
+                </ul>
+                <ul>
+                    <li><strong>1960</strong>-Feynman begins teaching</li>
+                </ul>
+                <ul>
+                    <li><strong>1965</strong>-Feynman is a awarded the Nobel Prize in physics</li>
+                </ul>
+                <ul>
+                    <li><strong>1986</strong>-The Challenger spacecraft is a disaster and Feynman is called to assist in the investigation</li>
+                </ul>
+                <ul>
+                    <li><strong>1988</strong>-Feynman is diagnosed with liposarcoma and tradgically claims his life</li>
+                </ul>
+                <h2>
+                    More information about <a id="tribute-link" href="https://en.wikipedia.org/wiki/Richard_Feynman" target="_blank">Richard Feynman</a>
+                </h2>
+
+            </h3>
         </section>
     </main>

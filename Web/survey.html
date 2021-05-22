@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<style>
+
+    html {
+        
+        font-size: 16px;
+        @import url("https://fonts.googleapis.com/css?family=Ubuntu");
+        font-family: "Ubuntu";
+        margin: 5%;
+        padding: .25rem;
+        background: white;
+        border: solid;
+        border-width: 5px;
+        border-radius: 5px;
+    }
+    #title {
+        text-align: center;
+    }
+    #description {
+        text-align: center;
+    }
+
+    label {
+        text-align: left;
+        font-size: 20px;
+    }
+    input {
+        display: grid;
+        align-items: center;
+        margin-bottom: .5rem;
+    }
+    #survey-form {
+        background:rgba(255, 190, 190, 0.76);
+        padding: 2.5rem 0.625rem;
+        border-radius: 0.5rem;
+    }
+
+</style>
+
+<html>
+    <h1 id="title">
+        Tell us your favourite fruit!
+    </h1>
+    <p id="description">
+        To make the best smoothies at the office, we need to know the fruits that people prefer.
+    </p>
+    <form id="survey-form">
+        <div class="container">
+        <label for="name">First name: </label>
+        <input type="text" id="name" placeholder="Enter your name" value=""></input>
+        </div>
+        <label for="email">Email: </label>
+        <input type="email" id="email" value=""></input>
+        
+        
+    </form>
+    
+</html>
+        

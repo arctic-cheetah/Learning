@@ -116,7 +116,7 @@ int main(){
 	int array[MAX_LENGTH];
 	int length = 0;
 	while (scanf("%d", &myNum) != EOF) {
-		array[i] = myNum
+		array[i] = myNum;
 		length++;
 	}
 	

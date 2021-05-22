@@ -4,5 +4,6 @@
     "python.linting.enabled": true,
     "files.associations": {
         "Pi.C": "cpp"
-    }
+    },
+    "html.autoClosingTags": false
 }

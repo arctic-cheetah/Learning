@@ -29,7 +29,7 @@ char ** wordSubsets(char ** A, int ASize, char ** B, int BSize, int* returnSize)
                 int size_of_word_b = size_of_word(B[k]);
                 int matched_char = 0;
 
-                char *copy_word_a = malloc(sizeof(char) * 256);
+                char *copy_word_a = malloc(sizeof(char) * 10000);
                 copy_word_a = strcpy(copy_word_a, A[i]);
                 
                 for (int l = 0; B[k][l] != '\0'; l +=1) {
@@ -85,9 +85,6 @@ int size_of_word(char *word){
     }
     return i;
 }
-
-
-
 
 
 int main(){
