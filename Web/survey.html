@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <style>
-
+    @import url("https://fonts.googleapis.com/css?family=Ubuntu");
     html {
-        
         font-size: 16px;
-        @import url("https://fonts.googleapis.com/css?family=Ubuntu");
         font-family: "Ubuntu";
         margin: 5%;
         padding: .25rem;
@@ -12,6 +10,7 @@
         border: solid;
         border-width: 5px;
         border-radius: 5px;
+        border-color: rgba(216, 27, 27, 1);
     }
 
     #title {
@@ -20,29 +19,68 @@
     #description {
         text-align: center;
     }
+    .detail_input {
+        height: 2.375rem;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        margin-bottom: .5rem;
+        font-family: Ubuntu;
+    }
     /*Form*/
 
     label {
+        display: flex;
         text-align: left;
         font-size: 20px;
+        margin-bottom: 0.25rem;
+        
     }
+    
     .query {
         display: grid;
         align-items: center;
-        margin-bottom: .5rem;
-        width: 50%;
+        margin-bottom: 1rem;
+        width: 60%;
         grid-template-columns: 1fr;
     }
     #survey-form {
         background:rgba(255, 190, 190, 0.76);
         padding: 2.5rem 0.625rem;
         border-radius: 0.5rem;
-        
     }
     .fruit-checkbox {
         display: grid;
         margin: 0 auto 1.25rem auto;
         padding: 0.25rem;
+    }
+    .ask_extra_fruit {
+        resize: both;
+        width: 100%;
+        min-height: 100px;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        font-family: Ubuntu;
+    }
+    .input_checkbox {
+        min-height: 1.25rem;
+        min-width: 1.25rem;
+    }
+    .submit_button {
+        display: block;
+        width: 60%;
+        border-radius: 2px;
+        cursor: pointer;
+        padding: 0.75rem;
+        border: none;
+        transition-duration: .4s;
+        background-color: white;
+        border: 2px solid #e7e7e7;
+        font-family: Ubuntu;
+        font-size: 1rem;
+        font-weight: bold;
+    }
+    .submit_button:hover {
+        background: #e7e7e7;
     }
 
 </style>
@@ -59,32 +97,56 @@
     <form id="survey-form">
         <div class="query">
             <label id="name-label" for="name">First name: </label>
-            <input type="text" id="name" placeholder="Enter your name" value="" required></input>
+            <input class="detail_input" type="text" id="name" placeholder="Enter your name" value="" required></input>
             <label for="email" id="email-label">Email: </label>
-            <input type="email" id="email" placeholder="Enter your email" value="" required></input>
+            <input class="detail_input" type="email" id="email" placeholder="Enter your email" value="" required></input>
             <label for="number" id="number-label">Enter a volume (mL) for the smoothie: </label>
-            <input type="number" id="number" min=0 max=1000 placeholder="Enter a desired volume in mL" value="" required></input>
+            <input class="detail_input" type="number" id="number" min=0 max=1000 placeholder="Enter a desired volume in mL" value="" required></input>
+            <label for="dropdown" id = "dropdown-label"> Select the first fruit:</label>
             
+            <select class="detail_input" name="dropdown" id="dropdown" placeholder="Enter your email" value="" required></input>
+                <option disabled selected value>Select a fruit</option>
+                <option value="Açaí">A&#x00E7;a&#x00ED;</input> 
+                <option value="Apple">Apple</input> 
+                <option value="Banana">Banana</input> 
+                <option value="Blueberry">Blueberry</input> 
+                <option value="Cherry" value="Cherry">Cherry</input> 
+                <option value="Coconut" value="Coconut">Coconut</input> 
+                <option value="Dragon Fruit">Dragon Fruit</input> 
+                <option value="Fig">Fig</input> 
+                <option value="Grape">Grape</input> 
+                <option value="Kiwi Fruit">Kiwi Fruit</input> 
+                <option value="Mango">Mango</input> 
+                <option value="Raspberry">Raspberry</input> 
+            </select>
         </div>
-        <label for="dropdown" id = "dropdown-label"> Select the first fruit</label>
-        <select name="dropdown" id="dropdown" placeholder="Enter your email" value="" required></input>
-        </select>
-        <br></br>
-        <label for="fruit">Select the fruits you prefer to blend:</label>
+        
+        <label for="fruit">Select extra fruits you prefer to blend:</label>
         <div class="fruit-checkbox">
-            <label><input type="checkbox" id="Açaí" value="Açaí">A&#x00E7;a&#x00ED;</input></label>
-            <label><input type="checkbox" id="Apple" value="Apple">Apple</input></label>
-            <label><input type="checkbox" id="Banana" value="Banana">Banana</input></label>
-            <label><input type="checkbox" id="Blueberry" value="Blueberry">Blueberry</input></label>
-            <label><input type="checkbox" id="Cherry" value="Cherry">Cherry</input></label>
-            <label><input type="checkbox" id="Coconut" value="Coconut">Coconut</input></label>
-            <label><input type="checkbox" id="Dragon Fruit" value="Dragon Fruit">Dragon Fruit</input></label>
-            <label><input type="checkbox" id="Fig" value="Fig">Fig</input></label>
-            <label><input type="checkbox" id="Grape" value="Grape">Grape</input></label>
-            <label><input type="checkbox" id="Kiwi Fruit"value="Kiwi Fruit">Kiwi Fruit</input></label>
-            <label><input type="checkbox" id="Mango" value="Mango">Mango</input></label>
-            <label><input type="checkbox" id="Raspberry" value="Raspberry">Raspberry</input></label>
+            <label><input class="input_checkbox" type="checkbox" id="Açaí" value="Açaí"></input>A&#x00E7;a&#x00ED;</label>
+            <label><input class="input_checkbox" type="checkbox" id="Apple" value="Apple"></input>Apple</label>
+            <label><input class="input_checkbox" type="checkbox" id="Banana" value="Banana"></input>Banana</label>
+            <label><input class="input_checkbox" type="checkbox" id="Blueberry" value="Blueberry"></input>Blueberry</label>
+            <label><input class="input_checkbox" type="checkbox" id="Cherry" value="Cherry"></input>Cherry</label>
+            <label><input class="input_checkbox" type="checkbox" id="Coconut" value="Coconut"></input>Coconut</label>
+            <label><input class="input_checkbox" type="checkbox" id="Dragon Fruit" value="Dragon Fruit"></input>Dragon Fruit</label>
+            <label><input class="input_checkbox" type="checkbox" id="Fig" value="Fig"></input>Fig</label>
+            <label><input class="input_checkbox" type="checkbox" id="Grape" value="Grape"></input>Grape</label>
+            <label><input class="input_checkbox" type="checkbox" id="Kiwi Fruit"value="Kiwi Fruit"></input>Kiwi Fruit</label>
+            <label><input class="input_checkbox" type="checkbox" id="Mango" value="Mango"></input>Mango</label>
+            <label><input class="input_checkbox" type="checkbox" id="Raspberry" value="Raspberry"></input>Raspberry</label>
         </div>
+        <div class="query">
+            <label>Did we forget any fruits? Add them here!</label>
+            <textarea id="extra-fruit" placeholder="Add extra fruits here" class="ask_extra_fruit"></textarea>
+        </div>
+
+        <div>
+            <button type="submit" class="submit_button" id="submit">
+                Submit
+            </button>
+        </div>
+
     </form>
     
 </html>
