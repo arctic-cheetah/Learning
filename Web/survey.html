@@ -61,7 +61,7 @@
         border-radius: 0.25rem;
         font-family: Ubuntu;
     }
-    .input_checkbox {
+    .input_radio, .input_checkbox {
         min-height: 1.25rem;
         min-width: 1.25rem;
     }
@@ -81,6 +81,10 @@
     }
     .submit_button:hover {
         background: #e7e7e7;
+    }
+    p {
+        font-size: 20px;
+        margin-bottom: 0.25rem;
     }
 
 </style>
@@ -119,6 +123,13 @@
                 <option value="Mango">Mango</input> 
                 <option value="Raspberry">Raspberry</input> 
             </select>
+
+            <div id="radio-button">
+                <p class="">Would you like to add Milk?</p>
+                <label for="Yes"><input type="radio" class="input_radio" id="Yes" name="choice" value="Yes" ></input>Yes </label>
+                <label for="No"><input type="radio" class="input_radio" id="No" name="choice" value="No" ></input>No </label>
+            </div>
+
         </div>
         
         <label for="fruit">Select extra fruits you prefer to blend:</label>
