@@ -1,0 +1,100 @@
+//Check if a number is prime. Recursive
+//Start is always 2
+function is_prime (num, start) {
+  //Base case
+  if (num === start) {
+    return true;
+  }
+  return (num % (start) !== 0 ? true:false) && is_prime(num, start+1);
+}
+
+//Use prime factorisation to find the LCM
+//Can assume positive integer
+function smallestCommons(arr) {
+  //Make a hash table of numbers to quantity of numbers 
+  let num_ran = {
+
+  }
+  //Get the range of numbers
+  //Check for smallest number
+  let min, max = 0;
+  if (arr[0] < arr[1]) {
+    min = arr[0];
+    max = arr[1];
+  }
+  else {
+    min = arr[1];
+    max = arr[0];
+  }
+  num_ran[1] = 1;
+
+  //Initialise the table
+  for (let i = 2; i <= max; i+=1) 
+  {
+    //Set the quantity of nums needed for LCM to 0
+    if (i === 1) 
+    {
+      continue;
+    }
+    num_ran[i] = 0;
+  }
+
+  //For the prime factorisation of numbers in a range
+  for (let i = min; i <= max; i +=1) {
+    //Check if number is prime
+    //Then it needs only once of itself to be in the LCM
+    if (i === 1) 
+    {
+      continue;
+    }
+    if (is_prime(i, 2)) 
+    {
+      num_ran[i] = 1;
+    }
+    //Otherwise, prime factorise the number
+    else {
+      let dividend = i;
+      //Could potentially be in recursive function
+      for (let j = 1; j < dividend; j +=1) 
+      {
+        if (j === 1) 
+        {
+          continue;
+        }
+        //Find the LCF of i.
+        if (dividend % j === 0) {
+          //Need to check for powers 
+          let pow = Math.log2(dividend) / Math.log2(j);
+          console.log(pow);
+          //only add integer powers that are greater than the curr one
+          if (pow % 1 === 0 && pow > num_ran[i]) {
+            num_ran[j] = pow;
+            dividend /= Math.pow(j, pow);
+          }
+          else if (pow > num_ran[i]) {
+            num_ran[j] +=1;
+            dividend /= j;
+          } 
+          //Now add to the table
+          
+        }
+      }
+    }
+  }
+
+  console.log(num_ran);
+  //Since all the prime factors have been accounted for, multiply all the numbers
+  let lcm = 1;
+  for (let i = 1; i <= max; i +=1) {
+    if (num_ran[i] !== 0) {
+      lcm *= Math.pow(i, num_ran[i]);
+    }
+  }
+  console.log(lcm);
+  return arr;
+}
+
+
+
+
+smallestCommons([23,18]);
