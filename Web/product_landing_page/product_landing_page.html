@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+
+<style>
+    
+    @import url("https://fonts.googleapis.com/css?family=Open+Sans");
+    body {
+        font-family: 'Open Sans', sans-serif;
+        display: block;
+    }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    #product-page {
+        position: relative;
+    }
+    
+    li {
+        list-style: none;
+    }
+    @media (max-width: 650px) {
+        header {
+            flex-wrap: wrap;
+        }
+    }
+    header {
+        top: 0;
+        position: fixed;
+        padding: 0px 20px;
+        min-height: 60px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: #eee;
+        font-size: 20px;
+        font-weight: 700;
+    }
+    a {
+        color: rgba(0, 0, 0, 1);
+        text-decoration: none;
+    }
+
+    nav {
+        font-weight: 400;
+    }
+    .logo {
+        width: auto;
+    }
+
+    @media (max-width: 600px) {
+        .logo {
+            margin-top: 15px;
+            width: 100%;
+            position: relative;
+        }
+    }
+    .logo > img {
+        width: 20%;
+        height: 20%;
+        max-width: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-left: 20px;
+    }
+    
+
+    @media (max-width: 650px) {
+        nav {
+            margin-top: 10px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 50px;
+        }
+        nav li {
+            padding-bottom: 5px;
+        }
+    }
+
+    nav > ul {
+        width: 35vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    @media (max-width: 600px) {
+        nav > ul {
+            flex-direction: column;
+        }
+    }
+
+    
+</style>
+
+<div id="product-page">
+    <header id="header">
+        <!--Arduino's for sale!-->
+        <div class="logo">
+            <img id="header-img"
+                src="https://upload.wikimedia.org/wikipedia/commons/8/87/Arduino_Logo.svg"
+                alt="Arduino Logo"
+            >
+        </div>
+        <nav id="nav-bar">
+            <ul>
+                <li><a class="nav-link" href="#specs">Specifications</a></li>
+                <li><a class="nav-link" href="#function">Functions</a></li>
+                <li><a class="nav-link" href="#pricing">Pricing</a></li>
+            </ul>
+        </nav>
+
+    </header>
+</div>
