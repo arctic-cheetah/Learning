@@ -20,15 +20,10 @@
     li {
         list-style: none;
     }
-    @media (max-width: 650px) {
-        header {
-            flex-wrap: wrap;
-        }
-    }
     header {
         top: 0;
         position: fixed;
-        padding: 0px 20px;
+        padding: 0px 10px;
         min-height: 60px;
         display: flex;
         justify-content: space-around;
@@ -36,6 +31,7 @@
         background-color: #eee;
         font-size: 20px;
         font-weight: 700;
+        width: 100%;
     }
     a {
         color: rgba(0, 0, 0, 1);
@@ -46,52 +42,48 @@
         font-weight: 400;
     }
     .logo {
-        width: auto;
-    }
-
-    @media (max-width: 600px) {
-        .logo {
-            margin-top: 15px;
-            width: 100%;
-            position: relative;
-        }
+        width: 400px;
     }
     .logo > img {
-        width: 20%;
-        height: 20%;
-        max-width: auto;
+        width: 80px;
+        height: 54px;
+        min-width: 20%;
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
-        text-align: center;
         margin-left: 20px;
     }
     
-
-    @media (max-width: 650px) {
-        nav {
-            margin-top: 10px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 0 50px;
-        }
-        nav li {
-            padding-bottom: 5px;
-        }
-    }
-
     nav > ul {
-        width: 35vw;
+        width: 40vw;
         display: flex;
         flex-direction: row;
         justify-content: space-around;
     }
-    @media (max-width: 600px) {
+    @media screen and (max-width: 800px){
+        
         nav > ul {
             flex-direction: column;
+            display: block;
+        }
+        ul > li {
+            text-align: right;
+        }
+
+    }
+    /**Phone display here**/
+    @media screen and (max-width: 300px) {
+        .logo > img {
+            margin: 10px auto;
+        }
+        header {
+            flex-wrap: wrap;
+        }
+        nav > ul {
+            align-items: center;
+        }
+        ul > li {
+            text-align: center;
         }
     }
 
