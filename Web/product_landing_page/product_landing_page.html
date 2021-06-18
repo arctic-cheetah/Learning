@@ -21,6 +21,8 @@
     
     li {
         list-style: none;
+        padding-left: 10px;
+        
     }
     header {
         top: 0;
@@ -28,7 +30,7 @@
         padding: 0px 10px;
         min-height: 60px;
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
         background-color: #eee;
         font-size: 20px;
@@ -44,7 +46,7 @@
         font-weight: 400;
     }
     .logo {
-        width: 400px;
+        width: 100px;
     }
     .logo > img {
         width: 80px;
@@ -57,10 +59,11 @@
     }
     
     nav > ul {
-        width: 40vw;
+        width: 60vw;
         display: flex;
         flex-direction: row;
         justify-content: space-around;
+        padding: 0px 10px
     }
     
     #intro {
@@ -69,11 +72,11 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-        height: 150px;
+        height: 180px;
         margin: 10px 0px;
     }
     /*Smaller screen display*/
-    @media screen and (max-width: 800px){
+    @media screen and (max-width: 615px){
         nav > ul {
             flex-direction: column;
             display: block;
@@ -82,7 +85,7 @@
             text-align: right;
         }
         #intro {
-            margin: 50px 0px;
+            margin: 70px 0px;
         }
 
     }
@@ -94,6 +97,7 @@
         }
         header {
             flex-wrap: wrap;
+            flex-direction: column;
         }
         nav > ul {
             align-items: center;
@@ -121,6 +125,7 @@
         <nav id="nav-bar">
             <ul>
                 <li><a class="nav-link" href="#specs">Specifications</a></li>
+                <li><a class="nav-link" href="#About">About</a></li>
                 <li><a class="nav-link" href="#function">Functions</a></li>
                 <li><a class="nav-link" href="#pricing">Pricing</a></li>
             </ul>
