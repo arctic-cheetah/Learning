@@ -66,7 +66,8 @@
         padding: 0px 10px
     }
     
-    #intro {
+    /*Sections of the page*/
+    #about {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -75,6 +76,14 @@
         height: 180px;
         margin: 10px 0px;
     }
+    #specs {
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        margin: 0px 0px 10px 0px;
+    }
+
+
     /*Smaller screen display*/
     @media screen and (max-width: 615px){
         nav > ul {
@@ -84,7 +93,7 @@
         ul > li {
             text-align: right;
         }
-        #intro {
+        #about {
             margin: 70px 0px;
         }
 
@@ -105,10 +114,24 @@
         ul > li {
             text-align: center;
         }
-        #intro {
+        #about {
             margin: 140px 0px;
         }
     }
+    table {
+        justify-content: center;
+        justify-items: center;
+        text-align: left;
+    }
+    tr:nth-child(even) {
+        background-color:#f1f1f1;
+    }
+    tbody th, tbody td {
+        padding: .5rem 10vw .625rem;
+    }
+
+
+
 
     
 </style>
@@ -124,14 +147,90 @@
         </div>
         <nav id="nav-bar">
             <ul>
+                <li><a class="nav-link" href="#about">About</a></li>
                 <li><a class="nav-link" href="#specs">Specifications</a></li>
-                <li><a class="nav-link" href="#About">About</a></li>
                 <li><a class="nav-link" href="#function">Functions</a></li>
                 <li><a class="nav-link" href="#pricing">Pricing</a></li>
             </ul>
         </nav>
     </header>
-    <section id="intro">
-        <h2>Welcome to the world's most renouned open source project for electronics!</h2>
+    <section id="about">
+        <h1>Welcome to the world's most renowned open source project for electronics!</h1>
+        <p></p>
+    </section>
+    <section id="specs">
+        <h1>From popular demand, below is a table of the specifications for the entry level Arduino Uno:</h1>
+        <table>
+            <tbody>
+            <tr>
+            <td>Microcontroller</td>
+            <td><a href="http://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf">ATmega328P</a></td>
+            </tr>
+            <tr>
+            <td>Operating Voltage</td>
+            <td>5V</td>
+            </tr>
+            <tr>
+            <td>Input Voltage (recommended)</td>
+            <td>7-12V</td>
+            </tr>
+            <tr>
+            <td>Input Voltage (limit)</td>
+            <td>6-20V</td>
+            </tr>
+            <tr>
+            <td>Digital I/O Pins</td>
+            <td>14 (of which 6 provide PWM output)</td>
+            </tr>
+            <tr>
+            <td>PWM Digital I/O Pins</td>
+            <td>6</td>
+            </tr>
+            <tr>
+            <td>Analog Input Pins</td>
+            <td>6</td>
+            </tr>
+            <tr>
+            <td>DC Current per I/O Pin</td>
+            <td>20 mA</td>
+            </tr>
+            <tr>
+            <td>DC Current for 3.3V Pin</td>
+            <td>50 mA</td>
+            </tr>
+            <tr>
+            <td>Flash Memory</td>
+            <td>32 KB (ATmega328P) of which 0.5 KB used by bootloader</td>
+            </tr>
+            <tr>
+            <td>SRAM</td>
+            <td>2 KB (ATmega328P)</td>
+            </tr>
+            <tr>
+            <td>EEPROM</td>
+            <td>1 KB (ATmega328P)</td>
+            </tr>
+            <tr>
+            <td>Clock Speed</td>
+            <td>16 MHz</td>
+            </tr>
+            <tr>
+            <td>LED_BUILTIN</td>
+            <td>13</td>
+            </tr>
+            <tr>
+            <td>Length</td>
+            <td>68.6 mm</td>
+            </tr>
+            <tr>
+            <td>Width</td>
+            <td>53.4 mm</td>
+            </tr>
+            <tr>
+            <td>Weight</td>
+            <td>25 g</td>
+            </tr>
+            </tbody>
+        </table>
     </section>
 </div>
