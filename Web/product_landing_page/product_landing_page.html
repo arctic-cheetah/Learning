@@ -17,6 +17,12 @@
     #product-page {
         position: relative;
         padding: 20px 0px;
+        align-items: center;
+        justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
     
     li {
@@ -35,6 +41,7 @@
         background-color: #eee;
         font-size: 20px;
         font-weight: 700;
+        margin-bottom: 100px;
         width: 100%;
     }
     a {
@@ -68,13 +75,10 @@
     
     /*Sections of the page*/
     #about {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
         text-align: center;
-        height: 180px;
-        margin: 10px 0px;
+        height: auto;
+        margin-top: 70px;
+        position: relative;
     }
     #specs {
         text-align: center;
@@ -82,10 +86,13 @@
         align-items: center;
         margin: 0px 0px 10px 0px;
     }
-
+    #about > p {
+        margin-top: 10px;
+    }
 
     /*Smaller screen display*/
-    @media screen and (max-width: 615px){
+    @media screen and (max-width: 850px){
+        
         nav > ul {
             flex-direction: column;
             display: block;
@@ -94,13 +101,13 @@
             text-align: right;
         }
         #about {
-            margin: 70px 0px;
+            margin-top: 80px;
         }
 
     }
 
     /*Phone display here*/
-    @media screen and (max-width: 300px) {
+    @media screen and (max-width: 500px) {
         .logo > img {
             margin: 10px auto;
         }
@@ -115,7 +122,7 @@
             text-align: center;
         }
         #about {
-            margin: 140px 0px;
+            margin-top: 200px;
         }
     }
     table {
@@ -131,7 +138,14 @@
     }
 
 
-
+    iframe {
+        display: flex; 
+        justify-content: center;
+        justify-items: center;
+        margin-bottom: 10px;
+        max-width: 560px;
+        width: 100%;
+    }
 
     
 </style>
@@ -151,13 +165,16 @@
                 <li><a class="nav-link" href="#specs">Specifications</a></li>
                 <li><a class="nav-link" href="#function">Functions</a></li>
                 <li><a class="nav-link" href="#pricing">Pricing</a></li>
+                <li><a class="nav-link" href="#Contact">Contact Us</a></li>
             </ul>
         </nav>
     </header>
     <section id="about">
         <h1>Welcome to the world's most renowned open source project for electronics!</h1>
-        <p></p>
+        <p>The Arduino is a flexible platform to allow students, hobbyists, artists and even professionals to easily bring their electronic ideas to life!</p>
+        <p>Learn more below:</p>
     </section>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/waOk9VtkCqw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <section id="specs">
         <h1>From popular demand, below is a table of the specifications for the entry level Arduino Uno:</h1>
         <table>
