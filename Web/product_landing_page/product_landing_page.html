@@ -3,7 +3,6 @@
 
 
 <style>
-    
     @import url("https://fonts.googleapis.com/css?family=Open+Sans");
     body {
         font-family: 'Open Sans', sans-serif;
@@ -74,20 +73,28 @@
     }
     
     /*Sections of the page*/
+    section {
+        margin: 10px 0px;
+    }
     #about {
         text-align: center;
         height: auto;
         margin-top: 70px;
-        position: relative;
     }
     #specs {
         text-align: center;
         justify-content: center;
         align-items: center;
-        margin: 0px 0px 10px 0px;
+        margin: 10px 0px 10px 0px;
     }
     #about > p {
         margin-top: 10px;
+    }
+    #functions {
+        margin: 20px 0px;
+    }
+    #functions > h2 {
+        text-align: left;
     }
 
     /*Smaller screen display*/
@@ -101,7 +108,7 @@
             text-align: right;
         }
         #about {
-            margin-top: 80px;
+            margin-top: 150px;
         }
 
     }
@@ -136,18 +143,51 @@
     tbody th, tbody td {
         padding: .5rem 10vw .625rem;
     }
-
-
     iframe {
         display: flex; 
         justify-content: center;
         justify-items: center;
-        margin-bottom: 10px;
+        margin: 10px 0px;
         max-width: 560px;
         width: 100%;
     }
+    #pricing {
+        text-align: center;
+    }
+    #email {
+        height: 2rem;
+        width: 300px;
+        text-align: center;
+    }
+    #contact_us {
+        display: flex;
+        justify-content: center;
+        justify-items: center;
+        flex-direction: column;
+    }
+    .submit_btn {
+        margin: 10px 0px;
+        font-size: 1rem;
+        font-weight: bold;
+        padding: .75rem;
+        background-color: white;
+        text-align: center;
+        border: 2px solid #e7e7e7;
+        transition-duration: .4s;
+    }
+    .submit_btn:hover {
+        background: #e7e7e7;
+    }
+    .submit_btn:active {
+        background: #f1f1f1;;
+        opacity: 0;
+        transition: all 0.8s;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+    }
 
-    
 </style>
 
 <div id="product-page">
@@ -162,10 +202,10 @@
         <nav id="nav-bar">
             <ul>
                 <li><a class="nav-link" href="#about">About</a></li>
+                <li><a class="nav-link" href="#functions">Functions</a></li>
                 <li><a class="nav-link" href="#specs">Specifications</a></li>
-                <li><a class="nav-link" href="#function">Functions</a></li>
                 <li><a class="nav-link" href="#pricing">Pricing</a></li>
-                <li><a class="nav-link" href="#Contact">Contact Us</a></li>
+                <li><a class="nav-link" href="#contact_us">Contact Us</a></li>
             </ul>
         </nav>
     </header>
@@ -175,6 +215,13 @@
         <p>Learn more below:</p>
     </section>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/waOk9VtkCqw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <section id="functions">
+        <h2>What can it do?</h2>
+        <p>Used primarily as a board to interface sensors with the on board computer it can be used to perform a desired output. 
+            You can also extend it's capabilities by adding "shields" onto the existing pins of the Arduino
+            and allowing SD card reads, clocks, motor control and many more!
+        </p>
+    </section>
     <section id="specs">
         <h1>From popular demand, below is a table of the specifications for the entry level Arduino Uno:</h1>
         <table>
@@ -249,5 +296,15 @@
             </tr>
             </tbody>
         </table>
+    </section>
+    <section id="pricing">
+        <h2>Buying the Arduino</h2>
+        <p>Please enter your email below to be assisted by the sales team in your interest for the Arduino.</p>
+    </section>
+    <section id="contact_us">
+        <form id="form" action="https://www.freecodecamp.com/email-submit">
+            <input id="email" type="email" input="email" placeholder="Enter your email" value="" required></input>
+            <button type="submit" class="submit_btn" id="submit">Submit</button>
+        </form>
     </section>
 </div>
