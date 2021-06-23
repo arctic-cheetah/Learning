@@ -1,0 +1,49 @@
+html {
+    font-family:Arial, sans-serif;
+    font-size: 100%;
+    line-height: 1.4;
+}
+
+body {
+    display: block;
+    margin: 0;
+}
+
+#navbar {
+    position: fixed;
+    min-width: 250px;
+    height: 100%;
+    width: 280px;
+    border-right: solid;
+    border-color: hsl(0, 0%, 50%);
+}
+
+main {
+    display: block;
+}
+#main-info {
+    position: absolute;
+    margin-left: 300px;
+}
+header {
+    font-size: 2em;
+    margin: 10px;
+    font-weight: 900;
+}
+
+li {
+    list-style-type: none;
+    border-top: 1px solid rgb(0, 0, 0);
+    padding: 10px 0px 10px 20px;
+}
+ul {
+    padding-inline-start: 0px;
+}
+.nav-link {
+    text-decoration: none;
+    color: #000000;
+}
+
+#c_cpp {
+    padding-left: 15px;
+}
