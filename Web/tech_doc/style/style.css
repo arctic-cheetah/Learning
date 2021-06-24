@@ -9,6 +9,7 @@ body {
     margin: 0;
 }
 
+
 #navbar {
     position: fixed;
     min-width: 250px;
@@ -21,22 +22,22 @@ body {
 main {
     display: block;
 }
-#main-info {
+#main-doc {
     position: absolute;
     margin-left: 300px;
 }
-header {
+#navbar_header {
     font-size: 2em;
     margin: 10px;
     font-weight: 900;
 }
 
-li {
+.navbar_link > li {
     list-style-type: none;
     border-top: 1px solid rgb(0, 0, 0);
     padding: 10px 0px 10px 20px;
 }
-ul {
+.navbar_link {
     padding-inline-start: 0px;
 }
 .nav-link {
@@ -44,6 +45,63 @@ ul {
     color: #000000;
 }
 
+section > header {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
 #c_cpp {
     padding-left: 15px;
+    font-weight: 500;
+}
+
+.img_set_1 {
+    float: left;
+    width: 300px;
+    height: auto;
+    padding-right: 10px;
+}
+
+#arduino_uno {
+    width: 300px;
+    height: auto;
+}
+
+.caption {
+    text-align: center;
+    margin: 5px; 
+    font-size: .8em; 
+}
+ul {
+    padding-inline-start: 20px;
+}
+li {
+    list-style-type: square;
+    padding: 1px;
+}
+
+#data_type {
+    width: 400px;
+    height: auto;
+}
+
+.img_set_2 {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    width: auto;
+    height: auto;
+    padding-right: 10px;
+}
+li > pre {
+    margin: 0px 0px;
+}
+pre code {
+    padding: 1px;
+}
+
+#floating_point_num {
+    width: auto;
+    height: auto;
 }
