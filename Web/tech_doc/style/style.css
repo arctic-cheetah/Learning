@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+
 html {
     font-family:Arial, sans-serif;
     font-size: 100%;
     line-height: 1.4;
+    padding: 5px;
 }
 
 body {
@@ -81,8 +85,9 @@ li {
 }
 
 #data_type {
-    width: 400px;
+    width: 600px;
     height: auto;
+    padding-top: 10px;
 }
 
 .img_set_2 {
@@ -101,7 +106,16 @@ pre code {
     padding: 1px;
 }
 
-#floating_point_num {
+#floating_point_num_img {
     width: auto;
     height: auto;
+    padding-bottom: 10px;
+}
+
+#floating_data_type {
+    text-align: left;
+}
+
+.code_snippet {
+    border: 2px solid #414141;
 }

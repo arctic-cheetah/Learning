@@ -7,6 +7,8 @@
         <script src="./languages/arduino.min.js"></script>
         <script src="./languages/cpp.min.js"></script>
         <script src="./languages/c.min.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script>hljs.highlightAll();</script>
     </head>
 
@@ -21,7 +23,7 @@
             <li><a class="nav-link" href="#variable_scope">Variable scope</a></li>
             <li><a class="nav-link" href="#loops">Loops</a></li>
             <li><a class="nav-link" href="#conditional_statements">Conditional statements</a></li>
-            <li><a class="nav-link" href="#function_declarations">Function declarations</a></li>
+            <li><a class="nav-link" href="#function">Functions</a></li>
             <li><a class="nav-link" href="#including_libraries">Including libraries</a></li>
             <li><a class="nav-link" href="#reference">Reference</a></li>
         </ul>
@@ -62,9 +64,9 @@
         <section class="main-section">
             <header id="variables_and_data_types">Variables and data types</header>
             <div class="img_set_2">
-                <img id="data_type" src="https://www.journaldev.com/wp-content/uploads/2019/03/data-types-in-c.png">
-            <p class="caption">Here is a broad overview of some of the data types that exist in the C language (not a strict subset of C++) and
-                we will cover most of the relevant ones below.
+                <img id="data_type" src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20191113115600/DatatypesInC.png">
+            <p class="caption">Here is a broad overview of some of the data types that exist in the C/C++ language and
+                we will cover most of the relevant ones below. Courtesy by GeeksforGeeks
             </p>
             </div>
             <p>The C/C++ language has five primitive (meaning basic) data types used to store information, and they are:</p>
@@ -75,8 +77,8 @@
                 <li><pre><code>float //Used to store decimal numbers, this can also include integers</code></pre></li>
                 <li><pre><code>void //A data type that is empty, useful with derived data types</code></pre></li>
             </ul>
-            <p>The double back slashes "//" are known as comments. These are notes for others to read and are ignored by the program.</p>
-            <h3>Storing numbers:</h3>
+            <p>The double back slashes "//" are known as comments, while "/* */" are multi-line comments. These are notes for others to read and are ignored by the program.</p>
+            <h4>Storing numbers:</h4>
             <p>The<code> int, long and float</code> are used to store numbers. But the method by which they are stored in the computer are different. 
                 Specifically, <code>int and long</code> can only store integers by representing decimal numbers as a <a href="https://www.youtube.com/watch?v=a2FpnU9Mm3E">bit sequence</a>. See the diagram below and link to understand the calculations. Note that the range of integer <b>depends on the processor used</b>. 
                 The Arduino Uno with the ATMega328 chip stores an <code>int</code> as a length of 16 bits and a <code>long</code> as 32 bits.</p>
@@ -87,37 +89,39 @@
             <p>The <code> float</code> stores decimal numbers. While you can store an integer such as: 9, it is stored differently on the computer than an <code>int or long</code>.
                 See the diagram of a float data type below to understand it's inner workings.</p>
             <div class="img_set_2">
-                <img id="floating_point_num" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Float_example.svg/590px-Float_example.svg.png">
+                <img id="floating_point_num_img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Float_example.svg/590px-Float_example.svg.png">
                 <p class="caption">A floating point data type consists of: 
-                    <ul class="caption">
+                    <ul id="floating_data_type"  class="caption">
                     <li>A sign: that tells if the number is positive or negative</li>
                     <li>An exponent: the number that raises the power of 10</li>
-
-
-                    <li>A fraction: a 
-                        <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-                        <mi>x</mi>
-                        <mo>=</mo>
-                        <mrow data-mjx-texclass="ORD">
-                          <mfrac>
-                            <mn>1</mn>
-                            <msup>
-                              <mn>2</mn>
-                              <mi>n</mi>
-                            </msup>
-                          </mfrac>
-                        </mrow>
-                        <mo>.</mo>
-                      </math>
-                    </li>    
-
-
+                    <li>A fraction: where n is the position of the bit in the fractional component
+                        <mjx-container class="MathJax CtxtMenu_Attached_0" jax="CHTML" tabindex="0" ctxtmenu_counter="0" style="font-size: 2em; position: relative;"><mjx-math class="MJX-TEX" aria-hidden="true"><mjx-mrow><mjx-mfrac><mjx-frac><mjx-num><mjx-nstrut></mjx-nstrut><mjx-mn class="mjx-n" size="s"><mjx-c class="mjx-c31"></mjx-c></mjx-mn></mjx-num><mjx-dbox><mjx-dtable><mjx-line></mjx-line><mjx-row><mjx-den><mjx-dstrut></mjx-dstrut><mjx-msup size="s"><mjx-mn class="mjx-n"><mjx-c class="mjx-c32"></mjx-c></mjx-mn><mjx-script style="vertical-align: 0.289em;"><mjx-mi class="mjx-i" style="font-size: 73.9%;"><mjx-c class="mjx-c1D45B TEX-I"></mjx-c></mjx-mi></mjx-script></mjx-msup></mjx-den></mjx-row></mjx-dtable></mjx-dbox></mjx-frac></mjx-mfrac></mjx-mrow><mjx-mo class="mjx-n"><mjx-c class="mjx-c2E"></mjx-c></mjx-mo></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math display="inline"><mrow><mfrac><mn>1</mn><msup><mn>2</mn><mi>n</mi></msup></mfrac></mrow><mo></mo></math></mjx-assistive-mml></mjx-container>.
+                    </li>   
                     <ul>
                     
                     </p>
             </div>
             <p>The <code>int</code> or <code>long</code> does not have three parts to store numbers like the <code>float</code> and explaining calculations for the float 
                 is not needed to understand the Arduino completely. But more information can be found <a href="https://www.youtube.com/watch?v=PZRI1IfStY0&t=440s">here</a>.</p>
+            <p>Complete derived and user defined data types here</p>
+            <h4>Derived data types</h4>
+            <p>Require a primitive data type to be used in your Arduino program and have specific syntaxes for their declaration. Let's start with the function and to declare one:</p>
+            <pre class="code_snippet"><code>int my_function() {};</code></pre>
+            <p>Where the first part of the code " <code>int</code> " is the primitive data type, and the second part 
+                " <code>my_function</code> " is the chosen name of the function and the " <code>() {};</code> " refer to the contents of the function. 
+                We'll discuss their meaning more below.</p>
+            <section class="main-section"><header id="function">Functions</header>
+            <p>Functions are code that modularise sections of code from another in C/C++ they must return a value at the end of their execution. Opening the Arduino IDE greets you with:</p>
+            <pre class="code_snippet"><code>void setup() {
+
+}
+
+void loop() {
+    
+}</code></pre>
+        <p>Again, using the function syntax we mentioned prior, " <code>void</code> " is an empty data type that will cause the function will return nothing at the end of executing it's code. The use of " <code>setup</code> " is a name, and it's purpose is to run the code inside only once.
+        and can be seen in the Arduino <a href="https://www.arduino.cc/reference/en/language/structure/sketch/setup/">reference</a>. Note the " <code>()</code> " are placeholders to input data (known as parameters or arguments) to the function and in this case is empty. </p>
+        <p><code>void loop();</code></p>
         </section>
         <section class="main-section"><header id="declaring_variables">Declaring variables</header>
         </section>
@@ -127,7 +131,7 @@
         </section>
         <section class="main-section"><header id="conditional_statements">Conditional statements</header>
         </section>
-        <section class="main-section"><header id="function_declarations">Function declarations</header>
+        
         </section>
         <section class="main-section"><header id="including_libraries">Including libraries</header>
         </section>
