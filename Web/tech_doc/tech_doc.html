@@ -69,15 +69,16 @@
                 we will cover most of the relevant ones below. Courtesy by GeeksforGeeks
             </p>
             </div>
-            <p>The C/C++ language has five primitive (meaning basic) data types used to store information, and they are:</p>
+            <p>The C/C++ language has six primitive (meaning basic) data types used to store information, and they are:</p>
             <ul>
-                <li><pre><code>char //Used to store alphanumeric characters from ASCII encoding</code></pre></li>
+                <li><pre><code>char //Used to store only one alphanumeric character from ASCII encoding</code></pre></li>
+                <li><pre><code>String //Used to store multiple alphanumeric character from ASCII encoding, exists only in C++</code></pre></li>
                 <li><pre><code>int //Used to store only integers with a finite range </code></pre></li>
                 <li><pre><code>long //Used to store only integers with a greater finite range than ints</code></pre></li>
                 <li><pre><code>float //Used to store decimal numbers, this can also include integers</code></pre></li>
                 <li><pre><code>void //A data type that is empty, useful with derived data types</code></pre></li>
             </ul>
-            <p>The double back slashes "//" are known as comments, while "/* */" are multi-line comments. These are notes for others to read and are ignored by the program.</p>
+            <p>The double back slashes "//" are known as comments, while "/* */" are multi-line comments and are notes for others to read and are ignored by the program.</p>
             <h4>Storing numbers:</h4>
             <p>The<code> int, long and float</code> are used to store numbers. But the method by which they are stored in the computer are different. 
                 Specifically, <code>int and long</code> can only store integers by representing decimal numbers as a <a href="https://www.youtube.com/watch?v=a2FpnU9Mm3E">bit sequence</a>. See the diagram below and link to understand the calculations. Note that the range of integer <b>depends on the processor used</b>. 
@@ -87,7 +88,7 @@
                     <p class="caption">Note that you raise two to the power of the position from the right, starting from zero and multiply it by 1 or 0 depending on the bit. Image was courteously shared by JavatPoint</p>
                 </div>
             <p>The <code> float</code> stores decimal numbers. While you can store an integer such as: 9, it is stored differently on the computer than an <code>int or long</code>.
-                See the diagram of a float data type below to understand it's inner workings.</p>
+                See the diagram of a float data type below to understand its inner workings.</p>
             <div class="img_set_2">
                 <img id="floating_point_num_img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Float_example.svg/590px-Float_example.svg.png">
                 <p class="caption">A floating point data type consists of: 
@@ -103,7 +104,6 @@
             </div>
             <p>The <code>int</code> or <code>long</code> does not have three parts to store numbers like the <code>float</code> and explaining calculations for the float 
                 is not needed to understand the Arduino completely. But more information can be found <a href="https://www.youtube.com/watch?v=PZRI1IfStY0&t=440s">here</a>.</p>
-            <p>Complete derived and user defined data types here</p>
             <h4>Derived data types</h4>
             <p>Require a primitive data type to be used in your Arduino program and have specific syntaxes for their declaration. Let's start with the function and to declare one:</p>
             <pre class="code_snippet"><code>int my_function() {};</code></pre>
@@ -111,7 +111,7 @@
                 " <code>my_function</code> " is the chosen name of the function and the " <code>() {};</code> " refer to the contents of the function. 
                 We'll discuss their meaning more below.</p>
             <section class="main-section"><header id="function">Functions</header>
-            <p>Functions are code that modularise sections of code from another in C/C++ they must return a value at the end of their execution. Opening the Arduino IDE greets you with:</p>
+            <p>Functions are code that modularise sections of code from another in C/C++ they must return a value at the end of their execution. They can be thought of as verbs because they <b>do something</b>, or they make an action occur. Opening the Arduino IDE greets you with two functions:</p>
             <pre class="code_snippet"><code>void setup() {
 
 }
@@ -119,9 +119,37 @@
 void loop() {
     
 }</code></pre>
-        <p>Again, using the function syntax we mentioned prior, " <code>void</code> " is an empty data type that will cause the function will return nothing at the end of executing it's code. The use of " <code>setup</code> " is a name, and it's purpose is to run the code inside only once.
-        and can be seen in the Arduino <a href="https://www.arduino.cc/reference/en/language/structure/sketch/setup/">reference</a>. Note the " <code>()</code> " are placeholders to input data (known as parameters or arguments) to the function and in this case is empty. </p>
-        <p><code>void loop();</code></p>
+        <p>Again, using the function syntax we mentioned prior, " <code>void</code> " is an empty data type that will cause the function will return nothing at the end of executing its code. The use of " <code>setup</code> " is a name, and its purpose is to run the code inside the " <code>{}</code> " only once.
+        More details be seen in the Arduino <a href="https://www.arduino.cc/reference/en/language/structure/sketch/setup/">reference</a>. Note the " <code>()</code> " are placeholders to input data (known as parameters or arguments) to the function and in this case is empty. </p>
+        <p>On the other hand, <code>void loop()</code> will repeatedly run its code between the " <code>{}</code> " , it does not take any parameters and returns nothing </p>
+        <p>Another function that you will commonly use encounter is <a href="https://www.arduino.cc/reference/en/language/functions/communication/serial/print/">"<code>Serial.print("Hello World!")</code> "</a>, and serves to print the text " <code>Hello world!</code> " to the console of the Arduino IDE.</p>
+        <p>Note that the parameter is a text within a double quotations (" "), known as a string in programming (see the <a>array</a> section for the reason)</p>
+        <p>You'd be right to think that the function is odd because it has that <code>Serial.</code> at the beginning of the function because this function exists in a user defined data type known as a class. (Technically an object which we'll cover later)</p>
+        
+        <p>Let's see "<code>Serial.print("Hello World!")</code> " in action with some code. (I suggest opening the IDE and typing in the code shown)</p>
+
+        <p>We first need to tell the Arduino and computer the rate at which they will communicate, by using the function <a href="https://www.arduino.cc/reference/en/language/functions/communication/serial/begin/"><code>Serial.begin(9600)</code></a>. 9600 is a standard rate the Arduino's and computers use to speak to each other 
+        and the function serves to only tell both PC and Arduino the rate of transmission. It also returns nothing.</p>
+
+        <p>We now have:</p>
+        <pre class="code_snippet"><code>void setup() {
+    Serial.begin(9600);
+}
+
+void loop() {
+    
+}</code></pre>
+        <p>We can now add the <code>Serial.print</code> function as so:</p>
+        <pre class="code_snippet"><code>void setup() {
+    Serial.begin(9600);
+    Serial.print("Hello world!");
+}
+
+void loop() {
+    
+}</code></pre>
+        <p>Opening the serial monitor which appears as a magnifying glass, will reveal the text <code>"Hello World!"</code>.</p>
+        <p>Granted, that these are very rudimentary functions with a simple purpose. Functions can become very sophisticated when other functions are inside functions</p>
         </section>
         <section class="main-section"><header id="declaring_variables">Declaring variables</header>
         </section>
