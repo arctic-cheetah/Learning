@@ -19,11 +19,13 @@
             <li><a class="nav-link" href="#assumed_knowledge">Assumed knowledge</a></li>
             <li><p id="c_cpp">C/C++ Syntax</p></li>
             <li><a class="nav-link" href="#variables_and_data_types">Variables and data types</a></li>
+            <li><a class="nav-link" href="#function">Functions</a></li>
+            <li><a class="nav-link" href="#arrays">Arrays</a></li>
             <li><a class="nav-link" href="#declaring_variables">Declaring variables</a></li>
             <li><a class="nav-link" href="#variable_scope">Variable scope</a></li>
             <li><a class="nav-link" href="#loops">Loops</a></li>
             <li><a class="nav-link" href="#conditional_statements">Conditional statements</a></li>
-            <li><a class="nav-link" href="#function">Functions</a></li>
+            
             <li><a class="nav-link" href="#including_libraries">Including libraries</a></li>
             <li><a class="nav-link" href="#reference">Reference</a></li>
         </ul>
@@ -59,6 +61,7 @@
                 <li>Downloading and installing software</li>
                 <li>Navigating the web using an internet browser</li>
             </ul>
+            <p>By the end of this guide, you will be at a level of understanding where you can read other people's code and use them in your own projects.</p>
             
         </section>
         <section class="main-section">
@@ -110,7 +113,8 @@
             <p>Where the first part of the code " <code>int</code> " is the primitive data type, and the second part 
                 " <code>my_function</code> " is the chosen name of the function and the " <code>() {};</code> " refer to the contents of the function. 
                 We'll discuss their meaning more below.</p>
-            <section class="main-section"><header id="function">Functions</header>
+        </section>
+    <section class="main-section"><header id="function">Functions</header>
             <p>Functions are code that modularise sections of code from another in C/C++ they must return a value at the end of their execution. They can be thought of as verbs because they <b>do something</b>, or they make an action occur. Opening the Arduino IDE greets you with two functions:</p>
             <pre class="code_snippet"><code>void setup() {
 
@@ -149,8 +153,119 @@ void loop() {
     
 }</code></pre>
         <p>Opening the serial monitor which appears as a magnifying glass, will reveal the text <code>"Hello World!"</code>.</p>
-        <p>Granted, that these are very rudimentary functions with a simple purpose. Functions can become very sophisticated when other functions are inside functions</p>
-        </section>
+        <h5>Question:</h5>
+        <h5>How did I know to use these functions?</h5>
+        <p>I began inexperienced such as with everyone that does something new, and I looked up <i>"How to output text Arduino"</i> on google. After a fair amount of research I eventually learnt the Serial class, print functions and other things too.
+        A better way would have been to follow a Youtube tutorial. However, sometimes there are queries that cannot be picked up by the 
+        search engine and the next resort should be to use the Arduino's <a href="https://www.arduino.cc/reference/en/">documentation</a> to see the available capabilities you can implement.
+        </p>
+        <p>I highly recommend the reader attempt to solve a problem of their own via investigating the available functions in the Arduino documentation. If you become stuck or need a bit of aid, then you should consult Google or Youtube to give some direction to solving the problem.
+        This is the mindset of an engineer, and by mapping out the the problem space you will harness the most enjoyable and highest quality of learning.</p>
+
+        <p>Notice that in the code above, we have functions inside a function? Granted, that they serve a simple purpose, code can become sophisticated when more structures are added.</p>
+        <h5>Using your own functions:</h5>
+</code></pre>
+        <p>Notice that I've declared my own function <code>myFunction</code> below <code>setup</code> and <code>loop</code>. 
+        It's a good habit to declare any user made functions below these two because they are the most important functions in the Arduino.
+        </p>
+        <p>Also keep in mind that <code>myFunction</code> will not be executed because I haven't specified it anywhere within <code>void setup()</code> or <code>void loop()</code>. Let's change that now:</p>
+        <pre class="code_snippet"><code>void setup() {
+    Serial.begin(9600);
+    Serial.print("Hello world!");
+    myFunction();
+}
+
+void loop() {
+
+}
+
+void myFunction() {
+    
+}
+</code></pre>
+        <p>Now <code>myFunction</code> will be executed while doing nothing. If I add:</p>
+<pre class="code_snippet"><code>void setup() {
+    Serial.begin(9600);
+    Serial.print("Hello world!");
+    myFunction();
+}
+
+void loop() {
+
+}
+
+void myFunction() {
+    Serial.print("How are you!\n");
+}
+        </code></pre>
+        <p>Which will print " <code>How are you!</code> " on a new line. Note that the <code>\n</code> is an ASCII character to put text on a new line.</p>
+<pre class="code_snippet"><code>void setup() {
+    Serial.begin(9600);
+    Serial.print("Hello world!");
+    myFunction("Jay", 5);
+}
+
+void loop() {
+
+}
+
+void myFunction(String my_str, int my_num) {
+    Serial.print("How are you!\n");
+    Serial.print(my_str);
+    Serial.print(my_num);
+}
+</code></pre>
+        <p>I've also added the parameters to the function <code>String my_str</code> and <code>int my_num</code> to print the name Jay and the number 5. You can add as many parameters to a functions as you wish.</p>
+    </section>
+        <section class="main-section"><header id="arrays">Arrays</header>
+        <p>Arrays are a data structure that refers to a block of data with identitcal data types. They manifest themselves in RAM (Random Access Memory) where the data types are stored in sequential blocks.</p>
+        <div class="img_set_2">
+            <img id="array_terminology" src="https://miro.medium.com/max/768/0*TDrt1RUnaAF2JRD8.jpg">
+            <p class="caption">The array refers to the entire block of data. The array elements are the individual blocks, and the array index <b>always begins from 0</b> to allow programmers to access an array element.</p>
+        </div>
+        <p>You might wonder why we need arrays, and they're useful because they allow programmers to group related data instead of repeatedly declaring a new variable. Declaring an array:</p>
+        <pre class="code_snippet"><code>void setup() {
+    int my_array[5];
+}
+
+void loop() {
+
+}
+        </code></pre>
+        <p>Declares the array <code>my_array</code> of five elements of the data type <code>int</code> and the contents of which are uninitialised (they have nothing inside them).</p>
+        <p>We can add contents to the array in two ways</p>
+        <h5>Method 1: Adding each element on a new line separately:</h5>
+        <pre class="code_snippet"><code>void setup() {
+    int my_array[5];
+    my_array[0] = 1;
+    my_array[1] = 2;
+    my_array[2] = 4;
+    my_array[3] = 8;
+    my_array[4] = 16;
+}
+
+void loop() {
+
+}
+        </code></pre>
+        <p>Which declares an array with five elements of the data type int.
+            Note that if we tried to declare <code>my_array[5] = 64;</code> we would have an array that is <code>"Out of bounds"</code> because there will be six elements in the array. Remember we begin counting from zero in an array, otherwise it will result in an error.</p>
+        <h5>Method 2: Declaring each element on the same line:</h5>
+        <pre class="code_snippet"><code>void setup() {
+    int my_array[5] = {1, 2, 4, 8, 16};
+}
+
+void loop() {
+
+}
+</code></pre>
+        <p>And is functionally the same as method 1. Except the array elements are declared all in one line.</p>
+        <div class="img_set_2">
+            <img id="array_syntax" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAX0AAAB6CAMAAABk1XNvAAAABlBMVEX///8AAABVwtN+AAAC6klEQVR4nO2c62KrIBAG5f1fuifpUYko7AWyRWd+tBr9WB2RqEm7LAAAAAAAAPBV0j+it+GxpO0HBJDo/HHQ9yN5iafvh/Ead9APAAAAAAAAADAfyUP0xk+PxyD2vWA/EuxHgv1IsB8J9iOpGWxdVWLfy7XB9kU99r207VfWGLFBj+LSoOCWFvtesB+JxP7VOtj3cmkW+1/g1ODvF9oYeYZzYvBXN/a/QGnw/yuCp/jY91IY3F7A/niOBvN5njSMJlVnVVlQkypzuizoSZczyiwYwH4k6WJamwULsi/uXBC98XcCmZFgPxDkR4L9SLAfCfYjwX4k2A8E+ZFgPxLsR4L9SLAfCfYjwX4kHeyvT/zXR/+qTwD2ldNhXlc5KJx9CU0ezpqxhE6byP6rpGY31t+Ho6CtnD5e+Vb4NaEPn7Vjpov97DhYwh6BU9rfPmO02D+GF4393mG5wCKcLIcub9CUymUb7BfhRSGwd1g+5pXhKPv7Fw6tfd8q8CRcTmgq6/r+xz6ns1NJwR36ftmIqrLYvitcadIWM/f9Irwo7ReVNQL7hQ/tGDB3/vVfN6f9Bc0pXIYVw9ZHOHkrr1P68B53jSEOyryixSeGu+S2/OE+z3jT+JzwoSlrEDqA/VDQHwn2Q0F/KOgPBf2hSPW7/urlaSj0y9b1nCSurCM8RV3RytgfVVeyNvaH1RWsjv1xddu1sD+ybuudGvuD61YPgOfY1JY2j3p1cWPpkLrlxzOaupqa+7xrT+qL7H5TIzug7rav5p5ar5o+50Sf3blGransr7H6ZjnIbtiyqXpk3NK6wvvZ3+rnt843s+8e92sPFHo9PJM+u3AsbQ1L18ub2zW67/d+1y23Yd3DYdc8zS2wF76BfVGLQdc8N7cva9EzArQGtdZS63llHffzCxJLXRueFl1ZR3jGuv1bnNEC9t9Z7DtbnNEC9t9Z7DtbnNEC9t9Z7DtbnNHCH7MPcrrbBwAAAAAAAAAAeDQ/+OkGffyqkHAAAAAASUVORK5CYII=">
+            <p class="caption">Method 1 and 2 visualised by showing the array contents. Note that we named our array <code>my_array</code> and not <code>a</code>.</p>
+        </div>
+        
+    
         <section class="main-section"><header id="declaring_variables">Declaring variables</header>
         </section>
         <section class="main-section"><header id="variable_scope">Variable scope</header>
@@ -159,7 +274,11 @@ void loop() {
         </section>
         <section class="main-section"><header id="conditional_statements">Conditional statements</header>
         </section>
-        
+        </section>
+        <section class="main-section"><header id="declare+variables">Declaring variables</header>
+            <p>Variables are more simpler to declare and use than functions or arrays. In fact these are all valid variables:</p>
+        </section>
+        <section class="main-section"><header id="variable_scope">Variable scope</header>
         </section>
         <section class="main-section"><header id="including_libraries">Including libraries</header>
         </section>
