@@ -25,7 +25,6 @@
             <li><a class="nav-link" href="#variable_scope">Variable scope</a></li>
             <li><a class="nav-link" href="#loops">Loops</a></li>
             <li><a class="nav-link" href="#conditional_statements">Conditional statements</a></li>
-            
             <li><a class="nav-link" href="#including_libraries">Including libraries</a></li>
             <li><a class="nav-link" href="#reference">Reference</a></li>
         </ul>
@@ -371,8 +370,59 @@ void loop() {
 
 }</code></pre>
         <p>Which will print <code>"The number is greater than 5"</code> and <code>"Done checking"</code>.</p>
-        <p>Here is a table of the available operators that can be used to check variables NEED TO ADD TABLE</p>
+        <p>Here is a table of the available operators that can be used to check variables.</p>
         
+        <table class="table-bordered">
+        <tbody><tr>
+    <th style="width:10%;text-align:center;">Operator</th>
+    <th style="width:55%;text-align:center;">Description</th>
+    <th style="text-align:center;">Example</th>
+    </tr>
+    <tr>
+    <td class="ts">==</td>
+    <td>Checks if the values of two operands are equal or not. If yes, then the condition becomes true.</td>
+    <td class="ts">(A == B) is not true. </td>
+    </tr>
+    <tr>
+    <td class="ts">!=</td>
+    <td>Checks if the values of two operands are equal or not. If the values are not equal, then the condition becomes true.</td>
+    <td class="ts">(A != B) is true.</td>
+    </tr>
+    <tr>
+    <td class="ts">&gt;</td>
+    <td>Checks if the value of left  operand is greater than the value of right operand. If yes, then the condition becomes true.</td>
+    <td class="ts">(A &gt; B) is not true.</td>
+    </tr>
+    <tr>
+    <td class="ts">&lt;</td>
+    <td>Checks if the value of left operand is less than the value of right operand. If yes, then the condition becomes true.</td>
+    <td class="ts">(A &lt; B) is true.</td>
+    </tr>
+    <tr>
+    <td class="ts">&gt;=</td>
+    <td>Checks if the value of left operand is greater than or equal to the value of right operand. If yes, then the condition becomes true.</td>
+    <td class="ts">(A &gt;= B) is not true.</td>
+    </tr>
+    <tr>
+    <td class="ts">&lt;=</td>
+    <td>Checks if the value of left operand is less than or equal to the value of right operand. If yes, then the condition becomes true.</td>
+    <td class="ts">(A &lt;= B) is true.</td>
+    </tr>
+    <td class="ts">&amp;&amp;</td>
+    <td>Called Logical AND operator. If both the operands are non-zero, then the condition becomes true.</td>
+    <td class="ts">(A &amp;&amp; B) is false.</td>
+    </tr>
+    <tr>
+    <td class="ts">||</td>
+    <td>Called Logical OR Operator. If any of the two operands is non-zero, then the condition becomes true.</td>
+    <td class="ts">(A || B) is true.</td>
+    </tr>
+    <tr>
+    <td class="ts">!</td>
+    <td>Called Logical NOT Operator. It is used to reverse the logical state of its operand. If a condition is true, then Logical NOT operator will make it false.</td>
+    <td class="ts">!(A &amp;&amp; B) is true.</td>
+        </tbody></table>
+
         </section>
         <section class="main-section"><header id="loops">Loops</header>
             <p>Loops are a way to repeat sections of code. We've actually touched on a type of loop which is 

@@ -119,3 +119,18 @@ pre code {
 .code_snippet {
     border: 2px solid #414141;
 }
+
+tr:nth-child(even) {
+    background-color:#f1f1f1;
+}
+
+.table-bordered {
+    border: 2px solid #000000;
+    margin: 5px 0px;
+}
+th, tr, td {
+    border: 1px solid #000000;
+}
+td {
+    padding: 5px;
+}
