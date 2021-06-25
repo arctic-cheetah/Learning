@@ -72,10 +72,11 @@
                 we will cover most of the relevant ones below. Courtesy by GeeksforGeeks
             </p>
             </div>
-            <p>The C/C++ language has six primitive (meaning basic) data types used to store information, and they are:</p>
+            <p>For your ease of understanding, C/C++ language has six primitive (meaning basic) data types (I know there are more) used to store information and they are:</p>
             <ul>
                 <li><pre><code>char //Used to store only one alphanumeric character from ASCII encoding</code></pre></li>
                 <li><pre><code>String //Used to store multiple alphanumeric character from ASCII encoding, exists only in C++</code></pre></li>
+                <li><pre><code>bool //A True or false value</code></pre></li>
                 <li><pre><code>int //Used to store only integers with a finite range </code></pre></li>
                 <li><pre><code>long //Used to store only integers with a greater finite range than ints</code></pre></li>
                 <li><pre><code>float //Used to store decimal numbers, this can also include integers</code></pre></li>
@@ -217,8 +218,11 @@ void myFunction(String my_str, int my_num) {
 </code></pre>
         <p>I've also added the parameters to the function <code>String my_str</code> and <code>int my_num</code> to print the name Jay and the number 5. You can add as many parameters to a functions as you wish.</p>
     </section>
+
         <section class="main-section"><header id="arrays">Arrays</header>
-        <p>Arrays are a data structure that refers to a block of data with identitcal data types. They manifest themselves in RAM (Random Access Memory) where the data types are stored in sequential blocks.</p>
+        <p>Arrays are a data structure that refers to a block of data with identitcal data types. They manifest themselves in RAM (Random Access Memory) where the data types are stored in sequential blocks.
+            Interestingly, arrays will also have their own memory addresses in RAM.
+        </p>
         <div class="img_set_2">
             <img id="array_terminology" src="https://miro.medium.com/max/768/0*TDrt1RUnaAF2JRD8.jpg">
             <p class="caption">The array refers to the entire block of data. The array elements are the individual blocks, and the array index <b>always begins from 0</b> to allow programmers to access an array element.</p>
@@ -264,26 +268,244 @@ void loop() {
             <img id="array_syntax" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAX0AAAB6CAMAAABk1XNvAAAABlBMVEX///8AAABVwtN+AAAC6klEQVR4nO2c62KrIBAG5f1fuifpUYko7AWyRWd+tBr9WB2RqEm7LAAAAAAAAPBV0j+it+GxpO0HBJDo/HHQ9yN5iafvh/Ead9APAAAAAAAAADAfyUP0xk+PxyD2vWA/EuxHgv1IsB8J9iOpGWxdVWLfy7XB9kU99r207VfWGLFBj+LSoOCWFvtesB+JxP7VOtj3cmkW+1/g1ODvF9oYeYZzYvBXN/a/QGnw/yuCp/jY91IY3F7A/niOBvN5njSMJlVnVVlQkypzuizoSZczyiwYwH4k6WJamwULsi/uXBC98XcCmZFgPxDkR4L9SLAfCfYjwX4k2A8E+ZFgPxLsR4L9SLAfCfYjwX4kHeyvT/zXR/+qTwD2ldNhXlc5KJx9CU0ezpqxhE6byP6rpGY31t+Ho6CtnD5e+Vb4NaEPn7Vjpov97DhYwh6BU9rfPmO02D+GF4393mG5wCKcLIcub9CUymUb7BfhRSGwd1g+5pXhKPv7Fw6tfd8q8CRcTmgq6/r+xz6ns1NJwR36ftmIqrLYvitcadIWM/f9Irwo7ReVNQL7hQ/tGDB3/vVfN6f9Bc0pXIYVw9ZHOHkrr1P68B53jSEOyryixSeGu+S2/OE+z3jT+JzwoSlrEDqA/VDQHwn2Q0F/KOgPBf2hSPW7/urlaSj0y9b1nCSurCM8RV3RytgfVVeyNvaH1RWsjv1xddu1sD+ybuudGvuD61YPgOfY1JY2j3p1cWPpkLrlxzOaupqa+7xrT+qL7H5TIzug7rav5p5ar5o+50Sf3blGransr7H6ZjnIbtiyqXpk3NK6wvvZ3+rnt843s+8e92sPFHo9PJM+u3AsbQ1L18ub2zW67/d+1y23Yd3DYdc8zS2wF76BfVGLQdc8N7cva9EzArQGtdZS63llHffzCxJLXRueFl1ZR3jGuv1bnNEC9t9Z7DtbnNEC9t9Z7DtbnNEC9t9Z7DtbnNHCH7MPcrrbBwAAAAAAAAAAeDQ/+OkGffyqkHAAAAAASUVORK5CYII=">
             <p class="caption">Method 1 and 2 visualised by showing the array contents. Note that we named our array <code>my_array</code> and not <code>a</code>.</p>
         </div>
-        
-    
+        </section>
+
         <section class="main-section"><header id="declaring_variables">Declaring variables</header>
-        </section>
-        <section class="main-section"><header id="variable_scope">Variable scope</header>
-        </section>
-        <section class="main-section"><header id="loops">Loops</header>
+            <p>Variables are more simpler to declare and use than functions or arrays, because they only require you to initialise the data type, followed by the name of the variable. In fact these are all valid variables:</p>
+            <pre class="code_snippet"><code>void setup() {
+    int my_num = 0;
+    long my_long = 500;
+    char my_char = 'a';
+    float my_decimal = 0.145;
+    bool what_val = true;
+}
+
+void loop() {
+    
+}</code></pre>
+            <p>When declaring variables, you cannot have special characters such as "!?<>;'{}" etc, and you cannot have any numbers <b>at the beginning of the variable name</b>. Meaning:</p>
+<pre class="code_snippet"><code>void setup() {
+    char my_char1 = 'a';  //Okay 
+    char 2my_char = 'a';  //Will give an error
+    char ??my_char = 'a'; //Will give an error
+}
+
+
+void loop() {
+    
+}</code></pre>
+        <h5>Declaring strings</h5>
+        <p>Earlier, I mentioned about texts as strings, because texts are implemented as an array of charactes. Hence, words are really just characters connected to each other like a <code>String</code>. 
+            The <code>String</code> data type is implemented with an array of characters.
+        </p>
+        <div class="img_set_2">
+            <img id="array_char" src="http://www.mathcs.emory.edu/~cheung/Courses/255/Syl-ARM/2-C-adv-data/FIGS/string01.gif">
+            <p class="caption">Courtesy by Emory University. This is the way a string is implemented in C. Notice that the end of the string is terminated with a null character '\0'. All strings in Arduino will automatically be terminated with '\0'</p>
+        </div>
+        <p>Declaring a string in Arduino is straight forward because:</p>
+        <pre class="code_snippet"><code>void setup() {
+    String my_str = "Hello world!\n";
+    Serial.begin(9600);
+    Serial.print(my_str);
+}
+
+void loop() {
+    
+}</code></pre>
+        <p>Using a string only requires double quotations (" ") and the rules for declaring variables apply as mentioned above.</p>
         </section>
         <section class="main-section"><header id="conditional_statements">Conditional statements</header>
+            <p>Let's start with an example of a conditional statement is: </p>
+            <pre class="code_snippet"><code>void setup() {
+    Serial.begin(9600);
+    bool test = true;
+
+    if (test) {
+        Serial.print("The statement is true");
+    }
+}
+
+void loop() {
+    
+}</code></pre>
+        <p>The code in between the braces is only executed if the condition inside the if statement ie: <code>if (test)</code> is true. 
+            If the condition is false, nothing will be executed as seen in the code above.
+        </p>
+        <p>Using conditions provides a useful way to control the flow of a program, particularly if you intend to read something from a pin of the Arduino board.</p>
+        <p>If you wish to have two cases, it is recommended to write your program like so:</p>
+        <pre class="code_snippet"><code>void setup() {
+    Serial.begin(9600);
+    bool test = true;
+
+    if (test) {
+        Serial.print("The statement is true");
+    }
+    else {
+        Serial.print("This statement is false");
+    }
+
+}
+
+void loop() {
+
+}</code></pre>
+        <p>The code within the <code>else {}</code> block will only be executed if the <code>if ()</code> statement is false.</p>
+        <p>If you wish to use multiple cases, then you may use an <code>else if()</code>. An example is: </p>
+        <pre class="code_snippet"><code>void setup() {
+    int my_num = 7;
+    Serial.begin(9600);
+
+    if (my_num < 0) {
+        Serial.print("The number is negative\n");
+    }
+    else if (my_num < 5) {
+        Serial.print("The number is less than 5, but greater than 0\n");
+    }
+    else {
+        Serial.print("The number is greater than 5\n");
+    }
+    Serial.print("Done checking");
+}
+
+void loop() {
+
+}</code></pre>
+        <p>Which will print <code>"The number is greater than 5"</code> and <code>"Done checking"</code>.</p>
+        <p>Here is a table of the available operators that can be used to check variables NEED TO ADD TABLE</p>
+        
         </section>
-        </section>
-        <section class="main-section"><header id="declare+variables">Declaring variables</header>
-            <p>Variables are more simpler to declare and use than functions or arrays. In fact these are all valid variables:</p>
+        <section class="main-section"><header id="loops">Loops</header>
+            <p>Loops are a way to repeat sections of code. We've actually touched on a type of loop which is 
+            <code>void loop()</code>. But formally a loop consists of:
+            </p>
+            <pre class="code_snippet"><code>void setup() {
+    while () {
+
+    }
+}
+
+void loop() {
+
+}</code></pre>
+        <p>The <code>while</code> keyword to tell the computer to begin a loop, the condition within the () brackets, and 
+        the {  } brackets to tell the computer to execute the code within the { } repeatedly only if the condition within the while loop is true.</p>
+        
+        <p>Let's step through an example</p>
+        <pre class="code_snippet"><code>void setup() {
+    Serial.begin(9600);
+    
+    int i = 0;
+    while (i < 10) {
+        Serial.print(i);
+        Serial.print("\n");
+        i = i + 1;
+    }
+}
+
+void loop() {
+        
+}</code></pre>
+        <p>I suggest the reader copy the code and try it on the Arduino IDE. You should find that it prints the numbers:</p>
+        <pre class="code_snippet"><code>0
+1
+2
+3
+4
+5
+6
+7
+8
+9</code></pre>
+        <p>Notice that we start printing the number from zero, and that <code>i = i + 1</code> (known as the increment), adds one and then assigns it to the variable <code>i</code>.
+        It ceases printing once  <code>i < 10</code> is false. That is, when <code>i</code> is 10,  <code>i < 10</code> is false, because 10 is not less than 10.</p>
+        <h5>WARNING</h5>
+        <p>Suppose that I removed <code> i = i + 1 </code>. Predict what might happen to the section of code, then check your prediction by running it.</p>
+        <pre class="code_snippet"><code>void setup() {
+    Serial.begin(9600);
+    
+    int i = 0;
+    while (i < 10) {
+        Serial.print(i);
+        Serial.print("\n");
+    }
+}
+
+void loop() {
+        
+}</code></pre>
+    <p>Now the number zero will print forever because <code>i</code> will always be zero.
+        This non-terminating while loop is dangerous because it can cause a function to execute code
+    without stopping. Therefore, as programmers we need to ensure that an exit condition is present in a loop.
+    Usual elementary conditions involve having a counter (in this case <code>i</code>) and adding a number. 
+    But it is possible to loop through different data structures, and demonstrating it's versatility, sophistication and risks of looping in code.</p>
+    <p>You may also encounter what is known as a <code>for</code> loop, and is functionally the same to a 
+    <code>while</code> loop. The only major difference being the variable, condition and increment are on the same line, and written in that exact order.</p>
+    <pre class="code_snippet"><code>void setup() {
+    Serial.begin(9600);
+    
+    for(int i = 0; i < 10; i = i + 1) {
+        Serial.print(i);
+        Serial.print("\n");
+    }
+}
+
+void loop() {
+        
+}</code></pre>
+
         </section>
         <section class="main-section"><header id="variable_scope">Variable scope</header>
+            Variables scope refers to the accessibility of a variable within a section of code. There are two main scopes in C/C++ and Arduino which are:
+            <h5>Local scope:</h5>
+            <p>Refers to any variables that have been declared within a function, loop or conditional branch:</p>
+            <pre class="code_snippet"><code>void setup() {
+    Serial.begin(9600);
+    
+    int i = 0; //A local variable to only void setup()
+    while (i < 10) {
+        i = i + 1;
+    }
+
+    if (true) {
+        int k = 0; //Another local variable only accessible inside the if statement
+    }
+
+}
+            
+void loop() {
+    int i = 0; //A local variable, even though it was declared in void setup(), 
+               //it is considered different in void loop() 
+               //and only this i variable is only accessible within void loop()
+}</code></pre>
+            <h5>Global scope</h5>
+            <p>Refers to any variables declared outside a function</p>
+            <pre class="code_snippet"><code>String my_str = "Testing"; //A global variable
+
+void setup() {
+}
+
+void loop() {
+        
+}</code></pre>
+        <p>Global variables particularly <code>my_str</code> can be accessed anywhere in your code, including inside . But this also means a higher likelihood of name clashes and should be used sparingly. 
+           Not only so, global have a risk of clashing with libraries (external code) that you may wish to use. Thus, it is always preferable to local over global variables unless absolutely necessary.</p>
         </section>
+
         <section class="main-section"><header id="including_libraries">Including libraries</header>
+            <p>When using the Arduino, you are likely to use code from another person particularly if they developed
+            it for a module that you will use with the Arduino. You can add a library by first navigating to the location
+            of your Arduino IDE.  
+            </p>
+            <p>Then in the libraries directory, place your desired library there. Using a library is straight forward as you declare:</p>
+            <pre class="code_snippet"><code>#include &ltmy_library.h&gt
+void setup() {    
+}
+            
+void loop() {
+}</code></pre>
+        <p>And you're all set with using the library, along with its functions and data.</p>
         </section>
         <section class="main-section"><header id="reference">Reference</header>
         </section>
-        <pre><code>printf("Hello world");</code></pre>
     </main>
 </html>
