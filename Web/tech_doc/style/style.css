@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 
 html {
-    font-family:Arial, sans-serif;
+    font-family:"Open Sans", sans-serif;
     font-size: 100%;
     line-height: 1.4;
     padding: 5px;
@@ -11,6 +10,7 @@ html {
 body {
     display: block;
     margin: 0;
+    background-color: hsl(0,0, 25%);
 }
 
 
@@ -27,14 +27,16 @@ main {
     display: block;
 }
 #main-doc {
-    position: absolute;
+    position:absolute;
     margin-left: 300px;
+    padding-right: 10px;
 }
 #navbar_header {
     font-size: 2em;
     margin: 10px;
     font-weight: 900;
 }
+
 
 .navbar_link > li {
     list-style-type: none;
@@ -43,6 +45,7 @@ main {
 }
 .navbar_link {
     padding-inline-start: 0px;
+    overflow-y: auto;
 }
 .nav-link {
     text-decoration: none;
@@ -134,3 +137,42 @@ th, tr, td {
 td {
     padding: 5px;
 }
+@media only screen and (max-width: 800px) {
+    #navbar ul {
+        border: 1px solid;
+        height: 207px;
+    }
+
+    #navbar {
+        background-color: white;
+        position: absolute;
+        top: 0;
+        padding: 0 0 10px 0;
+        margin: 0;
+        width: 95%;
+        max-height: 275px;
+    }
+    #main-doc {
+        position: relative;
+        left: 0px;
+        top: 330px;
+        margin-left: 0px;
+    }
+    .img_set_1 {
+        width: auto;
+    }
+    #array_terminology {
+        width: calc(300px + 25%);
+        height: auto;
+    }
+    #data_type {
+        width: calc(300px + 25%);
+    }
+    #array_char {
+        width: calc(300px + 25%);
+    }
+    #floating_point_num_img {
+        width: calc(300px + 25%);
+    }
+}
+

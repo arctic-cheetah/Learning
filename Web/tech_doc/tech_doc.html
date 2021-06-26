@@ -1,6 +1,12 @@
 <!--Technical document webpage-->
 <html>
+    
     <head>
+        <meta name="author" content="Jeremy Mang">
+        <meta name="content" content="Arduino Basic Guide">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+        </style>
         <link rel="stylesheet" href="./style/arduino-light.min.css">
         <link rel="stylesheet" href="./style/style.css">
         <script src="./highlight.min.js"></script>
@@ -15,24 +21,22 @@
     <nav id="navbar">
         <header id="navbar_header">Basic Arduino Coding Guide</header>
         <ul class="navbar_link">
-            <li><a class="nav-link" href="#what_is_arduino">What is the Arduino?</a></li>
-            <li><a class="nav-link" href="#assumed_knowledge">Assumed knowledge</a></li>
+            <li><a class="nav-link" href="#What_is_the_Arduino?">What is the Arduino?</a></li>
+            <li><a class="nav-link" href="#Assumed_knowledge">Assumed knowledge</a></li>
             <li><p id="c_cpp">C/C++ Syntax</p></li>
-            <li><a class="nav-link" href="#variables_and_data_types">Variables and data types</a></li>
-            <li><a class="nav-link" href="#function">Functions</a></li>
-            <li><a class="nav-link" href="#arrays">Arrays</a></li>
-            <li><a class="nav-link" href="#declaring_variables">Declaring variables</a></li>
-            <li><a class="nav-link" href="#variable_scope">Variable scope</a></li>
-            <li><a class="nav-link" href="#loops">Loops</a></li>
-            <li><a class="nav-link" href="#conditional_statements">Conditional statements</a></li>
-            <li><a class="nav-link" href="#including_libraries">Including libraries</a></li>
-            <li><a class="nav-link" href="#reference">Reference</a></li>
+            <li><a class="nav-link" href="#Variables_and_data_types">Variables and data types</a></li>
+            <li><a class="nav-link" href="#Functions">Functions</a></li>
+            <li><a class="nav-link" href="#Arrays">Arrays</a></li>
+            <li><a class="nav-link" href="#Declaring_variables">Declaring variables</a></li>
+            <li><a class="nav-link" href="#Variable_scope">Variable scope</a></li>
+            <li><a class="nav-link" href="#Loops">Loops</a></li>
+            <li><a class="nav-link" href="#Conditional_statements">Conditional statements</a></li>
+            <li><a class="nav-link" href="#Including_libraries">Including libraries</a></li>
         </ul>
     </nav>
 
     <main id="main-doc">
-        <section class="main-section">
-        <header id="what_is_arduino">What is the Arduino?</header>
+        <section class="main-section" id="What_is_the_Arduino?"><header>What is the Arduino?</header>
             <p> The Arduino commonly refers to the product <i>"Arduino Uno"</i>. But is collectively a
                 platform for open source electronic modifications with a suite of microcontroller or microprocessor boards capable of 
                 completing many tasks required by the user. The Arduino is also a C/C++ library to interface with boards (library refers to external code that can be used) 
@@ -49,8 +53,7 @@
                     <li>Software IDE to develop code for the boards</li>
                 </ul>
         </section>
-        <section class="main-section">
-        <header id="assumed_knowledge">Assumed knowledge</header>
+        <section class="main-section" id="Assumed_knowledge"><header>Assumed knowledge</header>
             <p>The page will assume that you have never programmed and will explore the most important concepts needed to begin programming in your Arduino. 
             But experienced programmers are always welcomed to skip into relevant sections.
             </p>
@@ -63,8 +66,7 @@
             <p>By the end of this guide, you will be at a level of understanding where you can read other people's code and use them in your own projects.</p>
             
         </section>
-        <section class="main-section">
-            <header id="variables_and_data_types">Variables and data types</header>
+        <section class="main-section" id="Variables_and_data_types"><header>Variables and data types</header>
             <div class="img_set_2">
                 <img id="data_type" src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20191113115600/DatatypesInC.png">
             <p class="caption">Here is a broad overview of some of the data types that exist in the C/C++ language and
@@ -114,7 +116,7 @@
                 " <code>my_function</code> " is the chosen name of the function and the " <code>() {};</code> " refer to the contents of the function. 
                 We'll discuss their meaning more below.</p>
         </section>
-    <section class="main-section"><header id="function">Functions</header>
+    <section class="main-section" id="Functions"><header>Functions</header>
             <p>Functions are code that modularise sections of code from another in C/C++ they must return a value at the end of their execution. They can be thought of as verbs because they <b>do something</b>, or they make an action occur. Opening the Arduino IDE greets you with two functions:</p>
             <pre class="code_snippet"><code>void setup() {
 
@@ -218,7 +220,7 @@ void myFunction(String my_str, int my_num) {
         <p>I've also added the parameters to the function <code>String my_str</code> and <code>int my_num</code> to print the name Jay and the number 5. You can add as many parameters to a functions as you wish.</p>
     </section>
 
-        <section class="main-section"><header id="arrays">Arrays</header>
+        <section class="main-section" id="Arrays"><header>Arrays</header>
         <p>Arrays are a data structure that refers to a block of data with identitcal data types. They manifest themselves in RAM (Random Access Memory) where the data types are stored in sequential blocks.
             Interestingly, arrays will also have their own memory addresses in RAM.
         </p>
@@ -269,7 +271,7 @@ void loop() {
         </div>
         </section>
 
-        <section class="main-section"><header id="declaring_variables">Declaring variables</header>
+        <section class="main-section"  id="Declaring_variables"><header>Declaring variables</header>
             <p>Variables are more simpler to declare and use than functions or arrays, because they only require you to initialise the data type, followed by the name of the variable. In fact these are all valid variables:</p>
             <pre class="code_snippet"><code>void setup() {
     int my_num = 0;
@@ -313,7 +315,7 @@ void loop() {
 }</code></pre>
         <p>Using a string only requires double quotations (" ") and the rules for declaring variables apply as mentioned above.</p>
         </section>
-        <section class="main-section"><header id="conditional_statements">Conditional statements</header>
+        <section class="main-section"  id="Conditional_statements"><header>Conditional statements</header>
             <p>Let's start with an example of a conditional statement is: </p>
             <pre class="code_snippet"><code>void setup() {
     Serial.begin(9600);
@@ -424,7 +426,7 @@ void loop() {
         </tbody></table>
 
         </section>
-        <section class="main-section"><header id="loops">Loops</header>
+        <section class="main-section" id="Loops"><header>Loops</header>
             <p>Loops are a way to repeat sections of code. We've actually touched on a type of loop which is 
             <code>void loop()</code>. But formally a loop consists of:
             </p>
@@ -504,7 +506,7 @@ void loop() {
 }</code></pre>
 
         </section>
-        <section class="main-section"><header id="variable_scope">Variable scope</header>
+        <section class="main-section"  id="Variable_scope"><header>Variable scope</header>
             Variables scope refers to the accessibility of a variable within a section of code. There are two main scopes in C/C++ and Arduino which are:
             <h5>Local scope:</h5>
             <p>Refers to any variables that have been declared within a function, loop or conditional branch:</p>
@@ -541,7 +543,7 @@ void loop() {
            Not only so, global have a risk of clashing with libraries (external code) that you may wish to use. Thus, it is always preferable to local over global variables unless absolutely necessary.</p>
         </section>
 
-        <section class="main-section"><header id="including_libraries">Including libraries</header>
+        <section class="main-section"  id="Including_libraries"><header>Including libraries</header>
             <p>When using the Arduino, you are likely to use code from another person particularly if they developed
             it for a module that you will use with the Arduino. You can add a library by first navigating to the location
             of your Arduino IDE.  
@@ -554,8 +556,6 @@ void setup() {
 void loop() {
 }</code></pre>
         <p>And you're all set with using the library, along with its functions and data.</p>
-        </section>
-        <section class="main-section"><header id="reference">Reference</header>
         </section>
     </main>
 </html>
