@@ -10,10 +10,6 @@
                 --bg-secondary: #141418;
                 --transition-speed: 600ms;
             }
-            main {
-                margin-left: 5rem;
-                padding: 1rem;
-            }
             body::-webkit-scrollbar {
                 width: .25rem;
             }
@@ -27,6 +23,7 @@
                 position: fixed;
                 background-color: var(--bg-primary);
                 transition: width 600ms ease;
+                left: 0;
             } 
             .navbar-nav {
                 list-style: none;
@@ -43,6 +40,7 @@
                 min-width: 2rem;
                 margin: 0 1.25rem;
             }
+
             .nav-item {
                 width: 100%;
             }
@@ -59,8 +57,11 @@
                 transition: var(--transition-speed);
             }
 
-            
-
+			.nav-link:hover {
+                    filter: grayscale(0%) opacity(1);
+                    background-color: var(--bg-secondary);
+                    color: var(--text-secondary);
+			}
             .link-text {
                 display: none;
                 margin-left: 1rem;
@@ -80,14 +81,20 @@
             }
             .logo {
                 font-weight: bold;
-                text-transform: capitalize;
+                text-transform: uppercase;
                 margin-bottom: 1rem;
                 text-align: center;
                 color: var(--text-secondary);
                 font-size: 2rem;
                 letter-spacing: .3ch;
-                width: 70%;
+                width: 100%;
             }
+			.logo-text {
+				display: inline;
+				left: -999px;
+				position: absolute;
+				transition: var(--transition-speed);
+			}
             .logo svg{
                 transform: rotate(0deg);
                 transition: transform var(--transition-speed);
@@ -97,7 +104,10 @@
                 transform: rotate(-180deg);
             }
             /*Small screens*/
-            @media only screen and (max-width: 600px) {
+            @media screen and (max-width: 600px) {
+				main {
+					margin-bottom: 5.5rem;
+				}
                 .navbar {
                     bottom: 0;
                     width: 100vw;
@@ -105,7 +115,6 @@
                 }
                 .logo {
                     display: none;
-
                 }
                 .navbar-nav {
                     flex-direction: row;
@@ -113,12 +122,16 @@
                 .nav-link {
                     justify-content: center;
                 }
-                main {
-                    margin: 0px;
+                .navbar:hover .link-text {
+                  	display: none;
                 }
             }
             /*Large screens*/
             @media only screen and (min-width: 600px) {
+				main {
+                	margin-left: 5rem;
+                	padding: 1rem;
+            	}
                 .navbar {
                     width: 5rem;
                     height: 100vh;
@@ -127,17 +140,17 @@
                 .navbar:hover {
                     width: 16rem;
                 }
-                .nav-link:hover {
-                    filter: grayscale(0%) opacity(1);
-                    background-color: var(--bg-secondary);
-                    color: var(--text-secondary);
-                }
+				.navbar:hover .logo svg {
+					margin-left: 11rem;
+					transition: var(--transition-speed);
+				}
+                
                 .navbar:hover .link-text {
                     display: inline;
                 }
                 .navbar:hover .logo-text
                 {
-                    left: 0px;
+					left: 0px;				
                 }
             }
         </style>
@@ -146,7 +159,7 @@
         <nav class="navbar">
             <ul class="navbar-nav">
               <li class="logo">
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link" id="arrow">
                   <span class="link-text logo-text">Frogs</span>
                   <svg
                     aria-hidden="true"
