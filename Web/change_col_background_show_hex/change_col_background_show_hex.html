@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <style>
+            :root {
+                font-size: 16px;
+                --transition_speed: 600ms;
+                --primary-bg-btn: #ffffffff;
+                --secondary-bg-btn: #c9c9c9ff;
+            }
+            body {
+                background-color: #000000ff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: sans-serif;
+                text-align: center;
+                transition: var(--transition_speed);
+            }
+            .btn_type {
+                width: 6rem;
+                height: 2rem;
+                font-size: 1rem;
+                border: 2px solid #0000000f;
+                background-color: var(--primary-bg-btn);
+                transition: var(--transition_speed);
+                font-weight: 900;
+            }
+            .btn_type:hover {
+                background-color: var(--secondary-bg-btn);
+                transition: var(--transition_speed);
+            }
+            .btn_type:active {
+                background-color: var(--primary-bg-btn);
+            }
+
+        </style>
+    </head>
+    <body id="main_page">
+    <main>
+        <h1>Colour is: <h1 id="colour_code"></h1></h1>
+        <button id="change_colour" class="btn_type" type="button">Click Me!</button>
+    </main>
+    </body>
+    <script>
+        document.getElementById("change_colour").addEventListener("click", change_background_colour);
+        function change_background_colour() {
+            // max = 255;
+            // min = 0;
+            //RGBA            
+            let colour = [0, 0, 0, 0];
+            for (let i = 0; i < 4; i +=1) {
+                if (i != 3) {
+                    colour[i] = Math.ceil(Math.random() * 255);
+                }
+                else {
+                    //Set the alpha
+                    colour[i] = Math.random();
+                }
+                
+                colour[i] = String(colour[i]);
+            }
+            console.log(typeof document.getElementById("main_page"));
+            let col_code = "rgba(" + colour[0] + ', ' + colour[1] + ', ' + colour[2] + ', ' + colour[3] + ')';
+            document.getElementById("main_page").style.backgroundColor = col_code;
+            document.getElementById("colour_code").innerHTML = col_code;
+        }
+        
+    </script>
+</html>
