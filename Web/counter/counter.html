@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <!--A project to show the counter when a button is pressed -->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="style.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <main>
+            <h1 id="title">Counter</h1>
+            <h1 id="counter">0</h1>
+            <div id="count_buttons">
+                <button class="btn" id="decrease">Decrease</button>
+                <button class="btn" id="reset">Reset</button>
+                <button class="btn" id="increase">Increase</button>
+            </div>
+        </main>
+    </body>
+    <script>
+        var count_clicks = 0;
+        let ctn_btn = document.querySelectorAll(".btn");
+        let counter = document.getElementById("counter");
+        //Check if the text of the counter needs to be changed
+        function check_colour_num(num) {
+            if (num > 0) {
+                counter.style.color = "green";
+            }
+            else if (num === 0) {
+                counter.style.color = "black";
+            }
+            else {
+                counter.style.color = "red";
+            }
+        }
+        //Refactorised solution
+        ctn_btn.forEach(function (btn) {
+            btn.addEventListener("click", () => {
+                if (btn.id === "decrease") {
+                    count_clicks -=1;
+                }
+                else if (btn.id === "reset") {
+                    count_clicks = 0;
+                }
+                else {
+                    count_clicks +=1;
+                }
+                counter.innerHTML = count_clicks;
+                check_colour_num(count_clicks);
+
+            });
+        });
+        /*
+        //My solution:
+        //Decrease
+        ctn_btn[0].addEventListener("click", () => {
+            count_clicks -=1;
+            check_colour_num(count_clicks);
+            counter.innerHTML = count_clicks;
+        });
+        //Reset
+        ctn_btn[1].addEventListener("click", () => {
+            count_clicks = 0;
+            check_colour_num(count_clicks);
+            counter.innerHTML = count_clicks;
+        });
+        //Increase
+        ctn_btn[2].addEventListener("click", () => {
+            count_clicks +=1;
+            check_colour_num(count_clicks);
+            counter.innerHTML = count_clicks;
+        });
+        */
+    </script>
+
+</html>
