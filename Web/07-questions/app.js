@@ -5,6 +5,7 @@
 //Dom traversal solution
 const questionBtn = document.querySelectorAll(".question-btn");
 questionBtn.forEach(curr_q_btn => {
+    
     curr_q_btn.addEventListener("click", (btn) => {
         const question = btn.currentTarget.parentElement.parentElement;
         question.classList.toggle("show-text");
