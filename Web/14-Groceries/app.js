@@ -15,31 +15,30 @@ let editID = "";
 ///////////////////////////////////////////
 //Functions
 
+window.addEventListener("DOMContentLoaded", previousSession);
 
 //Edit an item
 function editItem(e) {
-  let elem = e.currentTarget.parentElement.parentElement;
   //Set edit item
   editElement = e.currentTarget.parentElement.previousElementSibling;
   //Set item to form value
   grocery.value = editElement.innerHTML;
   editFlag = true;
-  editID = elem.dataset.id;
+  editID = editElement.dataset.id;
   submitBtn.textContent = "edit";
 }
 
 //Delete an item
 function deleteItem(e) {
   let elem = e.currentTarget.parentElement.parentElement;
-  const id = elem.dataset.id;
+  const id = e.currentTarget.parentElement.previousElementSibling.dataset.id;
   displayAlert("Item removed", "danger");
   setBackToDefault();
   list.removeChild(elem);
   if (list.children.length == 0) {
     container.classList.remove("show-container");
   }
-
-  //removeFromLocalStorage(id);
+  removeFromLocalStorage(id);
 }
 
 //display alert
@@ -58,20 +57,19 @@ function addItem(id, value) {
   let template = document.createElement("template");
   template.innerHTML =   
   `<article class="grocery-item">
-  <p class="title" data-id="${id}">${value}</p>
-  <div class="btn-container">
-    <button type="button" class="edit-btn">
-      <i class="fas fa-edit"></i>
-    </button>
-    <button type="button" class="delete-btn">
-      <i class="fas fa-trash"></i>
-    </button>
-  </div>
+    <p class="title" data-id="${id}">${value}</p>
+    <div class="btn-container">
+      <button type="button" class="edit-btn">
+        <i class="fas fa-edit"></i>
+      </button>
+      <button type="button" class="delete-btn">
+        <i class="fas fa-trash"></i>
+      </button>
+    </div>
   </article>`;
   let new_item = template.content.lastChild;
   list.appendChild(new_item);
   container.classList.add("show-container");
-  displayAlert(`${value} added!`, "success");
 
   new_item.querySelector(".edit-btn").addEventListener("click", editItem);
   new_item.querySelector(".delete-btn").addEventListener("click", deleteItem);
@@ -88,10 +86,10 @@ function setBackToDefault() {
 //Remove all the items
 function clearItems () {
   list.innerHTML = "";
-  list.classList.remove("show-container");
+  container.classList.remove("show-container");
   displayAlert("empty list", "danger");
   setBackToDefault();
-  //localStorage()
+  localStorage.clear();
 }
 
 //Modify the item
@@ -103,6 +101,7 @@ function modifyItem(e) {
   //Add the item
   if (value && !editFlag){
     addItem(id, value);
+    displayAlert(`${value} added!`, "success");
     addToLocalStorage(id, value);
     setBackToDefault();
   }
@@ -137,11 +136,28 @@ clearBtn.addEventListener("click", clearItems);
 // removeItem
 
 function addToLocalStorage(id, value) {
-  //localStorage.setItem(id, value);
+  localStorage.setItem(id, value);
 }
 
 function editLocalStorage(id, value) {
+  localStorage.setItem(id, value);
+}
 
+function removeFromLocalStorage(id) {
+  localStorage.removeItem(id);
+}
+
+//Reload any previous data
+function previousSession() {
+  let len = localStorage.length;
+  for (let i = 0; i < len; i +=1) {
+    //Get the key
+    let id = localStorage.key(i);
+    //Get the value
+    let val = localStorage.getItem(id);
+    //Add the grocery to the list
+    addItem(id, val);
+  }
 }
 
 //Setup items
