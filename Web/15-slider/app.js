@@ -8,6 +8,7 @@ slides.forEach((curr_slide, index) => {
     curr_slide.style.left = `${index * 100}%`;
 });
 
+prevBtn.style.display = "none";
 let i = 0;
 
 //subtract 100%
@@ -37,6 +38,7 @@ function translate_image() {
         i = slides.length - 1;
     }
     i %= slides.length;
+
 
     slides.forEach((curr_slide) => {
         curr_slide.style.transform = `translateX(${-i * 100}%)`;
