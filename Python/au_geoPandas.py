@@ -4,8 +4,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import geopandas as gpd
 
-
-
 def main():
     data_dir = "./data/au-cities.csv"
     read_data = pd.read_csv(data_dir)
