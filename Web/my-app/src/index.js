@@ -10,7 +10,20 @@ import ReactDom from "react-dom";
 // formatting
 
 function Greeting() {
-  return <h4>My world</h4>;
+  return (
+    <section>
+      <Person />
+      <Message />
+    </section>
+  );
 }
+
+const Person = () => {
+  return <h4>What's up world</h4>;
+};
+
+const Message = () => {
+  return <p>This is my paragraph</p>;
+};
 
 ReactDom.render(<Greeting />, document.getElementById("root"));
