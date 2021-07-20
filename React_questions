@@ -1,0 +1,3 @@
+Why can't hooks be placed in conditionals?--To ensure rendering occurs in sequence
+
+
