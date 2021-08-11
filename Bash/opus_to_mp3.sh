@@ -1,0 +1,98 @@
+arr=('01 - True Kindness.opus'
+'02 - In the Hall of the Mountain King.opus'
+'03 - Christmas Night.opus'
+'04 - Jingle Bells.opus'
+'05 - Evening Routine.opus'
+'06 - Follow the Leader.opus'
+'07 - Authority.opus'
+'08 - A Mind of Its Own.opus'
+'09 - Mindless Walrus.opus'
+'10 - Wild Dogs.opus'
+'11 - Flashback.opus'
+'12 - Passive Agressive.opus'
+'13 - Ninja Heelers.opus'
+'14 - Cheeky Bingo.opus'
+'15 - Roleplay.opus'
+'16 - Comrades Together.opus'
+'17 - Passing Time.opus'
+'18 - Crazy World.opus'
+'19 - A French Friend.opus'
+'20 - Campsite Morning.opus'
+'21 - Chattermax.m4a'
+'22 - Procrastination.opus'
+'23 - A New Beginning.opus'
+'24 - Together Again.m4a'
+'25 - Out of Sanity.opus'
+'26 - Quest for a Companion.opus'
+'27 - Naivety.opus'
+'28 - Minuet.opus'
+'29 - Realizing Life.opus'
+'30 - Moving On.opus'
+'31 - A Castle on the Hill.opus'
+'32 - Cursed Souvenir.opus'
+'33 - Reunited Again.opus'
+'34 - The Great Chase.opus'
+'35 - Safari.opus'
+'36 - The Best Dad.m4a'
+'37 - Disappointment.m4a'
+'38 - Pretender.opus'
+'39 - You Are Not Alone.opus'
+'40 - The Wise Wolfhound.opus'
+"41 - Bumpy's Life.opus"
+'42 - The Grand Theatre.opus'
+'43 - Nothing to Lose.opus'
+'44 - Boredom.opus'
+'45 - Mischievous Fairy.opus'
+'46 - The Creek.opus'
+'47 - Bush Bash.opus'
+'48 - Pirates.opus'
+'49 - The Beach.opus'
+'50 - Climax.opus'
+'51 - Gotta Be Done.opus'
+'52 - Morning Stroll.opus'
+"53 - I'm Leaving.opus"
+'54 - Can Can.opus'
+'55 - Mum Saves the Day.opus'
+'56 - Regrets.opus'
+'57 - In Search for the Softest Bed.opus'
+'58 - Karma.opus'
+'59 - Floss Dance.opus'
+'60 - Canon in D.opus'
+'61 - The Real Pickle.opus'
+'62 - Patience of a Patient.opus'
+'63 - Calypso.opus'
+'64 - Raiders.opus'
+'65 - Little Bug on the Wall.opus'
+'66 - One Way Trip.opus'
+'67 - Promise You Something.opus'
+'68 - Spy Game.opus'
+"69 - Bob's Journey.opus"
+'70 - Triviality.opus'
+'71 - The Kindy.opus'
+'72 - Ode to Joy.opus'
+'73 - Crazy Pillow.opus'
+'74 - Troublesome Services.opus'
+'75 - Sparkles and Gallahop.opus'
+'76 - Dreaming Away.opus'
+'77 - Relaxing Afternoon.opus'
+'78 - Sketchy Statue.opus'
+'79 - Snuggle Struggle.opus'
+'80 - Shadowlands.opus'
+'81 - Before You Wake Up.opus'
+'82 - Finding the Easiest Way.m4a'
+'83 - Syntax Error.opus'
+"84 - Doctor's Beat.opus"
+'85 - Rondo Alla Turca.opus')
+
+for x in "${arr[@]}"
+do 
+    #Need to only extract string wihtout opus
+
+    #Extracts only the name of the music
+    name_of_music=$(echo "$x" | cut -d"." -f 1)
+    name_of_music="${name_of_music}.mp3"
+    
+    ffmpeg -i "$x" -acodec libmp3lame "$name_of_music"
+    rm "$x"
+    echo "Successfully converted $name_of_music"
+done
