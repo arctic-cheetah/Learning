@@ -24,6 +24,7 @@ html {
   font-weight: 700;
   text-align: center;
   width: 50%;
+  background-color: white;
 }
 
 button.btn {
@@ -45,7 +46,10 @@ button.btn:hover {
 }
 
 .button {
-  padding: 0 0.5rem 0 0;
+  margin: 0 1rem 0 0;
+  border-radius: 5px;
+  width: 2rem;
+  height: 2rem;
 }
 
 div.share {
@@ -55,4 +59,7 @@ div.share {
 
 a {
   color: #919191;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
