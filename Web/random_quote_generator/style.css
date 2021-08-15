@@ -16,6 +16,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.5s;
 }
 
 #quote-box {
@@ -37,8 +38,18 @@ button.btn:hover {
   background-color: #919191;
 }
 
+.fade {
+  opacity: 0;
+}
+
+.transition-text {
+  opacity: 1;
+  animation: all ease 1s;
+}
+
 .box-child {
   margin: 1rem;
+  transition: all 0.5s;
 }
 
 #new-quote {
@@ -58,8 +69,9 @@ div.share {
 }
 
 a {
-  color: #919191;
+  color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #919191;
 }
