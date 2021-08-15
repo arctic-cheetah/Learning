@@ -9,8 +9,7 @@ const quote_box = document.getElementById("quote-box");
 const share = document.querySelector(".share");
 
 //Quote URL
-const URL_quote =
-  "https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en&callback=?";
+const URL_quote = "https://api.quotable.io/random";
 
 //Change the colour of the required elements after a click
 function change_colour() {
@@ -40,20 +39,9 @@ function change_colour() {
 }
 
 function get_new_quote() {
-  let init = {
-    method: "GET",
-    headers: { "Content-Type": "applicationjson; charset=utf-8" },
-    mode: "no-cors",
-  };
-  let request = new Request(URL_quote, init);
-  request.mode = fetch(request).then((response) => {
-    if (response.status !== 200) {
-      console.log("Error " + response.status);
-      console.log(response);
-    } else {
-      console.log("Success");
-    }
-  });
+  fetch(URL_quote)
+    .then((response) => response.json())
+    .then((data) => console.log(data));
 }
 
 change_quote.addEventListener("click", () => {
