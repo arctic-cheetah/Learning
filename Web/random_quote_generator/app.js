@@ -7,6 +7,11 @@ const body = document.querySelector(".root");
 const change_quote = document.getElementById("new-quote");
 const quote_box = document.getElementById("quote-box");
 const share = document.querySelector(".share");
+
+//Quote URL
+const URL_quote =
+  "https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en&callback=?";
+
 //Change the colour of the required elements after a click
 function change_colour() {
   let colour = [0, 0, 0, 0];
@@ -34,4 +39,24 @@ function change_colour() {
   share.lastElementChild.style.backgroundColor = rgba_val;
 }
 
-change_quote.addEventListener("click", change_colour);
+function get_new_quote() {
+  let init = {
+    method: "GET",
+    headers: { "Content-Type": "applicationjson; charset=utf-8" },
+    mode: "no-cors",
+  };
+  let request = new Request(URL_quote, init);
+  request.mode = fetch(request).then((response) => {
+    if (response.status !== 200) {
+      console.log("Error " + response.status);
+      console.log(response);
+    } else {
+      console.log("Success");
+    }
+  });
+}
+
+change_quote.addEventListener("click", () => {
+  change_colour();
+  get_new_quote();
+});
