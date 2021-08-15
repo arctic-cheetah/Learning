@@ -41,7 +41,11 @@ function change_colour() {
 function get_new_quote() {
   fetch(URL_quote)
     .then((response) => response.json())
-    .then((data) => console.log(data));
+    .then((data) => {
+      console.log(data);
+      quote_box.firstElementChild.innerText = data.content;
+      quote_box.children[1].innerText = data.author;
+    });
 }
 
 change_quote.addEventListener("click", () => {
