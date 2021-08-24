@@ -2,8 +2,8 @@
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const sender_num = "+17028723457";
-const receiver_num = "+61470130392";
-const client = require('twilio')("AC4eb6d26fbccd8172be97d1fbff63ed3b", "94c7a82a5b1e3349d0c63b36abc89f74");
+const receiver_num = "";
+const client = require('twilio')("", "");
 
 const http = require("http");
 //Use local host
