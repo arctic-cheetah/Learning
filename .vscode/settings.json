@@ -3,7 +3,9 @@
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
     "files.associations": {
-        "Pi.C": "cpp"
+        "Pi.C": "cpp",
+        "pthread.h": "c",
+        "omp.h": "c"
     },
     "html.autoClosingTags": false
 }
