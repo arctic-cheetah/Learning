@@ -1,0 +1,1 @@
+cmd_/home/london/Code/C/my_first_kernel/simple.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000  --build-id  -T ./scripts/module-common.lds -o /home/london/Code/C/my_first_kernel/simple.ko /home/london/Code/C/my_first_kernel/simple.o /home/london/Code/C/my_first_kernel/simple.mod.o;  true

@@ -1,9 +1,14 @@
 {
-    "python.pythonPath": "C:\\Python39\\python.exe",
-    "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true,
-    "files.associations": {
-        "Pi.C": "cpp"
-    },
-    "html.autoClosingTags": false
+  "python.pythonPath": "C:\\Python39\\python.exe",
+  "python.linting.pylintEnabled": true,
+  "python.linting.enabled": true,
+  "files.associations": {
+    "Pi.C": "cpp",
+    "stdio.h": "c",
+    "kernel.h": "c",
+    "module.h": "c",
+    "const.h": "c",
+    "sysinfo.h": "c"
+  },
+  "html.autoClosingTags": false
 }
