@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "python.pythonPath": "C:\\Python39\\python.exe",
   "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
@@ -12,3 +13,15 @@
   },
   "html.autoClosingTags": false
 }
+=======
+    "python.pythonPath": "C:\\Python39\\python.exe",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "files.associations": {
+        "Pi.C": "cpp",
+        "pthread.h": "c",
+        "omp.h": "c"
+    },
+    "html.autoClosingTags": false
+}
+>>>>>>> 897cfe62632bced721f10b96635b385ef347239a
