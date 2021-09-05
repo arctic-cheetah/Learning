@@ -1,0 +1,5 @@
+1 carriage return^M
+2 carriage return^M
+1 tab character^I
+
+cat controlchars.txt | sed -n -e "s/\^M//g" -e "s/\^I//g" -e "s/\ //gp"

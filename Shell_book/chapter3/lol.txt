@@ -1,0 +1,3 @@
+./Factorial2.sh:#!/bin/bash
+./Factorial3.sh:#!/bin/bash
+./Factorial.sh:#!/bin/sh
