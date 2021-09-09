@@ -6,4 +6,3 @@ case $x in
   a*) echo "x starts with a" ;;
   *) echo "no matches occurred" ;;
 esac
-

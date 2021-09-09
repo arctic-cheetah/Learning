@@ -8,7 +8,7 @@ while read line
 do
   pound="`echo $line |grep '^#'`" 
 
-  if [ x"$pound" == x"" ]
+  if [ "$pound" == "" ]
   then
     echo "line: $line"
     empid=`echo "$line" |cut -c3-9`

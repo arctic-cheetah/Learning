@@ -8,7 +8,7 @@ for num in "${array1[@]}"
 do
  #echo "array item: $num"
   total1+=$num
-  let total2+=$num
+  total2=`expr $num + $total2`
 done
 
 echo "Total1: $total1"

@@ -1,9 +1,11 @@
+#Functionally identical to StartChar.sh
+#Except uses regex block
 while (true)
 do
   echo -n "Enter a string: "
   read var
 
-   case ${var:0:1} in
+   case ${var:0} in
      [0-9]*) echo "$var starts with a digit" ;;
      [[:upper:]]) echo "$var starts with a uppercase letter" ;;
      [[:lower:]]) echo "$var starts with a lowercase letter" ;;

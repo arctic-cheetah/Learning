@@ -3,7 +3,7 @@ myvar=123456789101112
 echo ${#myvar}
 
 #print last 5 characters of myvar:
-echo ${myvar: -5} 
+echo ${myvar: 3} 
 
 #10 if myvar was not assigned 
 echo ${myvar:-10}  
