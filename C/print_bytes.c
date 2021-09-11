@@ -17,8 +17,10 @@ int main (int argc, char **argv) {
 	}
 	int c = 0;
 	int i = 0;
+	//Read until EOF
 	while ((c = fgetc(input)) != EOF) {
 		printf("byte %4d: %3d 0x%02x ", i, c, c);
+		//Check if char is printable (alphanumeric)
 		if (isprint(c)) {
 			printf("'%c'", c);
 		}
