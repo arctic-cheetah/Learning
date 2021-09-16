@@ -5,16 +5,16 @@ read -p "Enter val2: " val2
 
 case $op in
     "+")
-        expr $val1 + $val2
+        expr $val1 \+ $val2
         ;;
     "-")
         expr $val1 - $val2
         ;;
     "*")
-        expr $val1 * $val2
+        expr $val1 \* $val2
         ;;
     "/")
-        expr $val1 / $val2
+        expr $val1 \/ $val2
         ;;
     "%")
         expr $val1 % $val2
