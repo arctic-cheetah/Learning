@@ -70,45 +70,48 @@ class Version:
     def show_version(self):
         print("%i.%i.%i" % (self.major, self.minor, self.rev))
 
-#1)
-#For each element in the list
-#convert it to the Version data
+
+def solution(my_input):
+    #1)
+    #For each element in the list
+    #convert it to the Version data
+    #WARNING, input may omit minor or rev
+
+    ver = []
+    for i in my_input:
+        #Split the string with delimiter "."
+        curr_elem = i.split(".")
+        #If minor or rev is missing. Set them to MISSING_NUM
+        check_version(curr_elem)#Interesting, this a pass by reference
+
+        #Append the version to the list
+        ver.append(Version(curr_elem[0], curr_elem[1], curr_elem[2]))
 
 
-#WARNING, input may omit minor or rev
+    #3)
+    #Sort using a insertion sort, in place. Perhaps improve afterward
+    #use a mapping from the list "ver"
+    arr_len = len(my_input)
+    i = 0
+    while i < (arr_len - 1):
+        j = i + 1 
+        while (j > 0 and version_is_greater(ver[j-1], ver[j])):
+            #Swap
+            temp_ver = ver[j-1]
+            temp_list = my_input[j-1]
+
+            ver[j-1] = ver[j]
+            my_input[j-1] = my_input[j]
+
+            my_input[j] = temp_list
+            ver[j] = temp_ver
+            j -=1
+
+        i +=1
+
+    return my_input
+
+
+#Enter a list of version numbers
 my_input = ["1.1.2", "1.0", "1.3.3", "1.0.12", "1.0.2"]
-ver = []
-for i in my_input:
-    #Split the string with delimiter "."
-    curr_elem = i.split(".")
-    #If minor or rev is missing. Set them to MISSING_NUM
-    check_version(curr_elem)#Interesting, this a pass by reference
-
-    #Append the version to the list
-    ver.append(Version(curr_elem[0], curr_elem[1], curr_elem[2]))
-
-
-
-
-#3)
-#Sort using a insertion sort, in place. Perhaps improve afterward
-#use a mapping from the list "ver"
-arr_len = len(my_input)
-i = 0
-while i < (arr_len - 1):
-    j = i + 1 
-    while (j > 0 and version_is_greater(ver[j-1], ver[j])):
-        #Swap
-        temp_ver = ver[j-1]
-        temp_list = my_input[j-1]
-
-        ver[j-1] = ver[j]
-        my_input[j-1] = my_input[j]
-
-        my_input[j] = temp_list
-        ver[j] = temp_ver
-        j -=1
-
-    i +=1
-
-print(my_input)
+print(solution(my_input))
