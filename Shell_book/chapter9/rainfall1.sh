@@ -5,7 +5,7 @@
 
 #files: rain1.csv, rain2.csv, rain3.csv
 echo "FILENAMES:"
-ls rain?.csv
+ls rain*.csv
 
 awk -F',' '
 {
@@ -15,9 +15,9 @@ awk -F',' '
 }
 END {
   printf("FILENAME: %s\n", FILENAME)
-  printf("inches:   %.2f\n", inches/7)
-  printf("degrees:  %.2f\n", degrees/7)
-  printf("humidity: %.2f\n", humidity/7)
+  printf("inches:   %.2f\n", inches/NR)
+  printf("degrees:  %.2f\n", degrees/NR)
+  printf("humidity: %.2f\n", humidity/NR)
 }
-' rain?.csv
+' rain*.csv
 

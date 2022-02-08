@@ -7,7 +7,7 @@ factorial()
       decr=`expr $1 - 1`
       result=`factorial $decr`
       product=`expr $1 \* $result`
-      echo $product
+      echo $product #Does this act a return value?
    else
       # we have reached 1:
       echo 1

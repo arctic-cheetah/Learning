@@ -10,6 +10,5 @@ int main () {
    sscanf( dtm, "%s %s %d  %d", weekday, month, &day, &year );
 
    printf("%s %d, %d = %s\n", month, day, year, weekday );
-    
    return(0);
 }

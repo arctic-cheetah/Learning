@@ -15,4 +15,5 @@ iterate()
 }
 
 iterate a b c d e
+echo "$arg1"
 

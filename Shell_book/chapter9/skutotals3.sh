@@ -18,15 +18,20 @@ done
 ##########################
 awk -F"|" '
   BEGIN {first = 1;}
-  {if(first) { min = max= avg = sum = $2; first=0; next}}
-  { if($2 < min) { min = $2 }
+  {
+    if(first) { min = max= avg = sum = $2; first=0; next}
+  }
+
+  { 
+    if($2 < min) { min = $2 }
     if($2 > max) { max = $2 }
     sum += $2
   }
-  END {print "Minimum = ",min
-       print "Maximum = ",max
-       print "Average = ",avg
-       print "Total   = ",sum
+  END {
+    print "Minimum = ",min
+    print "Maximum = ",max
+    print "Average = ",(sum / NR)
+    print "Total   = ",sum
   }
 ' $TOTALS
 

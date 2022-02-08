@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#Calculates factorials by using a loop
 factorial()
 {
    num=$1

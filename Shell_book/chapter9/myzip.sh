@@ -1,3 +1,5 @@
+#A program to search if a document contains SVG files
+#in a zip
 foundlist=""
 notfoundlist=""
 

@@ -17,5 +17,5 @@ echo "Enter a string: "
 read str
 
 # invoke function2 here:
-function2 str
+function2 $str
 

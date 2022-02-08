@@ -1,4 +1,5 @@
 #!/bin/sh
+#Fibonacci and recursion in shell
 
 LOGFILE="/tmp/a1"
 rm -f $LOGFILE 2>/dev/null
@@ -17,7 +18,7 @@ echo "d1 = $decr1 d2 = $decr2 d3 = $decr3" >> $LOGFILE
       fib1=`fib $2 $3 $decr2`
       fib2=`fib $3 $decr2 $decr3`
       fib=`expr $fib1 + $fib2`
-      echo $fib 
+      echo $fib #You are redirecting output to stdout
    else
       if [ "$1" -eq 3 ]
       then

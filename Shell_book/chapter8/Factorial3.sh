@@ -1,5 +1,6 @@
 #!/bin/bash
-
+#Factorials with arrays 
+#Memoisation
 factorial()
 {
    num=$1
@@ -14,6 +15,7 @@ factorial()
 printf "Enter a number: "
 read num
 
+#The lack of proper data scope is disturbing
 for (( i=1; i<=${num}; i++ ));
 do
   factvalues[$i]=1

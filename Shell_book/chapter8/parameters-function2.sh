@@ -14,7 +14,4 @@ function1 a b c
 function1 a b c d
 function1 1 2 3 4 5
 
-# display the command-line values:
-echo "param count: $#" 
-echo "all params:  $@" 
-
+echo "File name is: $0"

@@ -1,2 +1,13 @@
 Hello bash script
-grep -P "^[a-z]{12}" words.txt | grep -E "c*c" | grep -E "e*e" | grep -E "a" |  grep -E "o" |  grep -E "i" |  grep -E "d" |  grep -E "l" |  grep -E "n" |  grep -E "d" | wc -l
+grep -Pw "^[a-z]{12}" words.txt | grep -E "c*c" | grep -E "e*e" | grep -E "a" |  grep -E "o" |  grep -E "i" |  grep -E "d" |  grep -E "l" |  grep -E "n" |  grep -E "d" | wc -l
+
+grep -E "^[a-z]{6}$"
+
+file.txt
+-------------------------------
+Hello
+world
+is
+ad
+test
+-------------------------------

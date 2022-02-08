@@ -6,11 +6,11 @@ echo "all params: $@"
 echo "exit status: $?"
 echo "process id: $$"
 
-if [ x"$1" != "x" ]
+if [ "$1" != "x" ]
 then
-  echo "Position parameter #1 = $1"
+  echo "Position parameter #1 is not x"
 else
-  echo "Position parameter #1 is null"
+  echo "Position parameter #1 is x"
 fi
 
 if [ "$5" == "" ]

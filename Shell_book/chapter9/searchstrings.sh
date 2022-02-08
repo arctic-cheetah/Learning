@@ -15,6 +15,8 @@ then
    exit
 fi
 
+#Check for each parameter passed
+#That is the extension name passed
 for str in "$@"
 do
   echo "Checking zip files for $str:"

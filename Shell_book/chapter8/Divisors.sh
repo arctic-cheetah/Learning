@@ -1,4 +1,4 @@
-
+#A program to calculate the divisors of a number
 function divisors()
 {
    div="2"

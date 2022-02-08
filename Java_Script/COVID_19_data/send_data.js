@@ -89,7 +89,7 @@ function sort_data(today_data, date) {
   case_today.unshift("Covid cases during: " + String(date) + ":");
   let formatted_data = JSON.stringify(case_today).replace(/["{}\[\]]+/g, " ");
   console.log(formatted_data);
-  send_sms(formatted_data);
+  //send_sms(formatted_data);
 }
 let fetch_covid_data = () => {
   //Get the current date in ms
